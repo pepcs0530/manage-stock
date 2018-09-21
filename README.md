@@ -28,6 +28,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ##
 
-ng generate component login
-ng g component ../app/login/components/login-form --routing
-ng g service ../app/login/services/login/login
+ng generate component login<br/>
+ng g component ../app/login/components/login-form --routing<br/>
+ng g service ../app/login/services/login/login<br/>
