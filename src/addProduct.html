@@ -17,35 +17,37 @@
 			</a>
 		</div>
 		
-		<div class="sticky" style="text-align: center;">
-			<h2>ระบบบันทึกสินค้าเข้าคลัง</h2>
-		</div>
+		
 		<div class="main">
 			<div class="regist" align="center">
 			<form action="regist.php" method="post">
-				<table style="font-size:36px;" >
+				<div class="sticky" style="text-align: center;">
+			<h2>เพิ่มข้อมูลสินค้า</h2>
+		</div>
+				<table style="font-size:36px;" border="2" >
 					<tr>
-						<td >ชื่อ:</td>
+						<td >เลขล็อต :</td>
 						<td><input type="text" name="Firstname" required="required"/><br/></td>
 					</tr>
 					<tr>
-						<td>นาสกุล:</td>
+						<td>พันธ์ข้าว :</td>
 						<td><input type="text" name="Lastname" required="required"/></td>
-					</tr>
-					<tr>
-						<td>ที่อยู่:</td>
+						.<td>จำนวนกระสอบ :</td>
 						<td><input type="text" name="e-mail" required="required" /></td>
 					</tr>
 					<tr>
-						<td>เบอร์โทรศัพท์ห:</td>
+						<td>วันที่ผลิต :</td>
+						<td><input type="text" name="telephone" required="required" /></td>
+						<td align="right">วันหมดอายุ :</td>
 						<td><input type="text" name="telephone" required="required" /></td>
 					</tr>
 					<tr>
-						<td>ทะเบียนรถ:</td>
-						<td><input type="text" name="telephone" required="required" /></td>
+						
 					</tr>
 					<tr>
-						<td colspan="2" align="center"><input type="submit" value="บันทึก"/><input type="submit" value="ยกเลิก"/>
+						<td colspan="2" align="right"><input type="submit" value="บันทึก"/></td>
+						<td colspan="2" align="left"><input type="submit" value="ยกเลิก"/></td>
+							
 					</tr>
 				</table>
 			</form>
