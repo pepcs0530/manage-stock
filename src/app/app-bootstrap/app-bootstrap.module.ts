@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { CollapseModule} from 'ngx-bootstrap/collapse';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 @NgModule({
   imports: [
@@ -14,6 +14,6 @@ import { CollapseModule} from 'ngx-bootstrap/collapse';
     ModalModule.forRoot(),
     CollapseModule.forRoot()
   ],
-  exports: [BsDropdownModule, TooltipModule, ModalModule,CollapseModule]
+  exports: [BsDropdownModule, TooltipModule, ModalModule, CollapseModule]
 })
-export class AppBootstrapModule { }
+export class AppBootstrapModule {}
