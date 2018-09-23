@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
@@ -10,6 +11,9 @@ import { LoginFormComponent } from './login/components/login-form/login-form.com
 import { NavbarComponent } from './navbar/navbar.component';
 import { MemberComponent } from './member/member.component';
 
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +23,14 @@ import { MemberComponent } from './member/member.component';
     NavbarComponent,
     MemberComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, AppBootstrapModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    AppBootstrapModule,
+    BrowserAnimationsModule,
+    InputTextModule,
+    ButtonModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
