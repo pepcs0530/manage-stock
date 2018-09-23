@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>ManageStock</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+
+
+<body style="font-family:th sarabunPSK;color:#2F4F4F;font-size: 24px">
+  <div class="banner" style="width:100%;height:100%; text-align: center ">
+    <a href="#" title="HOME" alt="banner">
+      <img src="../../../image/rice.jpg" alt="cover" class="responsive">
+    </a>
+  </div>
+
+  <app-navbar></app-navbar>
+
+  <div class="sticky" style="text-align: center;">
+    <h2>ค้นหาข้อมูลสมาชิก</h2>
+    <table width="100%" style="font-size:24px;">
+      <tr>
+        <td>
+          <input style="width: 500px" type="text" name="search" class="search" placeholder="ใส่รหัสสมาชิก , ชื่อ , เบอร์โทรศัพท์" />
+          <input type="submit" value="Search" class="button" />
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="main">
+    <div class="regist" align="center">
+      <form action="regist.php" method="post">
+        <table width="100%" style="font-size:24px;" border="1px">
+          <tr>
+            <th>ชื่อ</th>
+            <th>นาสกุล</th>
+            <th>ที่อยู่</th>
+            <th>เบอร์โทรศัพท์</th>
+            <th>ทะเบียนรถ</th>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </div>
+
+  <div class="footer" style="color: black">
+    <table>
+      <tr>
+
+      </tr>
+    </table>
+  </div>
+</body>
+
+</html>
