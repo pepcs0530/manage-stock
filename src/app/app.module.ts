@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { LoginFormComponent } from './login/components/login-form/login-form.component';
 // import { DashboardComponent } from './dashboard/dashboard.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { MemberComponent } from './member/member.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     LoginComponent,
     LoginFormComponent,
     // DashboardComponent,
-    NavbarComponent
+    NavbarComponent,
+    MemberComponent
   ],
   imports: [BrowserModule, AppRoutingModule, AppBootstrapModule],
   providers: [],
