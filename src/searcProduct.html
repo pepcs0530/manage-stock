@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>ManageStock</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	<style>
+	* {
+	  box-sizing: border-box;
+	}
+	body,h1,h2,h3,h4,h5,h6 {
+		font-family: "", sans-serif}
+
+	.banner {
+		background-color:rgb(60, 60, 60);
+		padding:15px;
+		text-align:center;
+	}
+
+	.sticky {
+	    position:-webkit-sticky; /* Safari */
+	    position:sticky;
+	    top: 0;
+		box-shadow: 0 4px 4px -2px #ddd;
+	  	width: 100%;
+	    border: 0.1px solid white;
+		background-color: hsl(0, 100%, 75%);
+		text-align: center;
+		margin-bottom: 20px;
+		color:white;
+	}
+
+	.menu {
+	  float:left;
+	  width:20%;
+	  text-align:left;
+	}
+
+	.menu a {
+	  background-color:#e5e5e5;
+	  padding:10px;
+	  margin-top:7px;
+	  display:block;
+	  width:100%;
+	  color:#333;
+	  font-size:30px;
+	  
+	}
+
+	.menu a:hover {
+		color:#FFF;
+		background-color:hsl(0, 100%, 75%);
+	}
+
+	.main {
+	  float:left;
+	  width:60%;
+	  padding:0 20px;
+	 
+	}
+
+	.scrollbar
+	{
+		float: left;
+		height: 1500px;
+		overflow-y: scroll;
+		margin-bottom: 25px;
+	}
+
+	.right {
+	  background-color:#e5e5e5;
+	  float:left;
+	  width:20%;
+	  padding:15px;
+	  margin-top:7px;
+	  text-align:center;
+	  
+	}
+
+	.footer{
+		background-color:rgb(60, 60, 60);
+		text-align:center;
+		padding:10px;
+		margin-top:7px;
+		color:white;
+	}
+
+	/* section 1 */
+	.section1,.section2,.section3,.section4,.section5,.section6,.section7,.section8,.section9,.section10,.section11,.section12,.section13,.section14,.section15 {
+		padding-bottom: 20px;
+		padding-top: 90px;
+		border-bottom: 1px solid #E4E4E4;
+	}
+
+	@media only screen and (max-width:620px) {
+	  /* For mobile phones: */
+	  .menu, .main, .right {
+	    width:100%;
+	  }
+	}
+	</style>
+</head>
+<body>
+  <app-root>
+  	<body style="font-family:th sarabunPSK;color:#2F4F4F;font-size: 24px">
+		<div class="banner" >
+			<img   src="C:\Users\bee_s\OneDrive\Documents\GitHub\manage-stock\src\image\header.png" alt="cover" class="responsive"></a>
+		</div>
+
+		<div class="sticky"><h2>ระบบบคลัง</h2></div>
+
+		<div style="overflow:auto">
+			<div class="menu">
+				<a href="#">สถิติการขายข้าว</a>
+				<a href="#1">สินค้า</a>
+				<a href="#2">ขายสินค้า</a>
+				<a href="#3">สมาชิก</a>
+				<a href="#4">แจ้งเตือน</a>
+			</div>
+		</div>
+
+		<div class="main">
+		<div class="scrollbar">
+			<div class="section1">
+			<h5><a href="https://www.rd.com/author/sw-60297/" rel="JENNIFER BOWERS, PHD, RD">BY JENNIFER BOWERS, PHD, RD</a></h5>
+	
+			<table style="font-size:36px;" border="2" >
+					<tr>
+						<td style="text-align: right;" colspan="2">หมายเชข lot</td>
+						<td style="text-align: left;" colspan="4" ><input type="text" name="lotnumber" required="required"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td style="text-align: right;"><input type="ค้นหา" value="บันทึก"/></td>
+						<td><input type="ยกเลิก" value="ยกเลิก"/></td>	
+						<td></td>
+						<td></td>
+					</tr>
+				</table>
+			</div>
+			
+			<div id="1" class="section1">
+				<h3>Flavored almonds</h3>
+					<img src="image/01_almonds.jpg" style="max-width:100%;height:auto;">
+				<p>The news on nuts is good: There one of the healthiest snacks you can have—and here are the top healthiest nuts to snack on. From sweet flavors like caramel latte, snickerdoodle, and butter toffee to savory Bloody Mary, balsamic herb, or asiago cheese, California-grown almonds from Stewart and Jasper farms pack a nutrient punch with fiber, calcium, and healthy fats. They even carry almond butters and flours.</p>
+			</div>
+			
+			
+			<div id="2" class="section2">
+				<h2>Fruit of the month club</h2>
+				<img src="image/02_Fruit.jpg" style="max-width:100%;height:auto;">
+				<p>Getting good fruit in the offseason can be tricky—though here's one alternative that can get you through winter. But the food gifts that truly keeps on giving is fruit-of-the-month clubs from The Fruit Company. Choose from the Harvest Club with apples, pears, and oranges, or the Exotic Club which includes persimmons, kiwi, and star fruit. Organic options and various lengths of packages are available. Fresh fruit delivered to your home? Yes, please!
+				</p>
+			</div>
+			
+			<div id="3" class="section3">
+				<h2>Coffee</h2>
+				<img src="image/03_Coffee.jpg" style="max-width:100%;height:auto;">
+				<p>For the caffeine lover in your life, there are more and more reasons to indulge guilt-free thanks to news on the emerging health benefits of coffee. So consider a coffee of the month club. Beans from all over the world, including Guatemala, Peru, and Honduras are sent whole or ground. Grounds for Change guarantees that their coffee is Fair Trade Certified and organic, making the gift beneficial for the environment and the socioeconomics of the originating country. Decaf varieties available, too!</p>
+			</div>
+	
+			<div id="4" class="section4">
+				<h2>Salsa</h2>
+				<img src="image/04_Salsa.jpg" style="max-width:100%;height:auto;">
+				<p>High in vitamins C and A, fresh homemade salsas makes fabulous and healthy holiday food gifts. Looking for authentic and innovative flavors from the southwest? Try the Arizona Spice Company with salsas with fun names such as Arizona Reaper and Magnificent Mango. These award-winning condiments are all-natural; several varieties use the famous Hatch green chilies from New Mexico. Intensities range from mild, medium, hot, habanero and ghost pepper heats, so there's something for everyone.</p>
+			</div>
+			
+			<div id="5" class="section5">
+				<h2>Pomegranate</h2>
+				<img src="image/05_Pomegranate.jpg" style="max-width:100%;height:auto;">
+				<p>Full of phytonutrients, fiber, folate and vitamins C and K, pomegranates make unique and healthy holiday food gifts. A box of seasonal Crimson Pomegranates is bright and festive in color, with tart-sweet flavors to include as healthy snacks or in fun holiday recipes. And they can help you cover the red part of healthiest foods from each color of the rainbow. Pomegranate juice is extremely high in antioxidants, too. Fun fact—pomegranates are in the berry family!</p>
+			</div>
+			
+			<div id="6" class="section6">
+			<h2>Figs and dates</h2>
+			<img src="image/06_Dates.jpg" style="max-width:100%;height:auto;">
+			<p>The beauty of high-fiber dried fruit is longevity. They'll keep for a while, so when the rest of the holidays fade away, this gift reminds of the sweet celebratory season. Figs and dates from Nuts.com are the perfect gift for friends following the Mediterranean diet, and are offered in pretty food gift baskets or trays. Here are some more ways to make your diet more Mediterranean.</p>
+			</div>
+			
+			<div id="7" class="section7">
+				<h2>Popcorn</h2>
+				<img src="image/07_popcorn.jpg" style="max-width:100%;height:auto;">
+				<p>Sweet and savory flavored popcorn suits everyone on your shopping list—plus, there are at least nine reasons why popcorn needs to be in your diet. Poppy Handcrafted Popcorn features non-GMO corn popped in coconut oil. Choose from jalapeno cheddar, cinnamon bourbon pecan, pumpkin spice caramel, dark chocolate pretzel, gingerbread, and more. Sold by the bag or decorative tin, popcorn is a fun food gift idea.</p>
+			</div>
+			
+			<div id="8" class="section8">
+				<h2>Spices</h2>
+				<img src="image/08_Spices.jpg" style="max-width:100%;height:auto;">
+				<p>If you want to get more health benefits from your diet, add spices. Help your friends and family explore new international tastes with unique spices from World Spice. Rubs, marinades, whole spices and blends in an impressive variety of flavors. The blends range from Adobo to Za'atar, and everything in between. Some fun finds: shawarma, orange tarragon, jerk, mulled spices, Chinese five spice, and 10 different curry blends.</p>
+			</div>
+			
+			<div id="9" class="section9">
+				<h2>Bean soup mix</h2>
+				<img src="image/09_Beans.jpg" style="max-width:100%;height:auto;">
+				<p>You probably know that beans deliver amazing health benefits. And nothing says comfort food better than a hot bowl of soup in the winter. Nuts.com sells decorative soup mixes including a variety of dried beans (high in fiber, protein, and magnesium). Simply add a few other ingredients, and dinner is done. Mason jars filled with colorful split peas, black-eyed peas, and kidney, black, pinto and white beans make attractive holiday food gifts.</p>
+			</div>
+			
+			<div id="10" class="section10">
+				<h2>Avocados</h2>
+				<img src="image/10_avocados.jpg" style="max-width:100%;height:auto;">
+				<p>Creamy, decadent and packed with fiber, folate, healthy fats and B vitamins, avocados are practically a perfect food—unless they're not yet ripe. Which is why you need to know the trick to ripening an avocado in under 10 minutes. Take a look at the Avocado of the Month Club: That would be my top pick for healthy holiday food gifts (are you reading this, beloved family?!). Farm fresh California avocados delivered to your door—what could be better than that? Spread mashed avocado on breakfast toast, sprinkle chunks onto a salad, or just eat the delicious flesh with a spoon.</p>
+			</div>
+			
+			<div id="11" class="section11">
+				<h2>Teas</h2>
+				<img src="image/11_Teas.jpg" style="max-width:100%;height:auto;">
+				<p>Stash Teas sold as loose tea leaves, K-cups, or in tea bags, allow your recipient to sit back and relax after the hectic holiday season. There's a tea flavor for every mood. Herbal, decaffeinated, black, green and more—with over 60 varieties, there is truly something for everyone. Some holiday-inspired flavors include Christmas in Paris and chocolate mint, perfect Christmas gift ideas.</p>
+			</div>
+			
+			<div id="12" class="section12">
+				<h2>Citrus</h2>
+				<img src="image/12_Citrus.jpg" style="max-width:100%;height:auto;">
+				<p>Growing up in Arizona, nothing says winter to me like fresh citrus—and this particular fruit is a citrus superstar. Hale Groves in Florida ships beautiful boxes of pink grapefruit, navel oranges, and honeybells. Honeybells are a cross between orange and tangerine, super sweet and bursting with vitamin C. Stick these beauties in stockings for a throw-back gift, or send a box to your relatives stuck in winter snow for a bright treat.</p>
+			</div>
+			
+			<div id="13" class="section13">
+				<h2>Herb garden</h2>
+				<img src="image/13_Herb.jpg" style="max-width:100%;height:auto;">
+				<p>Growing herbs indoors works in any climate, providing cooking herbs at your fingertips. Individual herbs or an assortment of herbs in an Aerogarden are both top choices for healthy holiday gift ideas. Choose from small, medium or large units, all with self-watering systems. Keeping fresh herbs is easy with these storage tricks.</p>
+			</div>
+			
+			<div id="14" class="section14">
+				<h2>Artichokes</h2>
+				<img src="image/14_Artichokes.jpg" style="max-width:100%;height:auto;">
+				<p>Did you know that artichokes fit into a Mediterranean diet, rich in fiber, vitamin C, potassium, and iron? Consider gifting a box of these beautiful veggies straight from the California farm to your loved one's doorstep. Include fresh artichokes in a food gift basket.</p>
+			</div>
+			
+			<div id="15" class="section15">
+				<h2>Olive oil</h2>
+				<img src="image/15_Olive.jpg" style="max-width:100%;height:auto;">
+				<p>When investigating the foundation of a healthy diet, you will always find olive oil near the top of the list, primarily because the oil is linked to prevention of several chronic diseases. Olive Oil Lovers have the answer when it comes to unique healthy holiday gift ideas. Select from olive growing regions (including Tuscany, Sicily and Valencia) or flavored oils (basil, lemon, thyme). Can't decide? How about an olive-oil-of-the-month club to explore all types throughout the year?</p>
+			</div> 
+		</div>
+	</div>
+
+
+
+
+
+
+		<div class="footer" style="color: black">
+			<h2>ธงชัยพันธุ์ข้าว</h2>
+		</div>
+	</body>	
+	</form>
+  </app-root>
+</body>
+</html>

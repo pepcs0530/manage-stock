@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="styles.css">
+<style>
+* {
+  box-sizing: border-box;
+}
+body,h1,h2,h3,h4,h5,h6 {
+	font-family: "", sans-serif}
+
+.banner {
+	
+	padding:15px;
+	text-align:center;
+}
+
+.sticky {
+    position:-webkit-sticky; /* Safari */
+    position:sticky;
+    top: 0;
+	box-shadow: 0 4px 4px -2px #ddd;
+  	width: 100%;
+    border: 0.1px solid white;
+	background-color: hsl(0, 100%, 75%);
+	text-align: center;
+	margin-bottom: 20px;
+	color:white;
+}
+
+.menu {
+  float:left;
+  width:20%;
+  text-align:left;
+}
+
+.menu a {
+  background-color:#e5e5e5;
+  padding:10px;
+  margin-top:7px;
+  display:block;
+  width:100%;
+  color:#333;
+  font-size:30px;
+  
+}
+
+.menu a:hover {
+	color:#FFF;
+	background-color:hsl(0, 100%, 75%);
+}
+
+.main {
+  float:left;
+  width:60%;
+  padding:0 20px;
+ 
+}
+
+.scrollbar
+{
+	float: left;
+	height: 1500px;
+	overflow-y: scroll;
+	margin-bottom: 25px;
+}
+
+.right {
+  background-color:#e5e5e5;
+  float:left;
+  width:20%;
+  padding:15px;
+  margin-top:7px;
+  text-align:center;
+  
+}
+
+.footer{
+	background-color:rgb(60, 60, 60);
+	text-align:center;
+	padding:10px;
+	margin-top:7px;
+	color:white;
+}
+
+/* section 1 */
+.section1,
+.section2,
+.section3,
+.section4,
+.section5,
+.section6,
+.section7,
+.section8,
+.section9,
+.section10,
+.section11,
+.section12,
+.section13,
+.section14,
+.section15 {
+	padding-bottom: 20px;
+	padding-top: 90px;
+	border-bottom: 1px solid #E4E4E4;
+}
+
+@media only screen and (max-width:620px) {
+  /* For mobile phones: */
+  .menu, .main, .right {
+    width:100%;
+  }
+}
+</style>
+</head>
+<body style="font-family:th sarabunPSK;color:#2F4F4F;font-size: 24px">
+
+	<div class="banner">
+		<a href="#" title="HOME" alt="banner"><img  src="C:\Users\bee_s\OneDrive\Documents\GitHub\manage-stock\src\image\header.png" alt="cover" class="responsive"></a>
+	</div>
+
+	<div class="sticky"><h2>ระบบสต็อค</h2></div>
+
+	<div style="overflow:auto">
+		<div class="menu">
+			<a href="#">สถิติการขายข้าว</a>
+				<a href="#1">สินค้า</a>
+				<a href="#2">ขายสินค้า</a>
+				<a href="#3">สมาชิก</a>
+				<a href="#4">แจ้งเตือน</a>
+	</div>
+
+	<div class="main">
+		<!--<div class="scrollbar">-->
+			<div class="section1" >
+			<table style="font-size:36px;" border="2" >
+					<tr>
+						<td style="text-align: right;" colspan="2">หมายเลขล็อต</td>
+						<td style="text-align: left;"  ><input type="text" name="lotnumber" required="required"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td style="text-align: right;"><input type="submit" value="ค้นหา"/></td>
+						<td><input type="submit" value="ยกเลิก"/></td>	
+					</tr>
+				</table>
+			</div>
+			
+			
+		</div>
+	</div>
+
+  <div class="footer">ธงชัยพันธุ์ข้าว</div>
+
+</body>
+</html>
