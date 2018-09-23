@@ -1,75 +1,92 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <title>ManageStock</title>
-  <base href="/">
+	<meta charset="utf-8">
+	<title>ManageStock</title>
+	<base href="/">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
+
 <body>
-  <app-root>
-  	<body>
-		<div class="banner" style="width:100%;height:100%; text-align: center ">
-			<a href="#" title="HOME" alt="banner">
-				<img  src="C:\Users\bee_s\OneDrive\Documents\GitHub\manage-stock\src\image\header.png" alt="cover" class="responsive">
-			</a>
-		</div>
-		
-		<div class="sticky" style="text-align: center;">
-			<h2>ระบบบันทึกสินค้าเข้าคลัง</h2>
-		</div>
-		<div class="main">
-			<div class="regist" align="center">
-			<form action="regist.php" method="post">
-				<table style="font-size:36px;" >
-					<tr>
-						<td >ชื่อ:</td>
-						<td><input type="text" name="Firstname" required="required"/><br/></td>
-					</tr>
-					<tr>
-						<td>นาสกุล:</td>
-						<td><input type="text" name="Lastname" required="required"/></td>
-					</tr>
-					<tr>
-						<td>ที่อยู่:</td>
-						<td><input type="text" name="e-mail" required="required" /></td>
-					</tr>
-					<tr>
-						<td>เบอร์โทรศัพท์ห:</td>
-						<td><input type="text" name="telephone" required="required" /></td>
-					</tr>
-					<tr>
-						<td>ทะเบียนรถ:</td>
-						<td><input type="text" name="telephone" required="required" /></td>
-					</tr>
-					<tr>
-						<td colspan="2" align="center"><input type="submit" value="บันทึก"/><input type="submit" value="ยกเลิก"/>
-					</tr>
-				</table>
-			</form>
+	<app-root>
+
+		<body>
+			<div class="banner" style="width:100%;height:100%; text-align: center ">
+				<a href="#" title="HOME" alt="banner">
+					<!-- <img src="src/assets/images/header.png" alt="cover" class="responsive"> -->
+				</a>
 			</div>
-		</div>
 
-		<table width="100%" border="1px" style="font-size:24px;">
-			<tr>
-				<th>Firstname</th>
-				<th>Lastname</th>
-				<th>e-mail</th>
-				<th>telephone</th>
-			</tr>
-		</table>
+			<div class="sticky" style="text-align: center;">
+				<h2>ระบบบันทึกสินค้าเข้าคลัง</h2>
+			</div>
+			<div class="main">
+				<div class="regist" align="center">
+					<form action="regist.php" method="post">
+						<table style="font-size:36px;">
+							<tr>
+								<td>ชื่อ:</td>
+								<td>
+									<input type="text" name="Firstname" required="required" />
+									<br/>
+								</td>
+							</tr>
+							<tr>
+								<td>นาสกุล:</td>
+								<td>
+									<input type="text" name="Lastname" required="required" />
+								</td>
+							</tr>
+							<tr>
+								<td>ที่อยู่:</td>
+								<td>
+									<input type="text" name="e-mail" required="required" />
+								</td>
+							</tr>
+							<tr>
+								<td>เบอร์โทรศัพท์ห:</td>
+								<td>
+									<input type="text" name="telephone" required="required" />
+								</td>
+							</tr>
+							<tr>
+								<td>ทะเบียนรถ:</td>
+								<td>
+									<input type="text" name="telephone" required="required" />
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" align="center">
+									<input type="submit" value="บันทึก" />
+									<input type="submit" value="ยกเลิก" />
+							</tr>
+						</table>
+					</form>
+				</div>
+			</div>
 
-		<div class="footer" style="color: black">
-			<table>
+			<table width="100%" border="1px" style="font-size:24px;">
 				<tr>
-					
+					<th>Firstname</th>
+					<th>Lastname</th>
+					<th>e-mail</th>
+					<th>telephone</th>
 				</tr>
 			</table>
-		</div>
-	</body>	
-	</form>
-  </app-root>
+
+			<div class="footer" style="color: black">
+				<table>
+					<tr>
+
+					</tr>
+				</table>
+			</div>
+		</body>
+		</form>
+	</app-root>
 </body>
+
 </html>
