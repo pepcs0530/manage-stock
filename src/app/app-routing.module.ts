@@ -9,6 +9,7 @@ import { AddproductcomingComponent } from './addproductcoming/addproductcoming.c
 import { SearchproductComponent } from './searchproduct/searchproduct.component';
 import { AddriceComponent } from './addrice/addrice.component';
 import { StatComponent } from './stat/stat.component';
+import { NotificationComponent } from './notification/notification.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/member', pathMatch: 'full' },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'addrice', component: AddriceComponent },
   { path: 'searchproduct', component: SearchproductComponent },
   { path: 'stat', component: StatComponent },
+  { path: 'notification', component: NotificationComponent },
   {
     // default path
     path: '**',
