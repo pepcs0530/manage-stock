@@ -20,6 +20,8 @@ import { AddproductcomingComponent } from './addproductcoming/addproductcoming.c
 import { NotificationComponent } from './notification/notification.component';
 import { StatComponent } from './stat/stat.component';
 import { AddriceComponent } from './addrice/addrice.component';
+import { CalendarModule } from 'primeng/calendar';
+import {ChartModule} from 'primeng/chart';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { AddriceComponent } from './addrice/addrice.component';
     AppBootstrapModule,
     BrowserAnimationsModule,
     InputTextModule,
-    ButtonModule
+    ButtonModule,
+    CalendarModule,
+    ChartModule
   ],
   providers: [],
   bootstrap: [AppComponent]
