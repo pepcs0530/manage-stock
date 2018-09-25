@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
+import { FormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
@@ -13,6 +14,8 @@ import { MemberComponent } from './member/member.component';
 
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
+import { AutoCompleteModule} from 'primeng/autocomplete';
+import { ToolbarModule} from 'primeng/toolbar';
 import { AddmemberComponent } from './addmember/addmember.component';
 import { AddproductComponent } from './addproduct/addproduct.component';
 import { SearchproductComponent } from './searchproduct/searchproduct.component';
@@ -20,6 +23,9 @@ import { AddproductcomingComponent } from './addproductcoming/addproductcoming.c
 import { NotificationComponent } from './notification/notification.component';
 import { StatComponent } from './stat/stat.component';
 import { AddriceComponent } from './addrice/addrice.component';
+import { RiceComponent } from './rice/rice.component';
+import { RiceListComponent } from './rice/rice-list/rice-list.component';
+import { AddRiceComponent } from './rice/add-rice/add-rice.component';
 
 @NgModule({
   declarations: [
@@ -35,15 +41,21 @@ import { AddriceComponent } from './addrice/addrice.component';
     AddproductcomingComponent,
     NotificationComponent,
     StatComponent,
-    AddriceComponent
+    AddriceComponent,
+    RiceComponent,
+    RiceListComponent,
+    AddRiceComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AppBootstrapModule,
     BrowserAnimationsModule,
+    FormsModule,
     InputTextModule,
-    ButtonModule
+    ButtonModule,
+    AutoCompleteModule,
+    ToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

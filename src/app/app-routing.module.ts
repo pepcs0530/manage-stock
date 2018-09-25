@@ -8,6 +8,7 @@ import { AddproductComponent } from './addproduct/addproduct.component';
 import { AddproductcomingComponent } from './addproductcoming/addproductcoming.component';
 import { SearchproductComponent } from './searchproduct/searchproduct.component';
 import { AddriceComponent } from './addrice/addrice.component';
+import { RiceComponent} from './rice/rice.component'
 import { StatComponent } from './stat/stat.component';
 import { NotificationComponent } from './notification/notification.component';
 
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'addproduct', component: AddproductComponent },
   { path: 'addproductcoming', component: AddproductcomingComponent },
   { path: 'addrice', component: AddriceComponent },
+  { path: 'rice', component: RiceComponent},
   { path: 'searchproduct', component: SearchproductComponent },
   { path: 'stat', component: StatComponent },
   { path: 'notification', component: NotificationComponent },

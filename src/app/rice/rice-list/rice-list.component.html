@@ -1,0 +1,29 @@
+<p-toolbar>
+    <div class="ui-toolbar-group-left">
+        <button pButton type="button" label="New" icon="pi pi-plus"></button>
+        
+    </div>
+    <div class="ui-toolbar-group-right">
+      <p-autoComplete [(ngModel)]="query" [suggestions]="results" (completeMethod)="search($event)" ></p-autoComplete>
+      <button pButton type="button" icon="pi pi-search"></button>
+    </div>
+</p-toolbar>
+
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th style="text-align: center;" width="10px">ลำดับ</th>
+      <th style="text-align: center;" width="20%">รหัส</th>
+      <th style="text-align: center;">ชื่อสายพันธุ์</th>
+      <th style="text-align: center;" width="20%">ราคา</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of riceList;let i = index">
+      <td class="text-right">{{i+1}}</td>
+      <td>{{item.id}}</td>
+      <td>{{item.name}}</td>
+      <td class="text-right">{{item.price}}</td>
+    </tr> 
+  </tbody>
+</table>
