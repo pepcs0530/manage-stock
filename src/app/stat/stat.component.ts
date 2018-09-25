@@ -1,5 +1,6 @@
+declare function require(path: string);
 import { Component, OnInit } from '@angular/core';
-import {CalendarModule} from 'primeng/calendar';
+import { CalendarModule } from 'primeng/calendar';
 
 @Component({
   selector: 'app-stat',
@@ -9,9 +10,7 @@ import {CalendarModule} from 'primeng/calendar';
 export class StatComponent implements OnInit {
   imgPath = require('src/assets/images/rice.jpg');
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

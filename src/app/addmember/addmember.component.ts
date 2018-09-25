@@ -1,5 +1,5 @@
+declare function require(path: string);
 import { Component, OnInit } from '@angular/core';
-
 
 @Component({
   selector: 'app-addmember',
@@ -9,9 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class AddmemberComponent implements OnInit {
   imgPath = require('src/assets/images/rice.jpg');
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }
