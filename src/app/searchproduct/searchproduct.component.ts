@@ -1,3 +1,4 @@
+declare function require(path: string);
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,9 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class SearchproductComponent implements OnInit {
   imgPath = require('src/assets/images/rice2.jpg');
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }
