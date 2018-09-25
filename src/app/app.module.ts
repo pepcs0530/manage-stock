@@ -26,6 +26,8 @@ import { AddriceComponent } from './addrice/addrice.component';
 import { RiceComponent } from './rice/rice.component';
 import { RiceListComponent } from './rice/rice-list/rice-list.component';
 import { AddRiceComponent } from './rice/add-rice/add-rice.component';
+import { CalendarModule } from 'primeng/calendar';
+import { ChartModule } from 'primeng/chart';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import { AddRiceComponent } from './rice/add-rice/add-rice.component';
     InputTextModule,
     ButtonModule,
     AutoCompleteModule,
-    ToolbarModule
+    ToolbarModule,
+    CalendarModule,
+    ChartModule
   ],
   providers: [],
   bootstrap: [AppComponent]
