@@ -13,6 +13,13 @@ import { MemberComponent } from './member/member.component';
 
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
+import { AddmemberComponent } from './addmember/addmember.component';
+import { AddproductComponent } from './addproduct/addproduct.component';
+import { SearchproductComponent } from './searchproduct/searchproduct.component';
+import { AddproductcomingComponent } from './addproductcoming/addproductcoming.component';
+import { NotificationComponent } from './notification/notification.component';
+import { StatComponent } from './stat/stat.component';
+import { AddriceComponent } from './addrice/addrice.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +28,14 @@ import { ButtonModule } from 'primeng/button';
     LoginFormComponent,
     // DashboardComponent,
     NavbarComponent,
-    MemberComponent
+    MemberComponent,
+    AddmemberComponent,
+    AddproductComponent,
+    SearchproductComponent,
+    AddproductcomingComponent,
+    NotificationComponent,
+    StatComponent,
+    AddriceComponent
   ],
   imports: [
     BrowserModule,
