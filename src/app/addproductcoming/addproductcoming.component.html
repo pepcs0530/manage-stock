@@ -21,83 +21,84 @@
     <div class="ui-g">
         <div class="ui-g-3" style="text-align: right;"><label for="float-input">เลขล็อต</label></div>
         <div class="ui-g-2" >
-            <input id="float-input" type="text"  size="20" style="width: 300px" pInputText disabled>
+            <input id="float-input" type="text"  size="20" style="width: 150px" pInputText disabled>
         </div>
         <div class="ui-g-2" style="text-align: right;">
             <label for="float-input">วันที่</label>
         </div>
-        <div class="ui-g-2"><input id="float-input" type="date"  size="30" style="width: 300px;" pInputText></div>
+        <div class="ui-g-2">
+            <p-calendar  [showIcon]="true"></p-calendar> 
+        </div>
       </div>
-    <div class="ui-g">
+    <div class="ui-g" >
       <div class="ui-g-3"></div>
-      <div class="ui-g-2" style="text-align: right;">
+      <div class="ui-g-1" style="text-align: left;">
           <label for="float-input">คนขาย</label>
       </div>
-      <div class="ui-g-2">
-          <input id="float-input" type="text"  size="30" style="width: 300px" placeholder="ชื่อ,รหัส" pInputText>  
+      <div class="ui-g-6" >
+          <input id="float-input" type="text"  size="30" style="width: 520px" placeholder="ชื่อ,รหัส" pInputText>  
       </div>
-      <div class="ui-g-5"></div>
-    </div>
-    <div class="ui-g">
       <div class="ui-g-3"></div>
-      <div class="ui-g-2" style="text-align: right;">
-          <label for="float-input">ทะเบียนรถ</label>
-      </div>
-      <div class="ui-g-2" style="text-align: left;">
-          <input id="float-input" type="text"  size="30" style="width: 300px" pInputText>  
-      </div>
-      <div class="ui-g-5"></div>
     </div>
-    <div class="ui-g">
-      <div class="ui-g-3"></div>
-      <div class="ui-g-2" style="text-align: right;">
-          <label for="float-input">พันธุ์ข้าว</label>
-      </div>
-      <div class="ui-g-2" style="text-align: left;">
-          <input id="float-input" type="text"  size="30" style="width: 300px" pInputText>  
-      </div>
-      <div class="ui-g-5"></div>
-      </div>
-      <div class="ui-g">
+    <div class="ui-g" >
         <div class="ui-g-3"></div>
-        <div class="ui-g-2" style="text-align: right;">
+        <div class="ui-g-1" style="text-align: left;">
+            <label for="float-input">ทะเบียนรถ</label>
+        </div>
+        <div class="ui-g-2" >
+            <input id="float-input" type="text"  size="30" style="width: 180px"  pInputText disabled>
+        </div>
+        <div class="ui-g-1" style="text-align: left;">
+            <label for="float-input" >พันธุ์ข้าว</label>
+        </div>
+        <div class="ui-g-2">
+            <input id="float-input" type="text"  size="30" style="width: 210px" pInputText disabled>
+        </div>
+        <div class="ui-g-3"></div>
+    </div>
+
+
+    <div class="ui-g" >
+        <div class="ui-g-3"></div>
+        <div class="ui-g-1" style="text-align: left;">
             <label for="float-input">เวลาเข้า</label>
         </div>
-        <div class="ui-g-2" style="text-align: left;">
-            <input id="float-input" type="time"  size="30" style="width: 300px" pInputText>  
+        <div class="ui-g-2" >
+            <p-calendar  [timeOnly]="true"></p-calendar> 
         </div>
-        <div class="ui-g-5"></div>
-      </div>
-      <div class="ui-g">
+        <div class="ui-g-1"></div>
+        <div class="ui-g-2"></div>
         <div class="ui-g-3"></div>
-        <div class="ui-g-2" style="text-align: right;">
-            <label for="float-input">เวลาอออก</label>
-        </div>
-        <div class="ui-g-2" style="text-align: left;">
-            <input id="float-input" type="time"  size="30" style="width: 300px" pInputText>  
-        </div>
-        <div class="ui-g-5"></div>
-      </div>
-      <div class="ui-g">
+    </div>
+    <div class="ui-g" >
         <div class="ui-g-3"></div>
-        <div class="ui-g-2" style="text-align: right;">
+        <div class="ui-g-1" style="text-align: left;">
+            <label for="float-input">เวลาออก</label>
+        </div>
+        <div class="ui-g-2" >
+            <p-calendar  [timeOnly]="true"></p-calendar> 
+        </div>
+        <div class="ui-g-1" style="text-align: left;">
             <label for="float-input">น้ำหนักสุทธิ</label>
         </div>
-        <div class="ui-g-2" style="text-align: left;">
-            <input id="float-input" type="text"  size="30" style="width: 300px" pInputText>  
+        <div class="ui-g-2">
+            <input id="float-input" type="text"  size="30" style="width: 210px" pInputText> 
         </div>
-        <div class="ui-g-5"></div>
-      </div>
-      <div class="ui-g">
-          <div class="ui-g-3"></div>
-          <div class="ui-g-2" style="text-align: right;">
-              <label for="float-input">หมายเหตุ</label>
-          </div>
-          <div class="ui-g-2" style="text-align: left;">
-              <textarea rows="2" cols="35" pInputTextarea></textarea>
-          </div>
-          <div class="ui-g-5"></div>
+        <div class="ui-g-3"></div>
+    </div>                     
+
+    <div class="ui-g" >
+        <div class="ui-g-3"></div>
+        <div class="ui-g-1" style="text-align: left;">
+            <label for="float-input">หมายเหตุ</label>
         </div>
+        <div class="ui-g-2" >
+            <textarea rows="2" cols="63" pInputTextarea></textarea>
+        </div>
+        <div class="ui-g-1"></div>
+        <div class="ui-g-2"></div>
+        <div class="ui-g-3"></div>
+    </div>
     <div class="ui-g">
       <div class="ui-g-3"></div>
       <div class="ui-g-6" style="text-align: center;">

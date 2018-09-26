@@ -28,6 +28,8 @@ import { RiceListComponent } from './rice/rice-list/rice-list.component';
 import { AddRiceComponent } from './rice/add-rice/add-rice.component';
 import { CalendarModule } from 'primeng/calendar';
 import { ChartModule } from 'primeng/chart';
+import { CalendarModule } from 'primeng/calendar';
+import {ChartModule} from 'primeng/chart';
 
 @NgModule({
   declarations: [
