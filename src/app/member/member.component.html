@@ -16,6 +16,7 @@
 
   <div class="sticky" style="text-align: center;">
     <h2>ค้นหาข้อมูลสมาชิก</h2>
+  <!--<div class="sticky" style="text-align: center;">
     <table width="100%" style="font-size:24px;" >
       <tr>
         <td>
@@ -24,7 +25,38 @@
         </td>
       </tr>
     </table>
-  </div>
+  -->  </div>
+
+  <p-toolbar>
+    <div class="ui-toolbar-group-left">
+        <button pButton type="button" label="New" href="addmember" icon="pi pi-plus"></button>
+    </div>
+    <div class="ui-toolbar-group-right">
+      <p-autoComplete [(ngModel)]="query" [suggestions]="results" (completeMethod)="search($event)" ></p-autoComplete>
+      <button pButton type="button" icon="pi pi-search"></button>
+    </div>
+</p-toolbar>
+
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th style="text-align: center;" width="10px">ลำดับ</th>
+      <th style="text-align: center;" width="20%">รหัสสมาชิก</th>
+      <th style="text-align: center;">ชื่อ - นามสกุล</th>
+      <th style="text-align: center;">เบอร์โทรศัพท์</th>
+      <th style="text-align: center;">ที่อยู่</th>
+      <th style="text-align: center;" width="20%">ทะเบียนรถ</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of riceList;let i = index">
+      <td class="text-right">{{i+1}}</td>
+      <td>{{item.id}}</td>
+      <td>{{item.name}}</td>
+      <td class="text-right">{{item.price}}</td>
+    </tr> 
+  </tbody>
+</table>
   
   <!-- <div class="main">
       <div class="regist" align="center">
