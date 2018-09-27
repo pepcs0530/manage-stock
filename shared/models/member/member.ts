@@ -5,4 +5,6 @@ export class Member {
   lastName = null;
   telephone = null;
   licensePlate = null;
+  buyDate = null;
+  qty = null;
 }

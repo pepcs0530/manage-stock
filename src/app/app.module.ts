@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
@@ -14,9 +14,9 @@ import { MemberComponent } from './member/member.component';
 
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
-import { AutoCompleteModule} from 'primeng/autocomplete';
-import { ToolbarModule} from 'primeng/toolbar';
-import { PanelModule} from 'primeng/panel';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { ToolbarModule } from 'primeng/toolbar';
+import { PanelModule } from 'primeng/panel';
 import { AddmemberComponent } from './addmember/addmember.component';
 import { AddproductComponent } from './addproduct/addproduct.component';
 import { SearchproductComponent } from './searchproduct/searchproduct.component';
@@ -28,9 +28,11 @@ import { RiceComponent } from './rice/rice.component';
 import { RiceListComponent } from './rice/rice-list/rice-list.component';
 import { AddRiceComponent } from './rice/add-rice/add-rice.component';
 import { CalendarModule } from 'primeng/calendar';
-import {ChartModule} from 'primeng/chart';
-import {SpinnerModule} from 'primeng/spinner';
+import { ChartModule } from 'primeng/chart';
+import { SpinnerModule } from 'primeng/spinner';
 import { CashierComponent } from './cashier/cashier.component';
+import { CardModule } from 'primeng/card';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -65,7 +67,9 @@ import { CashierComponent } from './cashier/cashier.component';
     CalendarModule,
     ChartModule,
     SpinnerModule,
-    PanelModule
+    PanelModule,
+    CardModule,
+    TableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
