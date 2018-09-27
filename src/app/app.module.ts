@@ -16,6 +16,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { AutoCompleteModule} from 'primeng/autocomplete';
 import { ToolbarModule} from 'primeng/toolbar';
+import { PanelModule} from 'primeng/panel';
 import { AddmemberComponent } from './addmember/addmember.component';
 import { AddproductComponent } from './addproduct/addproduct.component';
 import { SearchproductComponent } from './searchproduct/searchproduct.component';
@@ -29,6 +30,7 @@ import { AddRiceComponent } from './rice/add-rice/add-rice.component';
 import { CalendarModule } from 'primeng/calendar';
 import {ChartModule} from 'primeng/chart';
 import {SpinnerModule} from 'primeng/spinner';
+import { CashierComponent } from './cashier/cashier.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import {SpinnerModule} from 'primeng/spinner';
     AddriceComponent,
     RiceComponent,
     RiceListComponent,
-    AddRiceComponent
+    AddRiceComponent,
+    CashierComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +64,8 @@ import {SpinnerModule} from 'primeng/spinner';
     ToolbarModule,
     CalendarModule,
     ChartModule,
-    SpinnerModule
+    SpinnerModule,
+    PanelModule
   ],
   providers: [],
   bootstrap: [AppComponent]

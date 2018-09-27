@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
+import { CashierComponent} from './cashier/cashier.component'
 import { MemberComponent } from './member/member.component';
 import { AddmemberComponent } from './addmember/addmember.component';
 import { AddproductComponent } from './addproduct/addproduct.component';
@@ -15,6 +16,7 @@ import { NotificationComponent } from './notification/notification.component';
 const routes: Routes = [
   { path: '', redirectTo: '/member', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
+  { path: 'cashier',component:CashierComponent},
   { path: 'member', component: MemberComponent },
   { path: 'addmember', component: AddmemberComponent },
   { path: 'addproduct', component: AddproductComponent },
