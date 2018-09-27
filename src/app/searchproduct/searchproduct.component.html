@@ -15,20 +15,50 @@
 
   <app-navbar></app-navbar>
   <div class="sticky" style="text-align: center;">
-      <h2>ค้นหาข้อมูลสินค้า</h2>
-      <table width="100%" style="font-size:24px;" >
-        <tr>
-          <td>
-            <input type="text" pInputText style="width: 500px" placeholder="รหัสสมาชิก , ชื่อ , เบอร์โทรศัพท์" />
-            <button pButton type="button" label="search"></button><br>
-          </td>
-        </tr>
-      </table>
-    </div>
+    <h2>ค้นหาข้อมูลสินค้า</h2>
+    <table width="100%" style="font-size:24px;">
+      <tr>
+        <td>
+          <input type="text" pInputText style="width: 500px" placeholder="รหัสสมาชิก , ชื่อ , เบอร์โทรศัพท์" />
+          <button pButton type="button" label="search"></button>
+          <br>
+        </td>
+      </tr>
+    </table>
+  </div>
 
 
   <div class="main">
-    
+    <div class="ui-g">
+      <div class="ui-g-offset-2 ui-g-8">
+        <div class="ui-g-3">
+          <label for="float-input">ชื่อคนขาย</label>
+        </div>
+        <div class="ui-g-3">
+          <input id="float-input" type="text" size="30" style="width: 150px" pInputText>
+        </div>
+        <div class="ui-g-3">
+          <label for="float-input">วันที่ผลิต</label>
+        </div>
+        <div class="ui-g-3">
+          <p-calendar [showIcon]="true"></p-calendar>
+        </div>
+      </div>
+      <div class="ui-g-offset-2 ui-g-8">
+        <div class="ui-g-3">
+          <label for="float-input">พันธุ์ข้าว</label>
+        </div>
+        <div class="ui-g-3">
+          <input id="float-input" type="text" size="30" style="width: 150px" pInputText>
+        </div>
+        <div class="ui-g-3">
+          <label for="float-input">วันที่หมดอายุ</label>
+        </div>
+        <div class="ui-g-3">
+          <p-calendar [showIcon]="true"></p-calendar>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="footer" style="color: black">
