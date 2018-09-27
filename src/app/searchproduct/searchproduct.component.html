@@ -19,7 +19,7 @@
     <table width="100%" style="font-size:24px;">
       <tr>
         <td>
-          <input type="text" pInputText style="width: 500px" placeholder="รหัสสมาชิก , ชื่อ , เบอร์โทรศัพท์" />
+          <input type="text" pInputText style="width: 500px" placeholder="รหัส, ชื่อสินค้า" />
           <button pButton type="button" label="search"></button>
           <br>
         </td>
@@ -28,38 +28,65 @@
   </div>
 
 
-  <div class="main">
-    <div class="ui-g">
-      <div class="ui-g-offset-2 ui-g-8">
-        <div class="ui-g-3">
-          <label for="float-input">ชื่อคนขาย</label>
+  <p-card>
+    <div class="main" style="margin-top: 10px; margin-left: 20px; margin-right: 20px;">
+      <div class="ui-g">
+        <div class="ui-g-offset-2 ui-g-8">
+          <div class="ui-g-3" [ngStyle]="{ 'text-align': 'right' }">
+            <label for="float-input">ชื่อคนขาย:</label>
+          </div>
+          <div class="ui-g-3">
+            <input id="float-input" type="text" size="30" style="width: 150px" pInputText>
+          </div>
+          <div class="ui-g-3" [ngStyle]="{ 'text-align': 'right' }">
+            <label for="float-input">วันที่ผลิต:</label>
+          </div>
+          <div class="ui-g-3">
+            <p-calendar [showIcon]="true"></p-calendar>
+          </div>
         </div>
-        <div class="ui-g-3">
-          <input id="float-input" type="text" size="30" style="width: 150px" pInputText>
-        </div>
-        <div class="ui-g-3">
-          <label for="float-input">วันที่ผลิต</label>
-        </div>
-        <div class="ui-g-3">
-          <p-calendar [showIcon]="true"></p-calendar>
-        </div>
-      </div>
-      <div class="ui-g-offset-2 ui-g-8">
-        <div class="ui-g-3">
-          <label for="float-input">พันธุ์ข้าว</label>
-        </div>
-        <div class="ui-g-3">
-          <input id="float-input" type="text" size="30" style="width: 150px" pInputText>
-        </div>
-        <div class="ui-g-3">
-          <label for="float-input">วันที่หมดอายุ</label>
-        </div>
-        <div class="ui-g-3">
-          <p-calendar [showIcon]="true"></p-calendar>
+        <div class="ui-g-offset-2 ui-g-8">
+          <div class="ui-g-3" [ngStyle]="{ 'text-align': 'right' }">
+            <label for="float-input">พันธุ์ข้าว:</label>
+          </div>
+          <div class="ui-g-3">
+            <input id="float-input" type="text" size="30" style="width: 150px" pInputText>
+          </div>
+          <div class="ui-g-3" [ngStyle]="{ 'text-align': 'right' }">
+            <label for="float-input">วันที่หมดอายุ:</label>
+          </div>
+          <div class="ui-g-3">
+            <p-calendar [showIcon]="true"></p-calendar>
+          </div>
         </div>
       </div>
     </div>
+  </p-card>
+
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <p-table [value]="members">
+        <ng-template pTemplate="header">
+          <tr>
+            <th [ngStyle]="{ 'text-align': 'center', 'width': '40%' }">ชื่อ-นามสกุล</th>
+            <th [ngStyle]="{ 'text-align': 'center', 'width': '30%' }">เบอร์โทร</th>
+            <th [ngStyle]="{ 'text-align': 'center', 'width': '20%' }">วันที่ที่ซื้อสินค้า</th>
+            <th [ngStyle]="{ 'text-align': 'center', 'width': '10%' }">จำนวนที่ซื้อ</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-member>
+          <tr>
+            <td>{{member.firstName}} {{member.lastName}}</td>
+            <td>{{member.telephone}}</td>
+            <td [ngStyle]="{ 'text-align': 'center' }">{{member.buyDate}}</td>
+            <td [ngStyle]="{ 'text-align': 'right' }">{{member.qty}}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
   </div>
+
+
 
   <div class="footer" style="color: black">
     <table>
