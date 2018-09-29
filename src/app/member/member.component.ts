@@ -11,5 +11,9 @@ export class MemberComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {}
+  display: Boolean;
+
+  ngOnInit() {
+    this.display = true;
+  }
 }

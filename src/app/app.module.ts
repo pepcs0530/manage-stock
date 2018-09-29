@@ -33,6 +33,8 @@ import { SpinnerModule } from 'primeng/spinner';
 import { CashierComponent } from './cashier/cashier.component';
 import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
+import { AlertExpDateComponent } from './alert-exp-date/alert-exp-date.component';
+import {DialogModule} from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,8 @@ import { TableModule } from 'primeng/table';
     RiceComponent,
     RiceListComponent,
     AddRiceComponent,
-    CashierComponent
+    CashierComponent,
+    AlertExpDateComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +72,8 @@ import { TableModule } from 'primeng/table';
     SpinnerModule,
     PanelModule,
     CardModule,
-    TableModule
+    TableModule,
+    DialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
