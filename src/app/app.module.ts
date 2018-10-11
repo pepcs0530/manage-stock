@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
@@ -34,7 +34,16 @@ import { CashierComponent } from './cashier/cashier.component';
 import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
 import { AlertExpDateComponent } from './alert-exp-date/alert-exp-date.component';
-import {DialogModule} from 'primeng/dialog';
+import { DialogModule } from 'primeng/dialog';
+import { MyDatePickerModule } from 'mydatepicker';
+import { MemberFormComponent } from './member/components/member-form/member-form.component';
+import { MemberService } from './member/services/member/member.service';
+import {
+  Http,
+  ConnectionBackend,
+  HttpModule
+} from '../../node_modules/@angular/http';
+import { DatabaseConfig } from '@config/database/database.config';
 
 @NgModule({
   declarations: [
@@ -55,7 +64,8 @@ import {DialogModule} from 'primeng/dialog';
     RiceListComponent,
     AddRiceComponent,
     CashierComponent,
-    AlertExpDateComponent
+    AlertExpDateComponent,
+    MemberFormComponent
   ],
   imports: [
     BrowserModule,
@@ -63,6 +73,7 @@ import {DialogModule} from 'primeng/dialog';
     AppBootstrapModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     InputTextModule,
     ButtonModule,
     AutoCompleteModule,
@@ -73,9 +84,12 @@ import {DialogModule} from 'primeng/dialog';
     PanelModule,
     CardModule,
     TableModule,
-    DialogModule
+    DialogModule,
+    MyDatePickerModule,
+    HttpModule
   ],
-  providers: [],
+  exports: [],
+  providers: [MemberService, DatabaseConfig],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

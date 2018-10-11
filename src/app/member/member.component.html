@@ -27,7 +27,7 @@
     </table>
   --></div>
 
-  <p-toolbar>
+  <!-- <p-toolbar>
     <div class="ui-toolbar-group-left">
       <button pButton type="button" label="New" href="addmember" icon="pi pi-plus"></button>
     </div>
@@ -35,9 +35,9 @@
       <p-autoComplete [(ngModel)]="query" [suggestions]="results" (completeMethod)="search($event)"></p-autoComplete>
       <button pButton type="button" icon="pi pi-search"></button>
     </div>
-  </p-toolbar>
+  </p-toolbar> -->
 
-  <table class="table table-bordered table-hover">
+  <!-- <table class="table table-bordered table-hover">
     <thead>
       <tr>
         <th style="text-align: center;" width="10px">ลำดับ</th>
@@ -56,7 +56,7 @@
         <td class="text-right">{{item.price}}</td>
       </tr>
     </tbody>
-  </table>
+  </table> -->
 
   <!-- <div class="main">
       <div class="regist" align="center">
@@ -73,6 +73,76 @@
         </form>
       </div>
     </div>  -->
+
+  <p-table [columns]="cols" [value]="members" selectionMode="single" [(selection)]="selectedMember" (onRowSelect)="onRowSelect($event)"
+    [paginator]="true" [rows]="15">
+    <ng-template pTemplate="caption">
+      List of Members
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+          {{col.header}}
+          <p-sortIcon [field]="col.field"></p-sortIcon>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr [pSelectableRow]="rowData">
+        <td *ngFor="let col of columns">
+          {{rowData[col.field]}}
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary" let-rowData>
+      <div style="text-align:left">
+        <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add"></button>
+      </div>
+    </ng-template>
+  </p-table>
+
+  <!-- <p-dialog header="Member Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="300">
+    <div class="ui-g ui-fluid" *ngIf="member">
+      <div class="ui-g-12">
+        <div class="ui-g-4">
+          <label for="vin">Vin</label>
+        </div>
+        <div class="ui-g-8">
+          <input pInputText id="vin" [(ngModel)]="member.vin" />
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-4">
+          <label for="year">Year</label>
+        </div>
+        <div class="ui-g-8">
+          <input pInputText id="year" [(ngModel)]="car.year" />
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-4">
+          <label for="brand">Brand</label>
+        </div>
+        <div class="ui-g-8">
+          <input pInputText id="brand" [(ngModel)]="car.brand" />
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-4">
+          <label for="color">Color</label>
+        </div>
+        <div class="ui-g-8">
+          <input pInputText id="color" [(ngModel)]="car.color" />
+        </div>
+      </div>
+    </div>
+    <p-footer>
+      <div class="ui-dialog-buttonpane ui-helper-clearfix">
+        <button type="button" pButton icon="fa fa-close" (click)="delete()" label="Delete"></button>
+        <button type="button" pButton icon="fa fa-check" (click)="save()" label="Save"></button>
+      </div>
+    </p-footer>
+  </p-dialog> -->
 
 
 

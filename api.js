@@ -48,13 +48,20 @@ var myConnection = require('express-myconnection');
  * Load the file/module and its values
  */
 
-var config = require('./config/database/database.config');
-var dbOptions = {
+// var config = require('./config/database/database.config');
+/* var dbOptions = {
   host: config.database.host,
   user: config.database.username,
   password: config.database.password,
   port: config.database.port,
   database: config.database.databasename
+}; */
+var dbOptions = {
+  host: 'db4free.net',
+  user: 'managestock',
+  password: 'P@ssw0rd2018',
+  port: 3306,
+  database: 'db_managestock'
 };
 /**
  * 3 strategies can be used
@@ -73,3 +80,7 @@ app.set('view engine', 'ejs');
 app.use('/api', route);
 app.use('/api/member', memberRoute);
 app.use('/api/product', productRoute);
+
+//Access-Control-Allow-Origin is a response header, not a request header you need to fix the permission in your backend. so you must create cors.js file that contains all necessary permissions.
+var cors2 = require('./cors');
+app.use(cors2.permission);
