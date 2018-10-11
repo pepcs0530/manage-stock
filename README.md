@@ -31,4 +31,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ng generate component login <br/>
 ng g component ../app/login/components/login-form --routing <br/>
 ng g service ../app/login/services/login/login <br/>
-`node index.js` for run api back-end <br/>
+ng generate component member <br/>
+ng g component ../app/member/components/member-form --routing <br/>
+ng g service ../app/member/services/member/member <br/>
+`node api.js` for run api back-end <br/>
