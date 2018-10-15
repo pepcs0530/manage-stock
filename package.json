@@ -36,9 +36,11 @@
     "mydatepicker": "^2.6.6",
     "mysql": "^2.15.0",
     "ngx-bootstrap": "^3.0.1",
+    "pdfkit": "^0.8.3",
     "primeicons": "^1.0.0-beta.9",
     "primeng": "^6.0.0",
     "rxjs": "^6.1.0",
+    "wkhtmltopdf": "^0.3.4",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
