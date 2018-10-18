@@ -1,0 +1,31 @@
+/* You can add global styles to this file, and also import other style files */
+/* @import '~bootstrap/dist/css/bootstrap.min.css'; */
+
+body * {
+  font-family: 'th sarabunPSK';
+  color: #2f4f4f !important;
+  font-size: 18pt;
+}
+
+.ui-card {
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.caption {
+  font-weight: bold;
+}
+
+.ui-table .ui-table-thead > tr > th {
+  padding: 0.571em 0.857em;
+  border: 1px solid #c8c8c8;
+  font-weight: 700;
+  color: #333333;
+  background-color: #f4f4f4;
+  text-align: center;
+}
+
+.ui-autocomplete-input {
+  width: 100%;
+}

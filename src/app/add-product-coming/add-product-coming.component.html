@@ -1,0 +1,95 @@
+<app-navbar></app-navbar>
+{{addForm.value | json}}
+<form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+  <div class="sticky">
+    <div class="ui-g">
+      <div class="ui-g-12" style="font-size:32px;text-align: center;">เพิ่มข้อมูลเข้าระบบ</div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-3" style="text-align: right;">
+        <label for="float-input">เลขล็อต</label>
+      </div>
+      <div class="ui-g-2">
+        <input id="float-input" type="text" formControlName="lotId" size="20" style="width: 150px" pInputText readonly>
+      </div>
+      <div class="ui-g-2" style="text-align: right;">
+        <label for="float-input">วันที่</label>
+      </div>
+      <div class="ui-g-2">
+        <p-calendar formControlName="date" [showIcon]="true"></p-calendar>
+      </div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-3"></div>
+      <div class="ui-g-1" style="text-align: left;">
+        <label for="float-input">คนขาย</label>
+      </div>
+      <div class="ui-g-5">
+        <!-- <input id="float-input" type="text" formControlName="member" size="30" style="width: 520px" pInputText> -->
+        <p-autoComplete formControlName="member" (onSelect)="onLovSelect($event)" (onClear)="onLovClear($event)" [suggestions]="results"
+          field="member_name" (completeMethod)="search($event)" [style]="{'width': '100%'}" [forceSelection]="true">
+          <!-- <ng-template let-brand pTemplate="item">
+            <div>
+              <div>{{display}} </div>
+            </div>
+          </ng-template> -->
+        </p-autoComplete>
+      </div>
+      <div class="ui-g-3"></div>
+    </div>
+
+
+    <div class="ui-g">
+      <div class="ui-g-3"></div>
+      <div class="ui-g-1" style="text-align: left;">
+
+        <label for="float-input">ทะเบียนรถ</label>
+      </div>
+      <div class="ui-g-1">
+        <input id="float-input" type="text" formControlName="licensePlace" size="30" style="width: 180px" pInputText>
+      </div>
+      <div class="ui-g-2" style="text-align: right;">
+        <label for="float-input">พันธุ์ข้าว</label>
+      </div>
+      <div class="ui-g-2">
+        <p-autoComplete formControlName="riceVarieties" [suggestions]="results" (completeMethod)="search($event)"></p-autoComplete>
+      </div>
+      <div class="ui-g-3"></div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-3"></div>
+      <div class="ui-g-1" style="text-align: left;">
+
+        <label for="float-input">เวลาเข้า</label>
+      </div>
+      <div class="ui-g-1">
+        <p-calendar formControlName="timeIn" [timeOnly]="true"></p-calendar>
+      </div>
+      <div class="ui-g-2" style="text-align: right;">
+        <label for="float-input">เวลาออก</label>
+      </div>
+      <div class="ui-g-2">
+        <p-calendar formControlName="timeOut" [timeOnly]="true"></p-calendar>
+      </div>
+      <div class="ui-g-3"></div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-3"></div>
+      <div class="ui-g-1" style="text-align: left;">
+        <label for="float-input">หมายเหตุ</label>
+      </div>
+      <div class="ui-g-2">
+        <textarea formControlName="remark" rows="2" cols="63" pInputTextarea></textarea>
+      </div>
+      <div class="ui-g-1"></div>
+      <div class="ui-g-2"></div>
+      <div class="ui-g-3"></div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-12" style="text-align: center;">
+        <button pButton type="button" (click)="save()" label="บันทึก" style="width:200px;" class="ui-button-raised ui-button-success"></button>&nbsp;
+        <button pButton type="button" (click)="cancle()" label="ยกเลิก" style="width:200px;" class="ui-button-danger"></button>
+      </div>
+    </div>
+  </div>
+</form>
