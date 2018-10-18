@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DatabaseConfig } from '@config/database/database.config';
-import { Http, RequestOptions } from '@angular/http';
+import { Headers, RequestOptions, Response, Http } from '@angular/http';
 
 @Injectable()
 export class AddProductComingService {
