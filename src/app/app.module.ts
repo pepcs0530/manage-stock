@@ -20,7 +20,6 @@ import { PanelModule } from 'primeng/panel';
 import { AddmemberComponent } from './addmember/addmember.component';
 import { AddproductComponent } from './addproduct/addproduct.component';
 import { SearchproductComponent } from './searchproduct/searchproduct.component';
-import { AddproductcomingComponent } from './addproductcoming/addproductcoming.component';
 import { NotificationComponent } from './notification/notification.component';
 import { StatComponent } from './stat/stat.component';
 import { AddriceComponent } from './addrice/addrice.component';
@@ -44,6 +43,9 @@ import {
   HttpModule
 } from '../../node_modules/@angular/http';
 import { DatabaseConfig } from '@config/database/database.config';
+import { AddProductComingComponent } from './add-product-coming/add-product-coming.component';
+import { AddProductComingFormComponent } from './add-product-coming/components/add-product-coming-form/add-product-coming-form.component';
+import { AddProductComingService } from './add-product-coming/services/add-product-coming/add-product-coming.service';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,6 @@ import { DatabaseConfig } from '@config/database/database.config';
     AddmemberComponent,
     AddproductComponent,
     SearchproductComponent,
-    AddproductcomingComponent,
     NotificationComponent,
     StatComponent,
     AddriceComponent,
@@ -65,7 +66,9 @@ import { DatabaseConfig } from '@config/database/database.config';
     AddRiceComponent,
     CashierComponent,
     AlertExpDateComponent,
-    MemberFormComponent
+    MemberFormComponent,
+    AddProductComingComponent,
+    AddProductComingFormComponent
   ],
   imports: [
     BrowserModule,
@@ -89,7 +92,7 @@ import { DatabaseConfig } from '@config/database/database.config';
     HttpModule
   ],
   exports: [],
-  providers: [MemberService, DatabaseConfig],
+  providers: [MemberService, AddProductComingService, DatabaseConfig],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

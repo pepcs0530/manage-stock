@@ -1,22 +1,22 @@
-<!doctype html>
-<html lang="en">
+<!-- <!doctype html>
+<html lang="en"> -->
 
-<head>
+<!-- <head>
   <meta charset="utf-8">
   <title>ManageStock</title>
   <base href="/">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-</head>
+</head> -->
 
 
-<body style="font-family:th sarabunPSK;color:#2F4F4F;font-size: 24px">
-  <app-navbar></app-navbar>
+<!-- <body> -->
+<app-navbar></app-navbar>
 
-  <div class="sticky" style="text-align: center;">
-    <h2>ค้นหาข้อมูลสมาชิก</h2>
-    <!--<div class="sticky" style="text-align: center;">
+<div class="sticky" style="text-align: center;">
+  <h2 class="caption">ค้นหาข้อมูลสมาชิก</h2>
+  <!--<div class="sticky" style="text-align: center;">
     <table width="100%" style="font-size:24px;" >
       <tr>
         <td>
@@ -27,7 +27,7 @@
     </table>
   --></div>
 
-  <!-- <p-toolbar>
+<!-- <p-toolbar>
     <div class="ui-toolbar-group-left">
       <button pButton type="button" label="New" href="addmember" icon="pi pi-plus"></button>
     </div>
@@ -37,7 +37,7 @@
     </div>
   </p-toolbar> -->
 
-  <!-- <table class="table table-bordered table-hover">
+<!-- <table class="table table-bordered table-hover">
     <thead>
       <tr>
         <th style="text-align: center;" width="10px">ลำดับ</th>
@@ -58,7 +58,7 @@
     </tbody>
   </table> -->
 
-  <!-- <div class="main">
+<!-- <div class="main">
       <div class="regist" align="center">
         <form action="regist.php" method="post">
           <table width="100%" style="font-size:24px;" border="1px">
@@ -73,35 +73,40 @@
         </form>
       </div>
     </div>  -->
+<div class="ui-g">
+  <div class="ui-g-12">
+    <p-table [columns]="cols" [value]="members" selectionMode="single" [(selection)]="selectedMember" (onRowSelect)="onRowSelect($event)"
+      [paginator]="true" [rows]="15">
+      <ng-template pTemplate="caption">
+        ตารางข้อมูลสมาชิก
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+            {{col.header}}
+            <p-sortIcon [field]="col.field"></p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [pSelectableRow]="rowData">
+          <td *ngFor="let col of columns">
+            {{rowData[col.field]}}
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary" let-rowData>
+        <div style="text-align:left">
+          <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add"></button>
+        </div>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
 
-  <p-table [columns]="cols" [value]="members" selectionMode="single" [(selection)]="selectedMember" (onRowSelect)="onRowSelect($event)"
-    [paginator]="true" [rows]="15">
-    <ng-template pTemplate="caption">
-      List of Members
-    </ng-template>
-    <ng-template pTemplate="header" let-columns>
-      <tr>
-        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-          {{col.header}}
-          <p-sortIcon [field]="col.field"></p-sortIcon>
-        </th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-rowData let-columns="columns">
-      <tr [pSelectableRow]="rowData">
-        <td *ngFor="let col of columns">
-          {{rowData[col.field]}}
-        </td>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="summary" let-rowData>
-      <div style="text-align:left">
-        <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add"></button>
-      </div>
-    </ng-template>
-  </p-table>
 
-  <!-- <p-dialog header="Member Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="300">
+
+<!-- <p-dialog header="Member Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="300">
     <div class="ui-g ui-fluid" *ngIf="member">
       <div class="ui-g-12">
         <div class="ui-g-4">
@@ -146,15 +151,15 @@
 
 
 
-  <div class="footer" style="color: black">
-    <table>
-      <tr>
+<div class="footer" style="color: black">
+  <table>
+    <tr>
 
-      </tr>
-    </table>
-  </div>
-</body>
+    </tr>
+  </table>
+</div>
+<!-- </body>
 
-</html>
+</html> -->
 
 <app-alert-exp-date [display]="display"></app-alert-exp-date>

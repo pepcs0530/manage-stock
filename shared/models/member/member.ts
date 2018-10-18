@@ -14,4 +14,5 @@ export class Member {
   member_lname = null;
   member_license_place = null;
   telephone = null;
+  member_name = null;
 }

@@ -1,8 +1,6 @@
-// const dbconfig = require('../config/database/database.config');
 const express = require('express');
 const app = express();
 
-// SHOW LIST OF MEMBER
 app.get('/', function(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Content-Type', 'application/json');
@@ -31,51 +29,47 @@ app.get('/', function(req, res, next) {
   });
 });
 
-app.post('/', function(req, res, next) {
-  console.log('req-->', req);
-  console.log('body-->', req.body);
-
-  /* var condition = req
-    .sanitize('keyword')
-    .escape()
-    .trim(); */
-
-  var condition = req.body['keyword'];
-  console.log('condition-->', condition);
-
+app.post('/create', function(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Content-Type', 'application/json');
+  console.log('---START CREATE POST ACTION---');
+
+  console.log('body-->', req.body);
+
+  /* console.log('lot_Id-->', { ...req.body });
+  console.log('member_fname-->', req.body.member.member_fname); */
+
+  var payload = {
+    lot_id: req.body['lotId'],
+    date: new Date(req.body['date']),
+    // member_fname: { ...req.body['member'] }.member_fname,
+    // member_lname: { ...req.body['member'] }.member_lname,
+    // member_license_place: req.body['member_license_place'],
+    rice_varieties: req.body['riceVarieties'],
+    time_in: new Date(req.body['timeIn']),
+    time_out: new Date(req.body['timeOut']),
+    remark: req.body['remark']
+  };
+
+  console.log('payload-->', payload);
   req.getConnection(function(error, conn) {
-    console.log('---START QUERY MEMBER BY CONDITION---');
     try {
-      var sql = '';
-      sql +=
-        " SELECT member_seq, member_id, member_fname, member_lname, concat(member_fname, ' ', member_lname) as member_name, member_license_place, telephone, address ";
-      sql += ' FROM member ';
-      sql += ' WHERE 1=1 ';
-      sql +=
-        " AND (member_fname like '%" +
-        condition +
-        "%' or member_lname like '%" +
-        condition +
-        "%') ";
-      sql += ' ORDER BY member_seq ASC ';
-      conn.query(sql, function(err, rows, fields) {
+      conn.query('INSERT INTO product SET ?', payload, function(err, result) {
         //if(err) throw err
         if (err) {
-          console.log(err);
-          // req.flash('error', err);
           next(err);
+          console.log(err);
         } else {
-          //console.log(rows)
-          res.end(JSON.stringify(rows));
+          //req.flash('success', 'Data added successfully!');
+          res.end();
+          console.log('Data added successfully!');
+          console.log('---END CREATE POST ACTION---');
         }
       });
     } catch (e) {
       console.error('err thrown: ' + e.stack);
       res.sendStatus(500);
     }
-    console.log('---END QUERY MEMBER BY CONDITION---');
   });
 });
 

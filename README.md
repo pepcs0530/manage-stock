@@ -34,4 +34,7 @@ ng g service ../app/login/services/login/login <br/>
 ng generate component member <br/>
 ng g component ../app/member/components/member-form --routing <br/>
 ng g service ../app/member/services/member/member <br/>
+ng generate component add-product-coming <br/>
+ng g component ../app/add-product-coming/components/add-product-coming-form --routing <br/>
+ng g service ../app/add-product-coming/services/add-product-coming/add-product-coming <br/>
 `node api.js` for run api back-end <br/>

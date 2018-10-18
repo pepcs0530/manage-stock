@@ -46,4 +46,22 @@ export class MemberService {
       })
     );
   }
+
+  getMemberByCondition(condition): Observable<Member[]> {
+    const headers = new Headers({
+      'Content-Type': 'application/json; charset=utf-8',
+      'Access-Control-Allow-Origin': '*'
+    });
+
+    const options = new RequestOptions({ headers: headers });
+    console.log('condition-->', condition);
+    const body = JSON.stringify(condition);
+    console.log('body-->', body);
+
+    return this.http.post('/api/member', body, options).pipe(
+      map(res => {
+        return <Member[]>res.json();
+      })
+    );
+  }
 }

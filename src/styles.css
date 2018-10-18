@@ -1,8 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'assets/styles/styles.css';
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
-.ui-card {
+/* .ui-card {
   margin-top: 20px;
   margin-left: 20px;
   margin-right: 20px;
 }
+
+body {
+  font-family: th sarabunPSK;
+  color: #2f4f4f;
+  font-size: 24px;
+} */
