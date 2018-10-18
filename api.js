@@ -76,10 +76,12 @@ app.use(myConnection(mysql, dbOptions, 'pool'));
 const route = require('./routes/api');
 const memberRoute = require('./routes/member-route');
 const productRoute = require('./routes/product-route');
+const addProductComing = require('./routes/add-product-coming-route');
 app.set('view engine', 'ejs');
 app.use('/api', route);
 app.use('/api/member', memberRoute);
 app.use('/api/product', productRoute);
+app.use('/api/addProductComing', addProductComing);
 
 //Access-Control-Allow-Origin is a response header, not a request header you need to fix the permission in your backend. so you must create cors.js file that contains all necessary permissions.
 var cors2 = require('./cors');
