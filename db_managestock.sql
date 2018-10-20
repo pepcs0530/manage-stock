@@ -29,13 +29,23 @@ CREATE TABLE `member` (
   `telephone` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'เบอร์โทร',
   `address` varchar(100) DEFAULT NULL COMMENT 'ที่อยู่',
   PRIMARY KEY (`member_seq`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 /*Data for the table `member` */
 
 insert  into `member`(`member_seq`,`member_id`,`member_fname`,`member_lname`,`member_license_place`,`telephone`,`address`) values 
 (1,'00001','วาสนา','สุวรรณบำรุงชัย','กข-1234','0812345678',NULL),
-(2,'00002','อภิวิชญ์','สังข์เมือง','งง-5555','1234567899',NULL);
+(2,'00002','อภิวิชญ์','สังข์เมือง','งง-5555','1234567899',NULL),
+(7,'00007','Purmpon','Kurung','กก 9999','080008080','Ratchathewi'),
+(8,'00008','Purmpon','Kurung','กก 9999','080008080','Ratchathewi'),
+(9,'00009','เพิ่มพล','กุรัง','กกก-9999','080008000','423/9 ratchathewi'),
+(10,'00010','เพิ่มพล','กุรัง','กกก-9999','080008000','423/9 ratchathewi'),
+(11,'00011','เพิ่มพล','กุรัง','กกก-9999','080008000','423/9 ratchathewi'),
+(12,'00012','เพิ่มพล','กุรัง','กกก-9999','080008000','423/9 ratchathewi'),
+(13,'00013','เพิ่มพล','กุรัง','กกก-9999','080008000','423/9 ratchathewi'),
+(14,'14','เพิ่มพล','กุรัง','กกก-9999','080008000','423/9 ratchathewi'),
+(15,'00015','เพิ่มพล','กุรัง','กกก-9999','080008000','423/9 ratchathewi'),
+(16,'00016','reg','erge','ege','egeg','rgegeg');
 
 /*Table structure for table `pick_up` */
 
@@ -106,6 +116,25 @@ CREATE TABLE `product_type` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `product_type` */
+
+/*Table structure for table `rice_varieties` */
+
+DROP TABLE IF EXISTS `rice_varieties`;
+
+CREATE TABLE `rice_varieties` (
+  `rice_var_seq` int(11) NOT NULL AUTO_INCREMENT COMMENT 'เลข gen',
+  `rice_var_id` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'รหัสสายพันธุ์',
+  `rice_var_name` varchar(100) DEFAULT NULL COMMENT 'ชื่อสายพันธุ์',
+  `price` decimal(10,2) DEFAULT NULL COMMENT 'ราคา',
+  PRIMARY KEY (`rice_var_seq`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+/*Data for the table `rice_varieties` */
+
+insert  into `rice_varieties`(`rice_var_seq`,`rice_var_id`,`rice_var_name`,`price`) values 
+(1,'r0001','หอมมะลิ',100.00),
+(2,'r0002','ประทุม',150.00),
+(3,'r0003','ทาง',111.00);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

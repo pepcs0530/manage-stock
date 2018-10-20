@@ -7,11 +7,11 @@ import { MemberComponent } from './member/member.component';
 import { AddmemberComponent } from './addmember/addmember.component';
 import { AddproductComponent } from './addproduct/addproduct.component';
 import { SearchproductComponent } from './searchproduct/searchproduct.component';
-import { AddriceComponent } from './addrice/addrice.component';
 import { RiceComponent } from './rice/rice.component';
 import { StatComponent } from './stat/stat.component';
 import { NotificationComponent } from './notification/notification.component';
 import { AddProductComingComponent } from './add-product-coming/add-product-coming.component';
+import { AddRiceVarietiesComponent } from './add-rice-varieties/add-rice-varieties.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/addProductComing', pathMatch: 'full' },
@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'member', component: MemberComponent },
   { path: 'addmember', component: AddmemberComponent },
   { path: 'addproduct', component: AddproductComponent },
-  { path: 'addrice', component: AddriceComponent },
+  { path: 'addrice', component: AddRiceVarietiesComponent },
   { path: 'rice', component: RiceComponent },
   { path: 'searchproduct', component: SearchproductComponent },
   { path: 'stat', component: StatComponent },

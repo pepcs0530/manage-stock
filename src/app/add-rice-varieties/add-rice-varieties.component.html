@@ -1,0 +1,77 @@
+<app-navbar></app-navbar>
+<form [formGroup]="addRiceVarietieForm">
+  <div class="sticky">
+    <div class="ui-g">
+      <div class="ui-g-12" style="font-size:32px;text-align: center;">เพิ่มสายพันธุ์ข้าว</div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-3"></div>
+      <div class="ui-g-1" style="text-align: left;">
+        <label for="float-input">รหัส</label>
+      </div>
+      <div class="ui-g-2">
+        <input id="float-input" type="text" formControlName="riceVarId" size="30" style="width: 150px" pInputText>
+      </div>
+      <div class="ui-g-1" style="text-align: right;"></div>
+      <div class="ui-g-2"></div>
+      <div class="ui-g-3" style="text-align: left;"></div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-3"></div>
+      <div class="ui-g-1" style="text-align: left;">
+        <label for="float-input">ชื่อสายพันธุ์</label>
+      </div>
+      <div class="ui-g-2">
+        <input id="float-input" type="text" formControlName="riceVarName" size="30" style="width: 240px" pInputText>
+      </div>
+      <div class="ui-g-1" style="text-align: right;">
+        <label for="float-input">ราคา</label>
+      </div>
+      <div class="ui-g-1" style="text-align: left;">
+        <input id="float-input" type="text" formControlName="price" [pKeyFilter]="decimalWithDigits" size="30" style="width: 80px"
+          pInputText>
+      </div>
+      <div class="ui-g-4" style="text-align: left;">บาท</div>
+    </div>
+
+    <div class="ui-g">
+      <div class="ui-g-12" style="text-align: center;">
+        <button pButton type="button" label="บันทึก" (click)="onSubmit()" style="width:200px;" class="ui-button-raised ui-button-success"></button>&nbsp;
+        <button pButton type="button" label="ยกเลิก" (click)="onReset()" style="width:200px;" class="ui-button-danger"></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="regist" align="center">
+      <!--<form action="regist.php" method="post">
+        <table width="70%" style="font-size:32px;" border="1px">
+          <thead>
+          <tr>
+            <th style="text-align: center;">ลำดับ</th>
+            <th style="text-align: center;">รหัส</th>
+            <th style="text-align: center;">ชื่อสายพันธุ์</th>
+            <th style="text-align: center;">ราคา</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of riceList;let i = index">
+            <td class="text-right">{{i}}</td>
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td class="text-right">{{item.price}}</td>
+          </tr> 
+        </tbody>
+        </table>
+      </form>-->
+    </div>
+  </div>
+
+  <div class="footer" style="color: black">
+    <table>
+      <tr>
+
+      </tr>
+    </table>
+  </div>
+</form>

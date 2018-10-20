@@ -37,4 +37,7 @@ ng g service ../app/member/services/member/member <br/>
 ng generate component add-product-coming <br/>
 ng g component ../app/add-product-coming/components/add-product-coming-form --routing <br/>
 ng g service ../app/add-product-coming/services/add-product-coming/add-product-coming <br/>
+ng generate component add-rice-varieties <br/>
+ng g component ../app/add-rice-varieties/components/add-rice-varieties-form --routing <br/>
+ng g service ../app/add-rice-varieties/services/add-rice-varieties/add-rice-varieties <br/>
 `node api.js` for run api back-end <br/>
