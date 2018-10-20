@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddriceComponent } from './addrice.component';
+import { AddRiceVarietiesComponent } from './add-rice-varieties.component';
 
-describe('AddriceComponent', () => {
-  let component: AddriceComponent;
-  let fixture: ComponentFixture<AddriceComponent>;
+describe('AddRiceVarietiesComponent', () => {
+  let component: AddRiceVarietiesComponent;
+  let fixture: ComponentFixture<AddRiceVarietiesComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddriceComponent ]
+      declarations: [ AddRiceVarietiesComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddriceComponent);
+    fixture = TestBed.createComponent(AddRiceVarietiesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

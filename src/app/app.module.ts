@@ -22,7 +22,6 @@ import { AddproductComponent } from './addproduct/addproduct.component';
 import { SearchproductComponent } from './searchproduct/searchproduct.component';
 import { NotificationComponent } from './notification/notification.component';
 import { StatComponent } from './stat/stat.component';
-import { AddriceComponent } from './addrice/addrice.component';
 import { RiceComponent } from './rice/rice.component';
 import { RiceListComponent } from './rice/rice-list/rice-list.component';
 import { AddRiceComponent } from './rice/add-rice/add-rice.component';
@@ -32,6 +31,7 @@ import { SpinnerModule } from 'primeng/spinner';
 import { CashierComponent } from './cashier/cashier.component';
 import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
+import { KeyFilterModule } from 'primeng/keyfilter';
 import { AlertExpDateComponent } from './alert-exp-date/alert-exp-date.component';
 import { DialogModule } from 'primeng/dialog';
 import { MyDatePickerModule } from 'mydatepicker';
@@ -46,6 +46,8 @@ import { DatabaseConfig } from '@config/database/database.config';
 import { AddProductComingComponent } from './add-product-coming/add-product-coming.component';
 import { AddProductComingFormComponent } from './add-product-coming/components/add-product-coming-form/add-product-coming-form.component';
 import { AddProductComingService } from './add-product-coming/services/add-product-coming/add-product-coming.service';
+import { AddRiceVarietiesComponent } from './add-rice-varieties/add-rice-varieties.component';
+import { AddRiceVarietiesService } from './add-rice-varieties/services/add-rice-varieties/add-rice-varieties.service';
 
 @NgModule({
   declarations: [
@@ -60,7 +62,6 @@ import { AddProductComingService } from './add-product-coming/services/add-produ
     SearchproductComponent,
     NotificationComponent,
     StatComponent,
-    AddriceComponent,
     RiceComponent,
     RiceListComponent,
     AddRiceComponent,
@@ -68,7 +69,8 @@ import { AddProductComingService } from './add-product-coming/services/add-produ
     AlertExpDateComponent,
     MemberFormComponent,
     AddProductComingComponent,
-    AddProductComingFormComponent
+    AddProductComingFormComponent,
+    AddRiceVarietiesComponent
   ],
   imports: [
     BrowserModule,
@@ -89,10 +91,16 @@ import { AddProductComingService } from './add-product-coming/services/add-produ
     TableModule,
     DialogModule,
     MyDatePickerModule,
-    HttpModule
+    HttpModule,
+    KeyFilterModule
   ],
   exports: [],
-  providers: [MemberService, AddProductComingService, DatabaseConfig],
+  providers: [
+    MemberService,
+    AddProductComingService,
+    AddRiceVarietiesService,
+    DatabaseConfig
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
