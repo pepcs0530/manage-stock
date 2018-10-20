@@ -19,6 +19,7 @@ export class MemberService {
 
   constructor(private http: Http, private config: DatabaseConfig) {
     this._getURL = 'http://' + config.host + ':' + config.port + '/api/member';
+    console.log(this._getURL)
   }
 
   /* constructor() {

@@ -23,13 +23,13 @@
             <label for="float-input">ชื่อ</label>
         </div>
         <div class="ui-g-2" >
-            <input id="float-input" type="text"  size="30" style="width: 180px"  pInputText >
+            <input id="float-input" type="text" [(ngModel)]="formData.member_fname"  size="30" style="width: 180px"  pInputText >
         </div>
         <div class="ui-g-1" style="text-align: left;">
             <label for="float-input" >นามสกุล</label>
         </div>
         <div class="ui-g-2">
-            <input id="float-input" type="text"  size="30" style="width: 210px" pInputText >
+            <input id="float-input" type="text"  [(ngModel)]="formData.member_lname" size="30" style="width: 210px" pInputText >
         </div>
         <div class="ui-g-3"></div>
     </div>
@@ -39,7 +39,7 @@
           <label for="float-input">ที่อยู่</label>
       </div>
       <div class="ui-g-2" style="text-align: left;">
-          <textarea rows="2" cols="63" pInputTextarea></textarea>  
+          <textarea [(ngModel)]="formData.address" rows="2" cols="63" pInputTextarea></textarea>  
       </div>
       <div class="ui-g-5"></div>
     </div>
@@ -50,21 +50,21 @@
             <label for="float-input">เบอร์โทรศัพท์</label>
         </div>
         <div class="ui-g-2" >
-            <input id="float-input" type="text"  size="30" style="width: 180px"  pInputText >
+            <input id="float-input" type="text" [(ngModel)]="formData.telephone"  size="30" style="width: 180px"  pInputText >
         </div>
         <div class="ui-g-1" style="text-align: left;">
             <label for="float-input" >ทะเบียนรถ</label>
         </div>
         <div class="ui-g-2">
-            <input id="float-input" type="text"  size="30" style="width: 210px" pInputText >
+            <input id="float-input" type="text" [(ngModel)]="formData.member_license_place" size="30" style="width: 210px" pInputText >
         </div>
         <div class="ui-g-3"></div>
     </div>
     
     <div class="ui-g">
       <div class="ui-g-12" style="text-align: center;">
-        <button pButton type="button" label="บันทึก" style="width:200px;" class="ui-button-raised ui-button-success"></button>&nbsp;
-        <button pButton type="button" label="ยกเลิก" style="width:200px;" class="ui-button-danger"></button>
+        <button pButton type="button" label="บันทึก" (click) = "onSubmitAddMember()" style="width:200px;" class="ui-button-raised ui-button-success"></button>&nbsp;
+        <button pButton type="button" label="ยกเลิก" (click) = "onResetAddMember()" style="width:200px;" class="ui-button-danger"></button>
       </div>
       
     </div>
