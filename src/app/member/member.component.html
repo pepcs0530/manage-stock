@@ -1,85 +1,23 @@
-<!-- <!doctype html>
-<html lang="en"> -->
 
-<!-- <head>
-  <meta charset="utf-8">
-  <title>ManageStock</title>
-  <base href="/">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-</head> -->
-
-
-<!-- <body> -->
 <app-navbar></app-navbar>
 
 <div class="sticky" style="text-align: center;">
   <h2 class="caption">ค้นหาข้อมูลสมาชิก</h2>
-  <!--<div class="sticky" style="text-align: center;">
-    <table width="100%" style="font-size:24px;" >
-      <tr>
-        <td>
-          <input type="text" pInputText style="width: 500px" placeholder="รหัสสมาชิก , ชื่อ , เบอร์โทรศัพท์" />
-          <button pButton type="button" label="search"></button><br>
-        </td>
-      </tr>
-    </table>
-  --></div>
-
-<!-- <p-toolbar>
-    <div class="ui-toolbar-group-left">
-      <button pButton type="button" label="New" href="addmember" icon="pi pi-plus"></button>
-    </div>
-    <div class="ui-toolbar-group-right">
-      <p-autoComplete [(ngModel)]="query" [suggestions]="results" (completeMethod)="search($event)"></p-autoComplete>
-      <button pButton type="button" icon="pi pi-search"></button>
-    </div>
-  </p-toolbar> -->
-
-<!-- <table class="table table-bordered table-hover">
-    <thead>
-      <tr>
-        <th style="text-align: center;" width="10px">ลำดับ</th>
-        <th style="text-align: center;" width="20%">รหัสสมาชิก</th>
-        <th style="text-align: center;">ชื่อ - นามสกุล</th>
-        <th style="text-align: center;">เบอร์โทรศัพท์</th>
-        <th style="text-align: center;">ที่อยู่</th>
-        <th style="text-align: center;" width="20%">ทะเบียนรถ</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of riceList;let i = index">
-        <td class="text-right">{{i+1}}</td>
-        <td>{{item.id}}</td>
-        <td>{{item.name}}</td>
-        <td class="text-right">{{item.price}}</td>
-      </tr>
-    </tbody>
-  </table> -->
-
-<!-- <div class="main">
-      <div class="regist" align="center">
-        <form action="regist.php" method="post">
-          <table width="100%" style="font-size:24px;" border="1px">
-            <tr>
-              <th>ชื่อ</th>
-              <th>นาสกุล</th>
-              <th>ที่อยู่</th>
-              <th>เบอร์โทรศัพท์</th>
-              <th>ทะเบียนรถ</th>
-            </tr>
-          </table>
-        </form>
+</div>
+<div class="ui-g ui-fluid">
+  <div class="ui-g-12 ui-md-4">
+      <div class="ui-inputgroup">
+          <input type="text" [(ngModel)]="condition.keyword" pInputText placeholder="รหัสสมาชิค ชื่อ เบอร์โทรศัพท์">
+          <button pButton type="button" (click)="searchMember()" label="ค้นหา"></button>         
       </div>
-    </div>  -->
+  </div>
+</div>
+
 <div class="ui-g">
   <div class="ui-g-12">
     <p-table [columns]="cols" [value]="members" selectionMode="single" [(selection)]="selectedMember" (onRowSelect)="onRowSelect($event)"
       [paginator]="true" [rows]="15">
-      <ng-template pTemplate="caption">
-        ตารางข้อมูลสมาชิก
-      </ng-template>
+
       <ng-template pTemplate="header" let-columns>
         <tr>
           <th *ngFor="let col of columns" [pSortableColumn]="col.field">
@@ -97,69 +35,12 @@
       </ng-template>
       <ng-template pTemplate="summary" let-rowData>
         <div style="text-align:left">
-          <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add"></button>
+          <a type="button" pButton icon="fa fa-plus" href="/addmember" label="Add"></a>
         </div>
       </ng-template>
     </p-table>
   </div>
 </div>
 
-
-
-<!-- <p-dialog header="Member Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="300">
-    <div class="ui-g ui-fluid" *ngIf="member">
-      <div class="ui-g-12">
-        <div class="ui-g-4">
-          <label for="vin">Vin</label>
-        </div>
-        <div class="ui-g-8">
-          <input pInputText id="vin" [(ngModel)]="member.vin" />
-        </div>
-      </div>
-      <div class="ui-g-12">
-        <div class="ui-g-4">
-          <label for="year">Year</label>
-        </div>
-        <div class="ui-g-8">
-          <input pInputText id="year" [(ngModel)]="car.year" />
-        </div>
-      </div>
-      <div class="ui-g-12">
-        <div class="ui-g-4">
-          <label for="brand">Brand</label>
-        </div>
-        <div class="ui-g-8">
-          <input pInputText id="brand" [(ngModel)]="car.brand" />
-        </div>
-      </div>
-      <div class="ui-g-12">
-        <div class="ui-g-4">
-          <label for="color">Color</label>
-        </div>
-        <div class="ui-g-8">
-          <input pInputText id="color" [(ngModel)]="car.color" />
-        </div>
-      </div>
-    </div>
-    <p-footer>
-      <div class="ui-dialog-buttonpane ui-helper-clearfix">
-        <button type="button" pButton icon="fa fa-close" (click)="delete()" label="Delete"></button>
-        <button type="button" pButton icon="fa fa-check" (click)="save()" label="Save"></button>
-      </div>
-    </p-footer>
-  </p-dialog> -->
-
-
-
-<div class="footer" style="color: black">
-  <table>
-    <tr>
-
-    </tr>
-  </table>
-</div>
-<!-- </body>
-
-</html> -->
 
 <app-alert-exp-date [display]="display"></app-alert-exp-date>

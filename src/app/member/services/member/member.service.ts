@@ -55,11 +55,9 @@ export class MemberService {
     });
 
     const options = new RequestOptions({ headers: headers });
-    console.log('condition-->', condition);
-    const body = JSON.stringify(condition);
-    console.log('body-->', body);
+    console.log('condition-->', condition)
 
-    return this.http.post('/api/member', body, options).pipe(
+    return this.http.post('/api/member', condition, options).pipe(
       map(res => {
         return <Member[]>res.json();
       })

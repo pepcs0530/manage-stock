@@ -41,7 +41,7 @@ app.post('/', function(req, res, next) {
     .escape()
     .trim(); */
 
-  var condition = req.body['keyword'];
+  var condition = req.body;
   console.log('condition-->', condition);
 
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -55,10 +55,14 @@ app.post('/', function(req, res, next) {
       sql += ' FROM member ';
       sql += ' WHERE 1=1 ';
       sql +=
-        " AND (member_fname like '%" +
-        condition +
+        " AND (member_id like '%" +
+        condition.keyword +
+        "%' or member_fname like '%" +
+        condition.keyword +
         "%' or member_lname like '%" +
-        condition +
+        condition.keyword +
+        "%' or telephone like '%" +
+        condition.keyword +
         "%') ";
       sql += ' ORDER BY member_seq ASC ';
       conn.query(sql, function(err, rows, fields) {

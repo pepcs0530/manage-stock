@@ -19,20 +19,17 @@ export class MemberComponent implements OnInit {
     private memberService: MemberService // @Inject(MemberService) public memberService: MemberService
   ) {}
 
+  condition ={
+    keyword:''
+  } 
   display: Boolean;
-
   displayDialog: boolean;
-
   member: Member;
-
   selectedMember: Member;
-
   newMember: boolean;
-
   members: Member[];
-
   cols: any[];
-
+  
   ngOnInit() {
     this.display = true;
 
@@ -44,11 +41,11 @@ export class MemberComponent implements OnInit {
       { field: 'member_license_place', header: 'ทะเบียนรถ' }
     ];
 
-    this.getMemberList();
+    this.searchMember();
   }
+  searchMember() {
 
-  getMemberList() {
-    this.memberService.getMembers().subscribe(
+this.memberService.getMemberByCondition(this.condition).subscribe(
       resultArray => {
         this.members = resultArray;
         console.log('Result-->', resultArray);
