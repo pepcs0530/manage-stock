@@ -51,6 +51,9 @@ import { AddProductComponent } from './add-product/add-product.component';
 import { AddProductService } from './add-product/services/add-product/add-product.service';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
+import { NotificationService } from './notification/services/notification/notification.service';
+// tslint:disable-next-line:max-line-length
+import { DisplayDateThaiFormatDDMMYYYYModule } from '@shared/pipes/display-date-thai-format-ddmmyyyy/display-date-thai-format-ddmmyyyy.module';
 
 @NgModule({
   declarations: [
@@ -97,7 +100,8 @@ import { MessageModule } from 'primeng/message';
     HttpModule,
     KeyFilterModule,
     MessagesModule,
-    MessageModule
+    MessageModule,
+    DisplayDateThaiFormatDDMMYYYYModule
   ],
   exports: [],
   providers: [
@@ -105,6 +109,7 @@ import { MessageModule } from 'primeng/message';
     AddProductService,
     AddProductComingService,
     AddRiceVarietiesService,
+    NotificationService,
     DatabaseConfig
   ],
   bootstrap: [AppComponent]

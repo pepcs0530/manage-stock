@@ -40,7 +40,10 @@ ng g service ../app/add-product-coming/services/add-product-coming/add-product-c
 ng generate component add-rice-varieties <br/>
 ng g component ../app/add-rice-varieties/components/add-rice-varieties-form --routing <br/>
 ng g service ../app/add-rice-varieties/services/add-rice-varieties/add-rice-varieties <br/>
-ng generate component add-product
-ng g component ../app/add-product/components/add-product-form --routing
+ng generate component add-product <br/>
+ng g component ../app/add-product/components/add-product-form --routing <br/>
 ng g service ../app/add-product/services/add-product/add-product <br/>
+<br/>
+ng generate component notification <br/>
+ng g service ../app/notification/services/notification/notification <br/>
 `node api.js` for run api back-end <br/>
