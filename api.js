@@ -86,6 +86,7 @@ app.use('/api/product', productRoute);
 app.use('/api/pdf', pdfRoute);
 app.use('/api/addProductComing', addProductComing);
 app.use('/api/addRiceVarieties', addRiceVarieties);
+app.use('/api/addProduct', productRoute);
 
 //Access-Control-Allow-Origin is a response header, not a request header you need to fix the permission in your backend. so you must create cors.js file that contains all necessary permissions.
 var cors2 = require('./cors');

@@ -1,15 +1,15 @@
-
-<app-navbar></app-navbar>
+<app-navbar>
+</app-navbar>
 
 <div class="sticky" style="text-align: center;">
   <h2 class="caption">ค้นหาข้อมูลสมาชิก</h2>
 </div>
 <div class="ui-g ui-fluid">
   <div class="ui-g-12 ui-md-4">
-      <div class="ui-inputgroup">
-          <input type="text" [(ngModel)]="condition.keyword" pInputText placeholder="รหัสสมาชิค ชื่อ เบอร์โทรศัพท์">
-          <button pButton type="button" (click)="searchMember()" label="ค้นหา"></button>         
-      </div>
+    <div class="ui-inputgroup">
+      <input type="text" [(ngModel)]="condition.keyword" pInputText placeholder="รหัสสมาชิก ชื่อ เบอร์โทรศัพท์">
+      <button pButton type="button" (click)="searchMember()" label="ค้นหา"></button>
+    </div>
   </div>
 </div>
 
