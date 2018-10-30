@@ -12,8 +12,8 @@ export class NotificationService {
   private _getURL: string;
 
   constructor(private http: Http, private config: DatabaseConfig) {
-    this._getURL =
-      'http://' + config.host + ':' + config.port + '/api/notification';
+    /* this._getURL =
+      'http://' + config.host + ':' + config.port + '/api/notification'; */
   }
 
   getNotifications(): Observable<Product[]> {
@@ -28,5 +28,23 @@ export class NotificationService {
         return <Product[]>res.json();
       })
     );
+  }
+
+  getNotificationsByCondition(condition): Observable<Product[]> {
+    const headers = new Headers({
+      'Content-Type': 'application/json; charset=utf-8',
+      'Access-Control-Allow-Origin': '*'
+    });
+
+    const options = new RequestOptions({ headers: headers });
+    console.log('condition-->', condition);
+
+    return this.http
+      .post('/api/notification/getNotificationByCondition', condition, options)
+      .pipe(
+        map(res => {
+          return <Product[]>res.json();
+        })
+      );
   }
 }

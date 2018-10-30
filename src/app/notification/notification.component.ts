@@ -38,4 +38,21 @@ export class NotificationComponent implements OnInit {
       error => console.log('Error :: ', error)
     );
   }
+
+  filterGlobal(value) {
+    console.log('keyword-->', this.notificationForm.get('keyword').value);
+    console.log('keyword-->', value);
+
+    const condition = {
+      keyword: value
+    };
+
+    this.notificationService.getNotificationsByCondition(condition).subscribe(
+      resultArray => {
+        this.notifications = resultArray;
+        console.log('Result-->', resultArray);
+      },
+      error => console.log('Error :: ', error)
+    );
+  }
 }

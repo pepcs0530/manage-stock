@@ -9,17 +9,17 @@
     </div>
   </div>
 
-  <p-toolbar>
-    <!--<div class="ui-toolbar-group-left">
+  <!-- <p-toolbar> -->
+  <!--<div class="ui-toolbar-group-left">
           <button pButton type="button" label="New" href="addmember" icon="pi pi-plus"></button>
       </div>-->
-    <div class="ui-toolbar-group-right">
+  <!-- <div class="ui-toolbar-group-right">
       <p-autoComplete formControlName="keyword" [suggestions]="results" (completeMethod)="search($event)"></p-autoComplete>
       <button pButton type="button" icon="pi pi-search"></button>
     </div>
-  </p-toolbar>
+  </p-toolbar> -->
 
-  <table class="table table-bordered table-hover">
+  <!-- <table class="table table-bordered table-hover">
     <thead>
       <tr>
         <th style="text-align: center;" width="10px">ลำดับ</th>
@@ -27,7 +27,6 @@
         <th style="text-align: center;">ชื่อสินค้า</th>
         <th style="text-align: center;">วันหมดอายุ</th>
         <th style="text-align: center;">จำนวนสินค้าคงเหลืออยู่</th>
-        <!-- <th style="text-align: center;" width="20%">ทะเบียนรถ</th> -->
       </tr>
     </thead>
     <tbody>
@@ -39,5 +38,44 @@
         <td class="text-center">{{item.product_quantity}}</td>
       </tr>
     </tbody>
-  </table>
+  </table> -->
+
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <p-table #dt [value]="notifications" [paginator]="true" [rows]="10">
+        <ng-template pTemplate="caption">
+          <div style="text-align: right">
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <input type="text" pInputText size="50" placeholder="หมายเลขล็อต, ชื่อสินค้า" formControlName="keyword" (change)="filterGlobal($event.target.value)"
+              style="width:auto">
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="text-align: center;" width="5%">ลำดับ</th>
+            <th style="text-align: center;" width="20%">หมายเลขล็อต</th>
+            <th style="text-align: center;">ชื่อสินค้า</th>
+            <th style="text-align: center;">วันหมดอายุ</th>
+            <th style="text-align: center;">จำนวนสินค้าคงเหลืออยู่</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item let-i="rowIndex">
+          <tr>
+            <td class="text-right">{{i+1}}</td>
+            <td class="text-center">{{item.lot_id}}</td>
+            <td class="text-left">{{item.product_name}}</td>
+            <td class="text-center">{{item.exp_date | displayDateThaiFormatDDMMYYYY}}</td>
+            <td class="text-center">{{item.product_quantity}}</td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+          <tr>
+            <td [attr.colspan]="5">
+              ไม่พบข้อมูล
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
 </form>

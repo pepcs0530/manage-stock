@@ -15,8 +15,8 @@ app.get('/', function(req, res, next) {
     ) {
       //if(err) throw err
       if (err) {
+        next(err);
         console.log(err);
-        req.flash('error', err);
       } else {
         //console.log(rows)
         res.end(JSON.stringify(rows));
@@ -38,8 +38,8 @@ app.get('/getProductByLotId/(:id)', function(req, res, next) {
       function(err, rows, fields) {
         //if(err) throw err
         if (err) {
+          next(err);
           console.log(err);
-          req.flash('error', err);
         } else {
           //console.log(rows)
           res.end(JSON.stringify(rows));
