@@ -54,6 +54,8 @@ import { MessageModule } from 'primeng/message';
 import { NotificationService } from './notification/services/notification/notification.service';
 // tslint:disable-next-line:max-line-length
 import { DisplayDateThaiFormatDDMMYYYYModule } from '@shared/pipes/display-date-thai-format-ddmmyyyy/display-date-thai-format-ddmmyyyy.module';
+import { RiceService } from './rice/services/rice/rice.service';
+import { ThaiBathCurrencyPipeModule } from '@shared/pipes/thai-bath-currency/thai-bath-currency.module';
 
 @NgModule({
   declarations: [
@@ -101,7 +103,8 @@ import { DisplayDateThaiFormatDDMMYYYYModule } from '@shared/pipes/display-date-
     KeyFilterModule,
     MessagesModule,
     MessageModule,
-    DisplayDateThaiFormatDDMMYYYYModule
+    DisplayDateThaiFormatDDMMYYYYModule,
+    ThaiBathCurrencyPipeModule
   ],
   exports: [],
   providers: [
@@ -110,6 +113,7 @@ import { DisplayDateThaiFormatDDMMYYYYModule } from '@shared/pipes/display-date-
     AddProductComingService,
     AddRiceVarietiesService,
     NotificationService,
+    RiceService,
     DatabaseConfig
   ],
   bootstrap: [AppComponent]

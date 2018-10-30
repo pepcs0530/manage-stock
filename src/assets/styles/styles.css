@@ -29,3 +29,7 @@ body * {
 .ui-autocomplete-input {
   width: 100%;
 }
+
+body .ui-button.ui-button-icon-only .ui-button-text {
+  padding: 5px !important;
+}
