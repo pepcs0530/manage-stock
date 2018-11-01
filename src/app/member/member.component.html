@@ -2,22 +2,22 @@
 <app-navbar></app-navbar>
 
 <div class="sticky" style="text-align: center;">
-  <h2 class="caption">ค้นหาข้อมูลสมาชิก</h2>
-</div>
-<div class="ui-g ui-fluid">
-  <div class="ui-g-12 ui-md-4">
-      <div class="ui-inputgroup">
-          <input type="text" [(ngModel)]="condition.keyword" pInputText placeholder="รหัสสมาชิค ชื่อ เบอร์โทรศัพท์">
-          <button pButton type="button" (click)="searchMember()" label="ค้นหา"></button>         
-      </div>
-  </div>
+  <h2 class="caption">ข้อมูลสมาชิก</h2>
 </div>
 
 <div class="ui-g">
   <div class="ui-g-12">
-    <p-table [columns]="cols" [value]="members" selectionMode="single" [(selection)]="selectedMember" (onRowSelect)="onRowSelect($event)"
-      [paginator]="true" [rows]="15">
-
+    <p-table #tableMember [columns]="cols" [value]="members" selectionMode="single" [(selection)]="selectedMember" (onRowSelect)="onRowSelect($event)"
+      [paginator]="true" [rows]="5">
+      <ng-template pTemplate="caption">
+        <div class="ui-helper-clearfix">
+          <a pButton icon="fa fa-plus" iconPos="left" label="เพิ่มสมาชิก" href="/addmember" style="float:left"></a>
+          <div class="form-group pull-right">
+            <label >ค้นหาสมาชิก</label>
+            <input type="text" pInputText size="50" placeholder="รหัสสมาชิค ชื่อ เบอร์โทรศัพท์" (input)="tableMember.filterGlobal($event.target.value, 'contains')" style="width:auto">
+          </div>
+        </div>
+      </ng-template>
       <ng-template pTemplate="header" let-columns>
         <tr>
           <th *ngFor="let col of columns" [pSortableColumn]="col.field">
@@ -32,11 +32,6 @@
             {{rowData[col.field]}}
           </td>
         </tr>
-      </ng-template>
-      <ng-template pTemplate="summary" let-rowData>
-        <div style="text-align:left">
-          <a type="button" pButton icon="fa fa-plus" href="/addmember" label="Add"></a>
-        </div>
       </ng-template>
     </p-table>
   </div>

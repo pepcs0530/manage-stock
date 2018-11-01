@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { OrderItem } from '@shared/models/cashier/order-item';
+import { Order } from '@shared/models/cashier/order';
+import { Customer } from '@shared/models/cashier/customer';
 
 @Component({
   selector: 'app-cashier',
@@ -16,16 +19,31 @@ export class CashierComponent implements OnInit {
    customerList = [{id:'C0001',name:'สมปอง',tel:'080000080',address:'234/5 bangkok'}];
    custResults
 
-   productList = [{id : "x0001",name : "ประทุม ๑" ,price : 100,amoung:1}];
-   newProduct = {id : "x0001",name : "ประทุม ๑" ,price : 100,amoung:1}
-  constructor() { }
-  ngOnInit() {
- 
-  }
-
+   order:Order ;
+   
   text: string;
 
   results: string[];
+  constructor() { }
+  ngOnInit() {
+    this.order = new Order();
+    this.order.date = new Date();
+    this.order.receiptNo = 'ยังไม่มี';
+    this,this.order.discount = 0;
+    this.order.customer = new Customer()
+    this.order.itemList = [];
+    this.addNewRow();
+  }
+ 
+
+  addNewRow(){
+    let item = new OrderItem();
+    item.id = '0';
+    item.price = 0;
+    item.quantity = 0;
+
+    this.order.itemList.push(item);
+  }
 
   searchCustomer(event) {
     this.filteredCustomerList = [];
@@ -48,5 +66,8 @@ export class CashierComponent implements OnInit {
         }
     }
     this.results = this.filteredRiceList
+  }
+  paymentProcess(){
+    console.log(this.order)
   }
 }

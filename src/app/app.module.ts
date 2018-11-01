@@ -13,6 +13,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { MemberComponent } from './member/member.component';
 
 import { InputTextModule } from 'primeng/inputtext';
+import {InputTextareaModule} from 'primeng/inputtextarea';
 import { ButtonModule } from 'primeng/button';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ToolbarModule } from 'primeng/toolbar';
@@ -80,6 +81,7 @@ import { AddRiceVarietiesService } from './add-rice-varieties/services/add-rice-
     FormsModule,
     ReactiveFormsModule,
     InputTextModule,
+    InputTextareaModule,
     ButtonModule,
     AutoCompleteModule,
     ToolbarModule,

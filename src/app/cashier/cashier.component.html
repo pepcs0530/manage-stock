@@ -2,43 +2,42 @@
 <div class="container">
     <p-panel>
         <p-header>
-            <h3>ขายสินค้า</h3>
+            <h2>ขายสินค้า</h2>
         </p-header>
         <div class="panel-header">
             <div class="form ">
                 <div class="row">
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label>ชื่อลูกค้า</label>
-                            <p-autoComplete [(ngModel)]="customer" [suggestions]="custResults" (completeMethod)="searchCustomer($event)"></p-autoComplete>
+                    <div class="col-sm-3">
+                        <div class="form-group ui-fluid">
+                            <label>ชื่อลูกค้า</label><br />
+                            <p-autoComplete [(ngModel)]="order.customer.name" [suggestions]="custResults" (completeMethod)="searchCustomer($event)"></p-autoComplete>
                         </div>
                     </div>
-                    <div class="col-sm-4 pull-right">
-                        <div class="form-group">
-                            <label>วันที่</label>
-                            <p-calendar [(ngModel)]="saleDate"  [showIcon]="true"></p-calendar>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="form-group">
+                    <div class="col-sm-3">
+                        <div class="form-group ui-fluid">
                             <label>โทรศัพท์</label>
-                            <input pInputText type="tel" class="form-control">
+                            <input pInputText type="text" [(ngModel)]="order.customer.phone" class="form-control">
                         </div>
                     </div>
-                    <div class="col-sm-4 pull-right">
-                        <div class="form-group">
-                            <label>เลขที่ใบเสร็จ</label>
-                            <input pInputText type="text" class="form-control">
+                    <div class="col-sm-3 pull-right">
+                        <div class="form-group ui-fluid">
+                            <label>วันที่</label><br/>
+                            <p-calendar [(ngModel)]="order.date"  [showIcon]="true"></p-calendar>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-4">
-                        <div class="form-group">
+                    
+                    <div class="col-sm-6">
+                        <div class="form-group  ui-fluid">
                             <label >ที่อยู่</label>
-                            <textarea class="form-control" pInputTextarea [(ngModel)]="customerAddress"></textarea>
+                            <textarea class="form-control" pInputTextarea [(ngModel)]="order.customer.address"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 pull-right">
+                        <div class="form-group  ui-fluid">
+                            <label>เลขที่ใบเสร็จ</label>
+                            <input pInputText type="text" class="form-control" disabled [ngModel]="order.receiptNo">
                         </div>
                     </div>
                 </div>
@@ -52,36 +51,38 @@
                     <th style="width: 15%">จำนวน</th>
                     <th style="width: 15%">ราคาต่อหน่วย</th>
                     <th style="width: 15%">จำนวนเงิน</th>
-                    <th style="width: 15px"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let item of productList; let i =index">
+                <tr *ngFor="let item of order.itemList; let i =index">
                     <td class="text-right">{{i + 1}}</td>
-                    <td><p-autoComplete [(ngModel)]="item.name" [suggestions]="riceResults" (completeMethod)="searchRice($event)"></p-autoComplete></td>
-                    <td><input [(ngModel)]="item.amoung" type="number" class="form-control text-right" style="width:100%" min="1" max="100"></td>
-                    <td class="text-right"><input [(ngModel)]="item.price" type="number" class="form-control text-right" style="width:100%" min="1" max="100"></td>
-                    <td class="text-right">{{item.price*item.amoung}}</td>
-                    <td><button class="btn btn-success btn-block"><span class="glyphicon glyphicon-plus"></span></button></td>
+                    <td class="ui-fluid"><p-autoComplete [(ngModel)]="item.name" [suggestions]="riceResults" (completeMethod)="searchRice($event)" styleClass="wid100"></p-autoComplete></td>
+                    <td><input pInputText [(ngModel)]="item.quantity" type="number" min="0" class="form-control text-right" style="width:100%" min="1" max="100"></td>
+                    <td><input pInputText [(ngModel)]="item.price" type="number" min="0"  class="form-control text-right" style="width:100%" min="1" max="100"></td>
+                    <td class="text-right">{{item.price*item.quantity}}</td>
+                </tr> 
+                <tr>
+                    <td class="text-right"></td>
+                    <td class="ui-fluid" colspan="4"><p-button type label="เพิ่มรายการ" icon="pi pi-plus" (onClick)="addNewRow()"></p-button></td>
+                    
+                    
                 </tr> 
             </tbody>
             <tfoot>
                 <tr>
                     <th class="text-center" colspan="4">ส่วนลด</th>
-                    <th class="text-right"><input type="number" class="form-control"></th>
-                    <th></th>
+                    <th class=""><input type="number" pInputText [(ngModel)]="order.discount" class="form-control text-right"></th>
                 </tr>
                 <tr>
                     <th class="text-center" colspan="4">รวม</th>
-                    <th class="text-right">10000</th>
-                    <th></th>
+                    <th class="text-right">{{order.totalPrice}}</th>
                 </tr>
             </tfoot>
         </table>
         <p-footer>
-            <button pButton type="button" icon="pi pi-times" label="ยกเลิก" class="ui-button-danger" style="margin-right: .25em"></button>
-            <button pButton type="button" icon="pi pi-check" label="ดำเนินการ" class="ui-button-success pull-right"></button>
-            <button pButton type="button" icon="pi pi-print" label="ออกใบเสร็จ" class="ui-button-primary pull-right"style="margin-right: .25em"></button>
+            <button pButton type="button" (click)="ngOnInit()" icon="pi pi-times" label="ยกเลิก" class="ui-button-danger" style="margin-right: .25em"></button>
+            <button pButton type="button" (click)="paymentProcess()" icon="pi pi-check" label="ดำเนินการ" class="ui-button-success pull-right"></button>
+            <button pButton type="button" (click)="exportReceipt()"icon="pi pi-print" label="ออกใบเสร็จ" class="ui-button-primary pull-right"style="margin-right: .25em"></button>
         </p-footer>
     </p-panel>
 </div>
