@@ -19,7 +19,6 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ToolbarModule } from 'primeng/toolbar';
 import { PanelModule } from 'primeng/panel';
 import { AddmemberComponent } from './addmember/addmember.component';
-import { AddproductComponent } from './addproduct/addproduct.component';
 import { SearchproductComponent } from './searchproduct/searchproduct.component';
 import { NotificationComponent } from './notification/notification.component';
 import { StatComponent } from './stat/stat.component';
@@ -49,6 +48,15 @@ import { AddProductComingFormComponent } from './add-product-coming/components/a
 import { AddProductComingService } from './add-product-coming/services/add-product-coming/add-product-coming.service';
 import { AddRiceVarietiesComponent } from './add-rice-varieties/add-rice-varieties.component';
 import { AddRiceVarietiesService } from './add-rice-varieties/services/add-rice-varieties/add-rice-varieties.service';
+import { AddProductComponent } from './add-product/add-product.component';
+import { AddProductService } from './add-product/services/add-product/add-product.service';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { NotificationService } from './notification/services/notification/notification.service';
+// tslint:disable-next-line:max-line-length
+import { DisplayDateThaiFormatDDMMYYYYModule } from '@shared/pipes/display-date-thai-format-ddmmyyyy/display-date-thai-format-ddmmyyyy.module';
+import { RiceService } from './rice/services/rice/rice.service';
+import { ThaiBathCurrencyPipeModule } from '@shared/pipes/thai-bath-currency/thai-bath-currency.module';
 
 @NgModule({
   declarations: [
@@ -59,7 +67,6 @@ import { AddRiceVarietiesService } from './add-rice-varieties/services/add-rice-
     NavbarComponent,
     MemberComponent,
     AddmemberComponent,
-    AddproductComponent,
     SearchproductComponent,
     NotificationComponent,
     StatComponent,
@@ -71,7 +78,8 @@ import { AddRiceVarietiesService } from './add-rice-varieties/services/add-rice-
     MemberFormComponent,
     AddProductComingComponent,
     AddProductComingFormComponent,
-    AddRiceVarietiesComponent
+    AddRiceVarietiesComponent,
+    AddProductComponent
   ],
   imports: [
     BrowserModule,
@@ -94,13 +102,20 @@ import { AddRiceVarietiesService } from './add-rice-varieties/services/add-rice-
     DialogModule,
     MyDatePickerModule,
     HttpModule,
-    KeyFilterModule
+    KeyFilterModule,
+    MessagesModule,
+    MessageModule,
+    DisplayDateThaiFormatDDMMYYYYModule,
+    ThaiBathCurrencyPipeModule
   ],
   exports: [],
   providers: [
     MemberService,
+    AddProductService,
     AddProductComingService,
     AddRiceVarietiesService,
+    NotificationService,
+    RiceService,
     DatabaseConfig
   ],
   bootstrap: [AppComponent]
