@@ -22,7 +22,7 @@ export class AddProductComingService {
     const body = JSON.stringify(payload);
     console.log('body-->', body);
 
-    return this.http.post('/api/addProductComing/create', payload, options);
+    return this.http.post('/api/addProductComing/create', body, options);
     // .map(res => res.json());
   }
 }

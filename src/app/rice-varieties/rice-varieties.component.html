@@ -1,0 +1,76 @@
+<app-navbar></app-navbar>
+<form [formGroup]="riceVarietieForm">
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <p-table #dt [value]="riceVarieties" selectionMode="single" [(selection)]="selectedRiceVarietie" (onRowSelect)="onRowSelect($event)"
+        selectionMode="single" [paginator]="true" [rows]="10">
+        <ng-template pTemplate="caption">
+          <div class="ui-g">
+            <div class="ui-g-4" style="text-align: left">
+              <button pButton type="button" icon="fa fa-plus" (click)="showDialogToAdd()"></button>
+            </div>
+            <div class="ui-g-4" style="text-align: center">
+              ตารางสายพันธุ์ข้าว
+            </div>
+            <div class="ui-g-4" style="text-align: right">
+              <input type="text" formControlName="keyword" pInputText placeholder="รหัส, ชื่อสายพันธุ์">
+              <button pButton type="button" icon="fa fa-search" (click)="search()"></button>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="text-align: center;" width="5%">ลำดับ</th>
+            <th style="text-align: center;" width="20%">รหัส</th>
+            <th style="text-align: center;">ชื่อสายพันธุ์</th>
+            <th style="text-align: center;" width="20%">ราคา</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item let-i="rowIndex">
+          <tr [pSelectableRow]="item">
+            <td class="text-right">{{i+1}}</td>
+            <td class="text-center">{{item.rice_var_id}}</td>
+            <td class="text-left">{{item.rice_var_name}}</td>
+            <td class="text-right">{{item.price | thaiBathCurrencyPipe}}</td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+          <tr>
+            <td [attr.colspan]="4">
+              ไม่พบข้อมูล
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</form>
+
+<p-dialog header="เพิ่ม/แก้ไข สายพันธุ์ข้าว" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"
+  [width]="800">
+  <div class="ui-g ui-fluid" *ngIf="riceVarietie">
+    <form [formGroup]="saveRiceVarietieForm">
+      <div class="ui-g">
+        <div class="ui-g-12">
+          <label for="float-input">รหัส</label> &nbsp;
+          <input id="float-input" type="text" formControlName="riceVarId" size="30" style="width: 150px" pInputText>
+        </div>
+        <div class="ui-g-8">
+          <label for="float-input">ชื่อสายพันธุ์</label> &nbsp;
+          <input id="float-input" type="text" formControlName="riceVarName" size="30" style="width: 380px" pInputText>
+        </div>
+        <div class="ui-g-4">
+          <label for="float-input">ราคา</label> &nbsp;
+          <input id="float-input" type="text" formControlName="price" [pKeyFilter]="decimalWithDigits" size="30" style="width: 130px"
+            pInputText> &nbsp; บาท
+        </div>
+      </div>
+    </form>
+  </div>
+  <p-footer>
+    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+      <button type="button" pButton icon="fa fa-close" (click)="delete()" label="ลบ" *ngIf="!newRiceVarietie"></button>
+      <button type="button" pButton icon="fa fa-check" (click)="save()" label="บันทึก"></button>
+    </div>
+  </p-footer>
+</p-dialog>

@@ -53,4 +53,7 @@ ng g service ../app/notification/services/notification/notification <br/>
 <br/>
 ng generate component rice <br/>
 ng g service ../app/rice/services/rice/rice <br/>
+<br/>
+ng generate component rice-varieties <br/>
+ng g service ../app/rice-varieties/services/rice-varieties/rice-varieties <br/>
 `node api.js` for run api back-end <br/>

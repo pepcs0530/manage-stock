@@ -22,7 +22,7 @@ export class AddRiceVarietiesService {
     const body = JSON.stringify(payload);
     console.log('body-->', body);
 
-    return this.http.post('/api/addRiceVarieties/create', payload, options);
+    return this.http.post('/api/addRiceVarieties/add', payload, options);
     // .map(res => res.json());
   }
 }
