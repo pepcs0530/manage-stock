@@ -1,44 +1,29 @@
 const express = require('express');
 const app = express();
 
-app.post('/create', function(req, res, next) {
+app.get('/', function(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Content-Type', 'application/json');
-  console.log('---START CREATE POST ACTION---');
-
-  console.log('body-->', req.body);
-
-  var payload = {
-    rice_var_id: req.body['riceVarId'],
-    rice_var_name: req.body['riceVarName'],
-    price: req.body['price']
-  };
-
-  console.log('payload-->', payload);
   req.getConnection(function(error, conn) {
-    try {
-      conn.query('INSERT INTO rice_varieties SET ?', payload, function(
-        err,
-        result
-      ) {
+    console.log('---START getNotification---');
+    conn.query(
+      'SELECT * FROM product WHERE 1=1 AND DATEDIFF(exp_date, NOW()) < 30 ORDER BY product_seq DESC',
+      function(err, rows, fields) {
         //if(err) throw err
         if (err) {
           next(err);
           console.log(err);
         } else {
-          res.end();
-          console.log('Data added successfully!');
-          console.log('---END CREATE POST ACTION---');
+          //console.log(rows)
+          res.end(JSON.stringify(rows));
         }
-      });
-    } catch (e) {
-      console.error('err thrown: ' + e.stack);
-      res.sendStatus(500);
-    }
+      }
+    );
+    console.log('---END getNotification---');
   });
 });
 
-app.post('/getRiceVarietiesByCondition', function(req, res, next) {
+app.post('/getNotificationByCondition', function(req, res, next) {
   /* console.log('req-->', req);
   console.log('body-->', req.body); */
   var condition = req.body;
@@ -47,23 +32,24 @@ app.post('/getRiceVarietiesByCondition', function(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Content-Type', 'application/json');
   req.getConnection(function(error, conn) {
-    console.log('---START getRiceVarietiesByCondition---');
+    console.log('---START getNotificationByCondition---');
     try {
       var sql = '';
       sql += ' SELECT * ';
-      sql += ' FROM rice_varieties ';
+      sql += ' FROM product ';
       sql += ' WHERE 1=1 ';
+      sql += ' AND DATEDIFF(exp_date, NOW()) < 30 ';
 
       if (condition.keyword != undefined) {
         sql +=
-          " AND (rice_var_id like '%" +
+          " AND (lot_id like '%" +
           condition.keyword +
-          "%' OR rice_var_name like '%" +
+          "%' or product_name like '%" +
           condition.keyword +
           "%') ";
       }
 
-      sql += ' ORDER BY rice_var_seq DESC ';
+      sql += ' ORDER BY product_seq DESC ';
       console.error('sql: ', sql);
       conn.query(sql, function(err, rows, fields) {
         //if(err) throw err
@@ -80,7 +66,7 @@ app.post('/getRiceVarietiesByCondition', function(req, res, next) {
       console.error('err thrown: ' + e.stack);
       res.sendStatus(500);
     }
-    console.log('---END getRiceVarietiesByCondition---');
+    console.log('---END getNotificationByCondition---');
   });
 });
 

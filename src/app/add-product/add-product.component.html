@@ -1,0 +1,68 @@
+<app-navbar></app-navbar>
+<p-messages [(value)]="msgs"></p-messages>
+<form [formGroup]="addProductForm">
+  <div class="ui-g">
+    <div class="ui-g-12" style="font-size:32px;text-align: center;">เพิ่มสินค้า</div>
+  </div>
+
+  <div class="ui-g">
+    <div class="ui-g-3"></div>
+    <div class="ui-g-1" style="text-align: left;">
+      <label for="float-input">เลขล็อต</label>
+    </div>
+    <div class="ui-g-2">
+      <input id="float-input" type="text" formControlName="lotId" (change)="getRiceVarities(this.addProductForm.get('lotId').value)"
+        size="30" style="width: 150px" pInputText>
+    </div>
+    <div class="ui-g-1" style="text-align: right;">
+      <label for="float-input"></label>
+    </div>
+    <div class="ui-g-2"></div>
+    <div class="ui-g-3"></div>
+  </div>
+  <div class="ui-g">
+    <div class="ui-g-3"></div>
+    <div class="ui-g-1" style="text-align: left;">
+      <label for="float-input">พันธุ์ข้าว</label>
+    </div>
+    <div class="ui-g-1">
+      <input id="float-input" type="text" formControlName="riceVarieties" size="30" style="width: 150px" pInputText disabled>
+    </div>
+    <div class="ui-g-2" style="text-align: right;">
+      <label for="float-input">จำนวนกระสอบ</label>
+    </div>
+    <div class="ui-g-2">
+      <p-spinner size="15" formControlName="productQuantity" [min]="0" [max]="100"></p-spinner>
+    </div>
+    <div class="ui-g-3"></div>
+  </div>
+
+  <div class="ui-g">
+    <div class="ui-g-3"></div>
+    <div class="ui-g-2" style="text-align: right;">
+      <label for="float-input">วันที่ผลิต</label>
+    </div>
+    <div class="ui-g-2" style="text-align: left;">
+      <p-calendar formControlName="mfdDate" dateFormat="dd/mm/yy" [showIcon]="true"></p-calendar>
+    </div>
+    <div class="ui-g-5"></div>
+  </div>
+  <div class="ui-g">
+    <div class="ui-g-3"></div>
+    <div class="ui-g-2" style="text-align: right;">
+      <label for="float-input">วันที่หมดอายุ</label>
+    </div>
+    <div class="ui-g-2" style="text-align: left;">
+      <p-calendar formControlName="expDate" dateFormat="dd/mm/yy" [showIcon]="true">
+      </p-calendar>
+    </div>
+    <div class="ui-g-5"></div>
+  </div>
+
+  <div class="ui-g">
+    <div class="ui-g-12" style="text-align: center;">
+      <button pButton type="button" (click)="save()" label="บันทึก" style="width:200px;" class="ui-button-raised ui-button-success"></button>&nbsp;
+      <button pButton type="button" (click)="reset()" label="ยกเลิก" style="width:200px;" class="ui-button-danger"></button>
+    </div>
+  </div>
+</form>
