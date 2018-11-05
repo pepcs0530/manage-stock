@@ -15,6 +15,8 @@ import { MemberService } from '../member/services/member/member.service';
 import { Member } from '@shared/models/member/member';
 import { AddProductComingService } from './services/add-product-coming/add-product-coming.service';
 import { Observable } from '../../../node_modules/rxjs';
+import { RiceService } from '../rice/services/rice/rice.service';
+import { RiceVarieties } from '@shared/models/rice-varieties/rice-varieties';
 
 @Component({
   selector: 'app-add-product-coming',
@@ -24,6 +26,7 @@ import { Observable } from '../../../node_modules/rxjs';
 export class AddProductComingComponent implements OnInit {
   constructor(
     private memberService: MemberService,
+    private riceService: RiceService,
     private addProductComingService: AddProductComingService
   ) {}
 
@@ -33,6 +36,8 @@ export class AddProductComingComponent implements OnInit {
   members: Member[];
   results: Member[];
   display: Member[];
+
+  riceVarieties: RiceVarieties[];
 
   @Output()
   userSelected: any = new EventEmitter();
@@ -88,6 +93,18 @@ export class AddProductComingComponent implements OnInit {
     });
   }
 
+  searchRiceVarieties(event) {
+    console.log('event-->', event);
+    const condition = {
+      keyword: event.query
+    };
+    this.riceService.getRiceVarietiesByCondition(condition).subscribe(data => {
+      console.log('data-->', data);
+      this.riceVarieties = data;
+      // this.display = data.map(key => key.member_name);
+    });
+  }
+
   save() {
     const payload = {
       ...this.addForm.value
@@ -123,5 +140,12 @@ export class AddProductComingComponent implements OnInit {
       licensePlace: null
     });
     this.addForm.get('member').setValue(null);
+  }
+
+  clearLov(lovName: string[]) {
+    console.log('clearLov-->', lovName);
+    lovName.forEach(namelov => {
+      this.addForm.get(namelov).setValue(null);
+    });
   }
 }

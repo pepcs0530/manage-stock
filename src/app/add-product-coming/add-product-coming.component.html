@@ -51,7 +51,8 @@
         <label for="float-input">พันธุ์ข้าว</label>
       </div>
       <div class="ui-g-2">
-        <p-autoComplete formControlName="riceVarieties" [suggestions]="results" (completeMethod)="search($event)"></p-autoComplete>
+        <p-autoComplete formControlName="riceVarieties" [suggestions]="riceVarieties" (completeMethod)="searchRiceVarieties($event)"
+          field="rice_var_name" [forceSelection]="true" (onClear)="clearLov(['riceVarieties'])"></p-autoComplete>
       </div>
       <div class="ui-g-3"></div>
     </div>

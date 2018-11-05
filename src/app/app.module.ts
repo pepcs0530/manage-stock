@@ -57,6 +57,7 @@ import { NotificationService } from './notification/services/notification/notifi
 import { DisplayDateThaiFormatDDMMYYYYModule } from '@shared/pipes/display-date-thai-format-ddmmyyyy/display-date-thai-format-ddmmyyyy.module';
 import { RiceService } from './rice/services/rice/rice.service';
 import { ThaiBathCurrencyPipeModule } from '@shared/pipes/thai-bath-currency/thai-bath-currency.module';
+import { RiceVarietiesComponent } from './rice-varieties/rice-varieties.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { ThaiBathCurrencyPipeModule } from '@shared/pipes/thai-bath-currency/tha
     AddProductComingComponent,
     AddProductComingFormComponent,
     AddRiceVarietiesComponent,
-    AddProductComponent
+    AddProductComponent,
+    RiceVarietiesComponent
   ],
   imports: [
     BrowserModule,

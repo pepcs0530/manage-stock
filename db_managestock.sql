@@ -105,7 +105,7 @@ CREATE TABLE `product` (
 /*Data for the table `product` */
 
 insert  into `product`(`product_seq`,`product_id`,`product_name`,`product_type_id`,`time_in`,`time_out`,`rice_varieties`,`remark`,`date`,`lot_id`,`product_quantity`,`mfd_date`,`exp_date`) values 
-(3,NULL,NULL,NULL,'2018-10-18 23:28:29','2018-10-18 23:30:29','หอมมะลิ','หมายเหตุ','2018-10-18',1539880169,NULL,NULL,NULL),
+(3,NULL,NULL,NULL,'2018-10-18 23:28:29','2018-10-18 23:30:29','หอมมะลิ','หมายเหตุ','2018-10-18',1549880169,NULL,NULL,NULL),
 (4,NULL,NULL,NULL,NULL,NULL,'หอมมะลิ',NULL,NULL,1539880169,1.00,'2018-10-01','2018-11-02');
 
 /*Table structure for table `product_det` */
@@ -156,7 +156,7 @@ insert  into `rice_varieties`(`rice_var_seq`,`rice_var_id`,`rice_var_name`,`pric
 (1,'r0001','หอมมะลิ',100.00),
 (2,'r0002','ประทุม',150.00),
 (3,'r0003','ทาง',111.00),
-(4,NULL,NULL,NULL);
+(4,'r004','ไรซ์เบอรี่',12377.45);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

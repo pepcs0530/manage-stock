@@ -38,6 +38,82 @@ app.post('/create', function(req, res, next) {
   });
 });
 
+app.post('/add', function(req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Content-Type', 'application/json');
+  console.log('---START add---');
+
+  console.log('body-->', req.body);
+
+  var payload = {
+    rice_var_id: req.body['riceVarId'],
+    rice_var_name: req.body['riceVarName'],
+    price: req.body['price']
+  };
+
+  console.log('payload-->', payload);
+  req.getConnection(function(error, conn) {
+    try {
+      conn.query('INSERT INTO rice_varieties SET ?', payload, function(
+        err,
+        result
+      ) {
+        //if(err) throw err
+        if (err) {
+          next(err);
+          console.log(err);
+        } else {
+          res.end();
+          console.log('Data added successfully!');
+          console.log('---END add---');
+        }
+      });
+    } catch (e) {
+      console.error('err thrown: ' + e.stack);
+      res.sendStatus(500);
+    }
+  });
+});
+
+app.put('/edit/(:id)', function(req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Content-Type', 'application/json');
+  console.log('---START edit---');
+
+  console.log('body-->', req.body);
+
+  var payload = {
+    // rice_var_seq: req.body['riceVarSeq'],
+    rice_var_id: req.body['riceVarId'],
+    rice_var_name: req.body['riceVarName'],
+    price: req.body['price']
+  };
+
+  console.log('payload-->', payload);
+  req.getConnection(function(error, conn) {
+    try {
+      conn.query(
+        'UPDATE rice_varieties SET ? WHERE rice_var_seq = ' + req.params.id,
+        payload,
+        function(err, result) {
+          //if(err) throw err
+          if (err) {
+            next(err);
+            console.log(err);
+          } else {
+            res.end();
+            console.log('Data updated successfully!');
+            console.log('---END edit---');
+          }
+        }
+      );
+    } catch (e) {
+      console.error('err thrown: ' + e.stack);
+      res.sendStatus(500);
+    }
+  });
+});
+
 app.post('/getRiceVarietiesByCondition', function(req, res, next) {
   /* console.log('req-->', req);
   console.log('body-->', req.body); */
@@ -81,6 +157,28 @@ app.post('/getRiceVarietiesByCondition', function(req, res, next) {
       res.sendStatus(500);
     }
     console.log('---END getRiceVarietiesByCondition---');
+  });
+});
+
+app.delete('/deleteById/(:id)', function(req, res, next) {
+  console.log('---START deleteById---');
+
+  // var rfid = { rfid_gen: req.params.id }
+
+  req.getConnection(function(error, conn) {
+    conn.query(
+      'DELETE FROM rice_varieties WHERE rice_var_seq = ' + req.params.id,
+      null,
+      function(err, result) {
+        if (err) {
+          console.log(err);
+          next(err);
+        } else {
+          res.end();
+          console.log('---END deleteById---');
+        }
+      }
+    );
   });
 });
 
