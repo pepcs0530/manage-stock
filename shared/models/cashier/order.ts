@@ -8,10 +8,13 @@ export class Order{
     receiptNo:string;
     itemList:OrderItem[];
     discount:number;
+    get pricelist():number[]{
+             return this.itemList.map(function (curr){
+            return curr.price*curr.quantity
+        } )  
+    }
     get  totalPrice():number{
-        return this.itemList.map(function (curr){
-            return curr.price
-        } ).reduce(function (prev,curr){
+        return this.pricelist.reduce(function (prev,curr){
             return prev + curr;
         }) - this.discount;
     }
