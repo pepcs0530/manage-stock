@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { OrderItem } from '@shared/models/cashier/order-item';
 import { Order } from '@shared/models/cashier/order';
 import { Customer } from '@shared/models/cashier/customer';
-
+import { CashierService } from './cashier.service'
 @Component({
   selector: 'app-cashier',
   templateUrl: './cashier.component.html',
@@ -24,11 +24,11 @@ export class CashierComponent implements OnInit {
   text: string;
 
   results: string[];
-  constructor() { }
+  constructor(private cashierService:CashierService) { }
   ngOnInit() {
     this.order = new Order();
     this.order.date = new Date();
-    this.order.receiptNo = 'ยังไม่มี';
+    this.order.receiptNo = '';
     this,this.order.discount = 0;
     this.order.customer = new Customer()
     this.order.itemList = [];
@@ -68,6 +68,9 @@ export class CashierComponent implements OnInit {
     this.results = this.filteredRiceList
   }
   paymentProcess(){
-    console.log(this.order)
+    this.cashierService.saveOrder(this.order)
+    .subscribe(res => {
+        console.log(res)
+    });
   }
 }

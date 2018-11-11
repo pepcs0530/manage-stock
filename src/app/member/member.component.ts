@@ -45,7 +45,7 @@ export class MemberComponent implements OnInit {
   }
   searchMember() {
 
-this.memberService.getMemberByCondition(this.condition).subscribe(
+    this.memberService.getMemberByCondition(this.condition).subscribe(
       resultArray => {
         this.members = resultArray;
         console.log('Result-->', resultArray);
