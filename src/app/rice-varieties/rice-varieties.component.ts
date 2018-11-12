@@ -4,6 +4,7 @@ import { RiceVarieties } from '@shared/models/rice-varieties/rice-varieties';
 import { RiceService } from '../rice/services/rice/rice.service';
 import { RiceVarietiesService } from './services/rice-varieties/rice-varieties.service';
 import { Observable } from '../../../node_modules/rxjs';
+import { tap, finalize } from '../../../node_modules/rxjs/operators';
 
 @Component({
   selector: 'app-rice-varieties',
@@ -96,7 +97,7 @@ export class RiceVarietiesComponent implements OnInit {
     return riceVarietie;
   }
 
-  delete() {
+  /* delete() {
     if (confirm('ต้องการลบข้อมูลหรือไม่')) {
       console.log('delete-->', this.saveRiceVarietieForm);
       const key = this.saveRiceVarietieForm.get('riceVarSeq').value;
@@ -113,6 +114,31 @@ export class RiceVarietiesComponent implements OnInit {
           return Observable.throw(error);
         }
       );
+    }
+  } */
+
+  delete(event) {
+    if (confirm('ต้องการลบข้อมูลหรือไม่')) {
+      console.log('delete-->', event);
+      const key = event.rice_var_seq;
+      console.log('key-->', key);
+      this.riceVarietiesService
+        .deleteRiceVarietie(key)
+        .pipe(
+          tap(() => this.search()),
+          finalize(() => alert('ลบข้อมูลเรียบร้อย'))
+        )
+        .subscribe(
+          data => {
+            this.displayDialog = false;
+            console.log('response-->', data);
+            return true;
+          },
+          error => {
+            console.error('error-->', error);
+            return Observable.throw(error);
+          }
+        );
     }
   }
 
@@ -151,5 +177,23 @@ export class RiceVarietiesComponent implements OnInit {
         }
       );
     }
+  }
+
+  cancel() {
+    const key = this.saveRiceVarietieForm.get('riceVarSeq').value;
+    console.log('key-->', key);
+    this.riceVarietiesService.getRiceVarietieById(key).subscribe(
+      resultArray => {
+        // this.members = resultArray;
+        console.log('Result-->', resultArray);
+        this.saveRiceVarietieForm.patchValue({          
+          riceVarSeq: resultArray[0]['rice_var_seq'],
+          riceVarId: resultArray[0]['rice_var_id'],
+          riceVarName: resultArray[0]['rice_var_name'],
+          price: resultArray[0]['price']
+        });
+      },
+      error => console.log('Error-->', error)
+    );
   }
 }

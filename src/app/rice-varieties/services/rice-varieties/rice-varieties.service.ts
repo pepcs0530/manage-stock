@@ -52,4 +52,20 @@ export class RiceVarietiesService {
 
     return this.http.delete('/api/riceVarieties/deleteById/' + key);
   }
+
+  getRiceVarietieById(id: number): Observable<RiceVarieties[]> {
+    const headers = new Headers({
+      'Content-Type': 'application/json; charset=utf-8',
+      'Access-Control-Allow-Origin': '*'
+    });
+    const options = new RequestOptions({ headers: headers });
+
+    return this.http
+      .get('/api/riceVarieties/getRiceVarietieById/' + id, options)
+      .pipe(
+        map(res => {
+          return <RiceVarieties[]>res.json();
+        })
+      );
+  }
 }

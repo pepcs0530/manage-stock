@@ -182,4 +182,34 @@ app.delete('/deleteById/(:id)', function(req, res, next) {
   });
 });
 
+app.get('/getRiceVarietieById/(:id)', function(req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Content-Type', 'application/json');
+  req.getConnection(function(error, conn) {
+    console.log('---START getRiceVarietieById---');
+    try {
+      conn.query(
+        'SELECT * FROM rice_varieties WHERE rice_var_seq = ' +
+          req.params.id +
+          ' ORDER BY rice_var_seq ASC',
+        function(err, rows, fields) {
+          //if(err) throw err
+          if (err) {
+            console.log(err);
+            // req.flash('error', err);
+            next(err);
+          } else {
+            //console.log(rows)
+            res.end(JSON.stringify(rows));
+          }
+        }
+      );
+    } catch (e) {
+      console.error('err thrown: ', e.stack);
+      res.sendStatus(500);
+    }
+    console.log('---END getRiceVarietieById---');
+  });
+});
+
 module.exports = app;
