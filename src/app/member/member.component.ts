@@ -4,6 +4,9 @@ import { Member } from '@shared/models/member/member';
 import { MemberService } from './services/member/member.service';
 import { HttpModule } from '../../../node_modules/@angular/http';
 import { DatabaseConfig } from '@config/database/database.config';
+import { FormBuilder, FormGroup } from '../../../node_modules/@angular/forms';
+import { Observable } from '../../../node_modules/rxjs';
+import { tap, finalize } from '../../../node_modules/rxjs/operators';
 
 @Component({
   selector: 'app-member',
@@ -15,22 +18,29 @@ export class MemberComponent implements OnInit {
   imgPath = require('src/assets/images/banner.jpg');
 
   constructor(
+    private formBuilder: FormBuilder,
     // @Inject(forwardRef(() => MemberService)) memberService
     private memberService: MemberService // @Inject(MemberService) public memberService: MemberService
   ) {}
 
-  condition ={
-    keyword:''
-  } 
+  memberForm: FormGroup;
+  saveMemberForm: FormGroup;
+
+  condition = {
+    keyword: ''
+  };
+
   display: Boolean;
   displayDialog: boolean;
-  member: Member;
+  member: any;
   selectedMember: Member;
   newMember: boolean;
   members: Member[];
   cols: any[];
-  
+
   ngOnInit() {
+    this.initForm();
+
     this.display = true;
 
     this.cols = [
@@ -43,9 +53,41 @@ export class MemberComponent implements OnInit {
 
     this.searchMember();
   }
-  searchMember() {
 
+  initForm() {
+    this.memberForm = this.formBuilder.group({
+      keyword: [null]
+    });
+
+    this.saveMemberForm = this.formBuilder.group({
+      memberSeq: [null],
+      memberId: [null],
+      memberFname: [null],
+      memberLname: [null],
+      address: [null],
+      telephone: [null],
+      memberLicensePlace: [null]
+    });
+  }
+
+  searchMember() {
     this.memberService.getMemberByCondition(this.condition).subscribe(
+      resultArray => {
+        this.members = resultArray;
+        console.log('Result-->', resultArray);
+      },
+      error => console.log('Error :: ', error)
+    );
+  }
+
+  search() {
+    console.log('payload-->', this.memberForm.get('keyword').value);
+
+    const payload = {
+      keyword: this.memberForm.get('keyword').value
+    };
+
+    this.memberService.getMemberByCondition(payload).subscribe(
       resultArray => {
         this.members = resultArray;
         console.log('Result-->', resultArray);
@@ -56,11 +98,12 @@ export class MemberComponent implements OnInit {
 
   showDialogToAdd() {
     this.newMember = true;
-    this.member = null;
+    this.member = {};
+    this.saveMemberForm.reset();
     this.displayDialog = true;
   }
 
-  save() {
+  /* save() {
     const members = [...this.members];
     if (this.newMember) {
       members.push(this.member);
@@ -71,19 +114,133 @@ export class MemberComponent implements OnInit {
     this.members = members;
     this.member = null;
     this.displayDialog = false;
+  } */
+
+  save() {
+    console.log('save-->', this.saveMemberForm.value);
+    const payload = {
+      ...this.saveMemberForm.value
+    };
+
+    if (this.newMember) {
+      console.log('payload-->', payload);
+      this.memberService.addMember(payload).subscribe(
+        data => {
+          this.displayDialog = false;
+          console.log('response-->', data);
+          this.search();
+          alert('บันทึกข้อมูลเรียบร้อย');
+        },
+        error => {
+          console.error('Error adding data!');
+          return Observable.throw(error);
+        }
+      );
+    } else {
+      console.log('payload-->', payload);
+      this.memberService.editMember(payload).subscribe(
+        data => {
+          this.displayDialog = false;
+          console.log('response-->', data);
+          this.search();
+          alert('แก้ไขข้อมูลเรียบร้อย');
+        },
+        error => {
+          console.error('Error editing data!');
+          return Observable.throw(error);
+        }
+      );
+    }
   }
 
-  delete() {
+  /* delete() {
     const index = this.members.indexOf(this.selectedMember);
     this.members = this.members.filter((val, i) => i !== index);
     this.member = null;
     this.displayDialog = false;
+  } */
+
+  delete(event) {
+    if (confirm('ต้องการลบข้อมูลหรือไม่')) {
+      console.log('delete-->', event);
+      const key = event.member_seq;
+      console.log('key-->', key);
+      this.memberService
+        .deleteMember(key)
+        .pipe(
+          tap(() => this.search()),
+          finalize(() => alert('ลบข้อมูลเรียบร้อย'))
+        )
+        .subscribe(
+          data => {
+            this.displayDialog = false;
+            console.log('response-->', data);
+            // this.search();
+            // alert('ลบข้อมูลเรียบร้อย');
+            return true;
+          },
+          error => {
+            console.error('Error deleting deleteMember!');
+            return Observable.throw(error);
+          }
+        );
+    }
   }
 
-  onRowSelect(event) {
+  cancel() {
+    const key = this.saveMemberForm.get('memberSeq').value;
+    console.log('key-->', key);
+    this.memberService.getMemberById(key).subscribe(
+      resultArray => {
+        // this.members = resultArray;
+        console.log('Result-->', resultArray);
+        this.saveMemberForm.patchValue({
+          memberSeq: resultArray[0]['member_seq'],
+          memberId: resultArray[0]['member_id'],
+          memberFname: resultArray[0]['member_fname'],
+          memberLname: resultArray[0]['member_lname'],
+          memberLicensePlace: resultArray[0]['member_license_place'],
+          address: resultArray[0]['address'],
+          telephone: resultArray[0]['telephone']
+        });
+      },
+      error => console.log('Error :: ', error)
+    );
+  }
+
+  /* onRowSelect(event) {
     this.newMember = false;
     this.member = this.cloneCar(event.data);
     this.displayDialog = true;
+  } */
+
+  onRowSelect(event) {
+    console.log('onRowSelect-->', event);
+    this.newMember = false;
+    this.member = this.setDataToEdit(event.data);
+    console.log('setDataToEdit-->', this.member);
+    this.saveMemberForm.patchValue({
+      memberSeq: this.member['member_seq'],
+      memberId: this.member['member_id'],
+      memberFname: this.member['member_fname'],
+      memberLname: this.member['member_lname'],
+      memberLicensePlace: this.member['member_license_place'],
+      address: this.member['address'],
+      telephone: this.member['telephone']
+    });
+    console.log('saveMemberForm-->', this.saveMemberForm);
+    this.displayDialog = true;
+  }
+
+  setDataToEdit(data: Member): Member {
+    const member = {};
+    for (const prop in data) {
+      if (data.hasOwnProperty(prop)) {
+        // code here
+        member[prop] = data[prop];
+      }
+    }
+    return member;
   }
 
   cloneCar(c: Member): Member {

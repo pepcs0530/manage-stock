@@ -19,7 +19,7 @@ export class MemberService {
 
   constructor(private http: Http, private config: DatabaseConfig) {
     this._getURL = 'http://' + config.host + ':' + config.port + '/api/member';
-    console.log(this._getURL)
+    console.log(this._getURL);
   }
 
   /* constructor() {
@@ -48,6 +48,20 @@ export class MemberService {
     );
   }
 
+  addMember(payload) {
+    console.log('payload-->', payload);
+    const headers = new Headers({
+      'Content-Type': 'application/json; charset=utf-8',
+      'Access-Control-Allow-Origin': '*'
+    });
+
+    const options = new RequestOptions({ headers: headers });
+    const body = JSON.stringify(payload);
+    console.log('body-->', body);
+
+    return this.http.post('/api/member/add', payload, options);
+  }
+
   getMemberByCondition(condition): Observable<Member[]> {
     const headers = new Headers({
       'Content-Type': 'application/json; charset=utf-8',
@@ -55,12 +69,57 @@ export class MemberService {
     });
 
     const options = new RequestOptions({ headers: headers });
-    console.log('condition-->', condition)
+    console.log('condition-->', condition);
 
     return this.http.post('/api/member', condition, options).pipe(
       map(res => {
         return <Member[]>res.json();
       })
     );
+  }
+
+  getMemberById(id: number): Observable<Member[]> {
+    /* const headers = new Headers({
+      'Content-Type': 'application/json; charset=utf-8'
+    }); */
+    const headers = new Headers({
+      'Content-Type': 'application/json; charset=utf-8',
+      'Access-Control-Allow-Origin': '*'
+    });
+    const options = new RequestOptions({ headers: headers });
+
+    return this.http.get('/api/member/getMemberById/' + id, options).pipe(
+      map(res => {
+        return <Member[]>res.json();
+      })
+    );
+  }
+
+  editMember(payload) {
+    console.log('payload-->', payload);
+    const headers = new Headers({
+      'Content-Type': 'application/json; charset=utf-8',
+      'Access-Control-Allow-Origin': '*'
+    });
+
+    const options = new RequestOptions({ headers: headers });
+    const body = JSON.stringify(payload);
+    console.log('body-->', body);
+
+    const id = payload['memberSeq'];
+
+    return this.http.put('/api/member/edit/' + id, payload, options);
+  }
+
+  deleteMember(key: number) {
+    const headers = new Headers({
+      'Content-Type': 'application/json; charset=utf-8',
+      'Access-Control-Allow-Origin': '*'
+    });
+
+    const options = new RequestOptions({ headers: headers });
+    console.log('key-->', key);
+
+    return this.http.delete('/api/member/deleteById/' + key);
   }
 }

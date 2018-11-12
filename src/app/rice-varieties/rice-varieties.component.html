@@ -10,7 +10,7 @@
               <button pButton type="button" icon="fa fa-plus" (click)="showDialogToAdd()"></button>
             </div>
             <div class="ui-g-4" style="text-align: center">
-              ตารางสายพันธุ์ข้าว
+              ตารางข้อมูลสายพันธุ์ข้าว
             </div>
             <div class="ui-g-4" style="text-align: right">
               <input type="text" formControlName="keyword" pInputText placeholder="รหัส, ชื่อสายพันธุ์">
@@ -46,7 +46,7 @@
   </div>
 </form>
 
-<p-dialog header="เพิ่ม/แก้ไข สายพันธุ์ข้าว" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"
+<p-dialog header="เพิ่ม/แก้ไข ข้อมูลสายพันธุ์ข้าว" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"
   [width]="800">
   <div class="ui-g ui-fluid" *ngIf="riceVarietie">
     <form [formGroup]="saveRiceVarietieForm">

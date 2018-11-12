@@ -89,7 +89,7 @@ export class AddProductComingComponent implements OnInit {
       console.log('data-->', data);
       // this.results = data.map(key => key.member_name);
       this.results = data;
-      this.display = data.map(key => key.member_name);
+      // this.display = data.map(key => key.member_name);
     });
   }
 

@@ -8,12 +8,12 @@ export class Member {
   buyDate = null;
   qty = null; */
 
-  member_seq = null;
-  member_id = null;
-  member_fname = null;
-  member_lname = null;
-  member_license_place = null;
-  telephone = null;
-  address = null;
-  member_name = null;
+  member_seq?: number = null;
+  member_id?: string = null;
+  member_fname?: string = null;
+  member_lname?: string = null;
+  member_license_place?: string = null;
+  telephone?: string = null;
+  address?: string = null;
+  member_name?: string = null;
 }
