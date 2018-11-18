@@ -1,6 +1,6 @@
 export class Customer{
-    id:string;
-    name:string;
-    phone:string;
-    address:string;
+    customer_id:string;
+    customer_name:string;
+    customer_phone:string;
+    customer_address:string;
 }

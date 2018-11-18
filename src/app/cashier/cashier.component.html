@@ -9,14 +9,14 @@
                 <div class="row">
                     <div class="col-sm-3">
                         <div class="form-group ui-fluid">
-                            <label>ชื่อลูกค้า</label><br />
-                            <p-autoComplete [(ngModel)]="order.customer.name" [suggestions]="custResults" (completeMethod)="searchCustomer($event)"></p-autoComplete>
+                            <label>ชื่อลูกค้า</label>{{order.customer.customer_id}}<br />
+                            <p-autoComplete [(ngModel)]="customerAutomcomplete.keyword" [suggestions]="customerAutomcomplete.results" field="customer_name" dataKey="customer_id" emptyMessage="ไม่พบลูกค้า" (completeMethod)="searchCustomer($event)" (onSelect)="selectCustomer($event)" (onBlur)="unfocusSearchCustomer($event)"></p-autoComplete>
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group ui-fluid">
                             <label>โทรศัพท์</label>
-                            <input pInputText type="text" [(ngModel)]="order.customer.phone" class="form-control">
+                            <input pInputText type="text" [(ngModel)]="order.customer.customer_phone" class="form-control">
                         </div>
                     </div>
                     <div class="col-sm-3 pull-right">
@@ -31,7 +31,7 @@
                     <div class="col-sm-6">
                         <div class="form-group  ui-fluid">
                             <label >ที่อยู่</label>
-                            <textarea class="form-control" pInputTextarea [(ngModel)]="order.customer.address"></textarea>
+                            <textarea class="form-control" pInputTextarea [(ngModel)]="order.customer.customer_address"></textarea>
                         </div>
                     </div>
                     <div class="col-sm-3 pull-right">

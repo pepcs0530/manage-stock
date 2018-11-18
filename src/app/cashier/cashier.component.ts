@@ -23,6 +23,11 @@ export class CashierComponent implements OnInit {
    
   text: string;
 
+  customerAutomcomplete = {
+    keyword:'',
+    results:[]
+  }
+
   results: string[];
   constructor(private cashierService:CashierService) { }
   ngOnInit() {
@@ -46,17 +51,32 @@ export class CashierComponent implements OnInit {
   }
 
   searchCustomer(event) {
-    this.filteredCustomerList = [];
-    for(let i = 0; i < this.customerList.length; i++) {
-        let cust = this.customerList[i];
-        if(cust.name.toLowerCase().indexOf(event.query.toLowerCase()) == 0) {
-            this.filteredCustomerList.push(cust.name);
-        }
-    }
-    this.custResults = this.filteredCustomerList
+    console.log(this.customerAutomcomplete.keyword);
+    this.order.customer.customer_name = this.customerAutomcomplete.keyword;
+    this.customerAutomcomplete.results = [];
+    this.cashierService.getCustomersByKeyword(this.customerAutomcomplete.keyword).subscribe(results =>{
+      this.customerAutomcomplete.results = results
+       console.log(this.customerAutomcomplete.results);
+    })
+    //this.customerAutomcomplete.results = [{name:'tom'} ,{name:'kun'}]
   }
 
+  selectCustomer(value){
+    console.log('selectCustomer',value);
+    this.order.customer = value;
+  }
 
+  unfocusSearchCustomer(){
+    console.log(this.customerAutomcomplete.keyword)
+    console.log(this.customerAutomcomplete.results[0].customer_name)
+    if(this.results == undefined || this.customerAutomcomplete.keyword != this.customerAutomcomplete.results[0].customer_name){
+      this.order.customer = new Customer();
+    }
+    
+    if(this.customerAutomcomplete.keyword == this.customerAutomcomplete.results[0].customer_name){
+      this.order.customer = this.customerAutomcomplete.results[0]
+    }
+  }
 
   searchRice(event) {
     for(let i = 0; i < this.riceList.length; i++) {
@@ -68,6 +88,7 @@ export class CashierComponent implements OnInit {
     this.results = this.filteredRiceList
   }
   paymentProcess(){
+    console.log(this.order.customer)
     this.cashierService.saveOrder(this.order)
     .subscribe(res => {
         console.log(res)
