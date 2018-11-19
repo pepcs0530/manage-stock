@@ -16,7 +16,7 @@ export class RiceVarietiesComponent implements OnInit {
     private formBuilder: FormBuilder,
     private riceService: RiceService,
     private riceVarietiesService: RiceVarietiesService
-  ) {}
+  ) { }
 
   decimalWithDigits: RegExp = /^[0-9\.]+$/;
 
@@ -186,7 +186,7 @@ export class RiceVarietiesComponent implements OnInit {
       resultArray => {
         // this.members = resultArray;
         console.log('Result-->', resultArray);
-        this.saveRiceVarietieForm.patchValue({          
+        this.saveRiceVarietieForm.patchValue({
           riceVarSeq: resultArray[0]['rice_var_seq'],
           riceVarId: resultArray[0]['rice_var_id'],
           riceVarName: resultArray[0]['rice_var_name'],
