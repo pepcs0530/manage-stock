@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
+import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
 import { OrderItem } from '@shared/models/cashier/order-item';
 import { Order } from '@shared/models/cashier/order';
 import { Customer } from '@shared/models/cashier/customer';
@@ -11,25 +14,23 @@ import { CashierService } from './cashier.service'
 export class CashierComponent implements OnInit {
 
   saleDate : Date;
-    filteredRiceList = [];
-   riceList = [{id : "x0001",name : "ประทุม ๑" ,price : 100},{id : "x0002",name : "ประทุม ๒" ,price : 120}]
-   riceResult
-   
-   filteredCustomerList =[];
-   customerList = [{id:'C0001',name:'สมปอง',tel:'080000080',address:'234/5 bangkok'}];
-   custResults
 
-   order:Order ;
    
-  text: string;
+
+
+  order:Order ;
 
   customerAutomcomplete = {
     keyword:'',
     results:[]
-  }
+  };
+  productAutocomplete = {
+    keyword:'',
+    results:[]
+  };
 
   results: string[];
-  constructor(private cashierService:CashierService) { }
+  constructor(private cashierService:CashierService) {}
   ngOnInit() {
     this.order = new Order();
     this.order.date = new Date();
@@ -43,50 +44,40 @@ export class CashierComponent implements OnInit {
 
   addNewRow(){
     let item = new OrderItem();
-    item.id = '0';
+    item.id = null;
+    item.name = '';
     item.price = 0;
     item.quantity = 0;
 
     this.order.itemList.push(item);
   }
 
-  searchCustomer(event) {
-    console.log(this.customerAutomcomplete.keyword);
-    this.order.customer.customer_name = this.customerAutomcomplete.keyword;
+  searchCustomer() {
     this.customerAutomcomplete.results = [];
-    this.cashierService.getCustomersByKeyword(this.customerAutomcomplete.keyword).subscribe(results =>{
-      this.customerAutomcomplete.results = results
-       console.log(this.customerAutomcomplete.results);
-    })
-    //this.customerAutomcomplete.results = [{name:'tom'} ,{name:'kun'}]
+    return this.cashierService.searchCustomersByName(this.order.customer.customer_name)
+  }
+  selectCustomer(value:TypeaheadMatch){
+    this.order.customer.customer_name = value.item.customer_id;
+    this.order.customer.customer_name = value.item.customer_name;
+    this.order.customer.customer_phone = value.item.customer_phone;
+    this.order.customer.customer_address = value.item.customer_address;
   }
 
-  selectCustomer(value){
-    console.log('selectCustomer',value);
-    this.order.customer = value;
+  
+
+  searchProduct(item){
+    this.productAutocomplete.results = [];
+    return this.cashierService.searchProductByName(item.name);
+  }
+  selectSearchProduct(event,item){
+
+    item.id= event.item.product_id;
+    item.name = event.item.product_name;
+    item.quantity = 1;
+    item.price = 100;
+    console.log(' item.name ', item)
   }
 
-  unfocusSearchCustomer(){
-    console.log(this.customerAutomcomplete.keyword)
-    console.log(this.customerAutomcomplete.results[0].customer_name)
-    if(this.results == undefined || this.customerAutomcomplete.keyword != this.customerAutomcomplete.results[0].customer_name){
-      this.order.customer = new Customer();
-    }
-    
-    if(this.customerAutomcomplete.keyword == this.customerAutomcomplete.results[0].customer_name){
-      this.order.customer = this.customerAutomcomplete.results[0]
-    }
-  }
-
-  searchRice(event) {
-    for(let i = 0; i < this.riceList.length; i++) {
-        let rice = this.riceList[i];
-        if(rice.name.toLowerCase().indexOf(event.query.toLowerCase()) == 0) {
-            this.filteredRiceList.push(rice.name);
-        }
-    }
-    this.results = this.filteredRiceList
-  }
   paymentProcess(){
     console.log(this.order.customer)
     this.cashierService.saveOrder(this.order)

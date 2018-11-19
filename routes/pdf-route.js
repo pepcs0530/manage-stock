@@ -6,12 +6,14 @@ const app = express();
 app.get('/',function (req,res) {
     res.end('PDF OK');
 } )
-
+app.get('/order-receipt', function(req, res, next) {
+  res.render('index', {page:'Home', menuId:'home'});
+});
 
 
 app.get('/getpdftest' ,async(req,res) =>{
   const props = [{propName :'paperSize',propConf: {format: 'A4', orientation: 'portrait'}},{propName :'viewportSize',propConf: {width: 1920, height: 1080}}];
-  let filePath = await genPhantomPdf('http://proford.net',props);
+  let filePath = await genPhantomPdf('http://localhost:4500/api/pdf/order-receipt',props);
   await res.sendfile(path.join(filePath));
 
 })

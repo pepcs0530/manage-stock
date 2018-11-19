@@ -6,6 +6,7 @@ import { Member } from '@shared/models/member/member';
 import { Customer } from '@shared/models/cashier/customer';
 import { Order } from '@shared/models/cashier/order';
 import { Observable, from } from 'rxjs';
+import { Product } from '@shared/models/product/product';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class CashierService {
     this._getURL = 'http://' + config.host + ':' + config.port + '/api/saveOrder';
   }
 
-  getCustomersByKeyword (keyword:string) : Observable <Customer[]>
+  searchCustomersByName (keyword:string) : Observable <Customer[]>
   {
     const headers = new Headers({
       'Content-Type': 'application/json; charset=utf-8',
@@ -25,9 +26,24 @@ export class CashierService {
     });
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.post('/api/order/getCustomersByKeyword', {keyword:keyword},options).pipe(
+    return this.http.post('/api/order/searchCustomersByName', {keyword:keyword},options).pipe(
       map(res => {
         return <Customer[]>res.json();
+      })
+    );
+  }
+
+  searchProductByName(keyword:string) : Observable<Product[]>{
+    
+    const headers = new Headers({
+      'Content-Type': 'application/json; charset=utf-8',
+      'Access-Control-Allow-Origin': '*'
+    });
+    const options = new RequestOptions({ headers: headers });
+
+    return this.http.post('/api/order/searchProductByName', {keyword:keyword},options).pipe(
+      map(res => {
+        return <Product[]>res.json();
       })
     );
   }

@@ -52,6 +52,7 @@ import { AddProductComponent } from './add-product/add-product.component';
 import { AddProductService } from './add-product/services/add-product/add-product.service';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { NotificationService } from './notification/services/notification/notification.service';
 // tslint:disable-next-line:max-line-length
 import { DisplayDateThaiFormatDDMMYYYYModule } from '@shared/pipes/display-date-thai-format-ddmmyyyy/display-date-thai-format-ddmmyyyy.module';
@@ -107,6 +108,7 @@ import { RiceVarietiesComponent } from './rice-varieties/rice-varieties.componen
     KeyFilterModule,
     MessagesModule,
     MessageModule,
+    TypeaheadModule,
     DisplayDateThaiFormatDDMMYYYYModule,
     ThaiBathCurrencyPipeModule
   ],

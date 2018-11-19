@@ -3,11 +3,10 @@ const async = require('async');
 const moment = require('moment');
 const app = express();
 
-app.post('/getCustomersByKeyword',function(req,res,next){
+app.post('/searchCustomersByName',function(req,res,next){
         req.getConnection(function(err,conn){            
             if(!conn){
                 console.error('Cannot get database connection');
-                next();
             }
             let keyword = req.body.keyword
             let sqlStr =`SELECT customer_id,customer_name,customer_phone,customer_address
@@ -32,7 +31,41 @@ app.post('/getCustomersByKeyword',function(req,res,next){
                         });
             });
 });
+app.post('/searchProductByName',function(req,res,next){
 
+    try{
+        req.getConnection(function(err,conn){
+            if(err){
+                throw err
+            }
+            
+            let keyword = req.body.keyword
+
+            let sqlStr = `SELECT * FROM product 
+            WHERE product_name like '%${keyword}%'
+            ORDER BY CASE
+               when product_name = '${keyword}' THEN 1
+               WHEN product_name LIKE '${keyword}%' THEN 2
+               WHEN product_name LIKE '%${keyword}%' THEN 3
+            END`;
+            conn.query(sqlStr, function(err, rows, fields) {
+                //if(err) throw err
+                if (err) {
+                  console.log(err);
+                  // req.flash('error', err);
+                  next(err);
+                } else {
+                  console.log(rows)
+                  res.end(JSON.stringify(rows));
+                }
+            })
+        })
+
+    }catch(err){
+        console.error('searchProductByKeyword',err)
+    }
+
+});
 app.post('/saveOrder',function(req, res, next){
 
     try{
@@ -45,8 +78,9 @@ app.post('/saveOrder',function(req, res, next){
                 async.parallel([
                     function(callback){
                         saveCustomer(connection,req,res,callback)
-                    },function(callback){
-                        //saveOrderDetails(connection,req,res,callback)
+                    },
+                    function(callback){
+                        saveOrderDetails(connection,req,res,callback)
                         callback(null)
                     }
                 ],function(err,result){
@@ -122,6 +156,7 @@ function saveItems(connection,req,res){
 function saveOrderDetails(connection,req,res,callback){
 //  console.log(req.body.body.date);
     async.waterfall([
+        //Gen Order ID
         function(callback){
             var sqlStr = 'SELECT order_id,receipt FROM `order` ORDER BY order_id DESC LIMIT 1;'
             connection.query(sqlStr,function(err,result){
@@ -136,6 +171,7 @@ function saveOrderDetails(connection,req,res,callback){
 
             })
         },
+        //Insert order to table
         function(id,receipt,callback){
             var sqlStr = 'INSERT INTO `order` SET ?';
             var payload = {
@@ -151,6 +187,12 @@ function saveOrderDetails(connection,req,res,callback){
                 if(err)console.error('saveOrderDetails',err)
                 callback(err,result)
             })
+        },
+        //inser order-item to table
+        function(id,callback){
+            let = 'INSERT INTO order SET ?';
+            let payload  = req.body.itemList
+            console.log(payload);
         }
     ],
     function(err,result){
