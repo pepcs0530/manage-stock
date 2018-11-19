@@ -2,40 +2,37 @@
 const express = require('express');
 const app = express();
 
-// SHOW LIST OF MEMBER
-app.get('/', function(req, res, next) {
+/* app.get('/', function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Content-Type', 'application/json');
-  req.getConnection(function(error, conn) {
+  req.getConnection(function (error, conn) {
     console.log('---START QUERY LIST OF MEMBER---');
-    conn.query('SELECT * FROM member ORDER BY member_seq ASC', function(
+    conn.query('SELECT * FROM member ORDER BY member_seq ASC', function (
       err,
       rows,
       fields
     ) {
-      //if(err) throw err
       if (err) {
         next(err);
         console.log(err);
       } else {
-        //console.log(rows)
         res.end(JSON.stringify(rows));
       }
     });
     console.log('---END QUERY LIST OF MEMBER---');
   });
-});
+}); */
 
-app.get('/getProductByLotId/(:id)', function(req, res, next) {
+app.get('/getProductByLotId/(:id)', function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Content-Type', 'application/json');
-  req.getConnection(function(error, conn) {
+  req.getConnection(function (error, conn) {
     console.log('---START getProductByLotId---');
     conn.query(
       'SELECT rice_varieties FROM product WHERE 1=1 AND lot_id LIKE "%' +
-        req.params.id +
-        '%"',
-      function(err, rows, fields) {
+      req.params.id +
+      '%"',
+      function (err, rows, fields) {
         //if(err) throw err
         if (err) {
           next(err);
@@ -50,7 +47,7 @@ app.get('/getProductByLotId/(:id)', function(req, res, next) {
   });
 });
 
-app.post('/create', function(req, res, next) {
+app.post('/create', function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Content-Type', 'application/json');
   console.log('---START create---');
@@ -73,9 +70,9 @@ app.post('/create', function(req, res, next) {
   };
 
   console.log('payload-->', payload);
-  req.getConnection(function(error, conn) {
+  req.getConnection(function (error, conn) {
     try {
-      conn.query('INSERT INTO product SET ?', payload, function(err, result) {
+      conn.query('INSERT INTO product SET ?', payload, function (err, result) {
         //if(err) throw err
         if (err) {
           next(err);
