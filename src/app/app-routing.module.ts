@@ -13,6 +13,7 @@ import { AddProductComingComponent } from './add-product-coming/add-product-comi
 import { AddRiceVarietiesComponent } from './add-rice-varieties/add-rice-varieties.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { RiceVarietiesComponent } from './rice-varieties/rice-varieties.component';
+import { ProductComponent } from './product/product.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/addProductComing', pathMatch: 'full' },
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'notification', component: NotificationComponent },
   { path: 'addProductComing', component: AddProductComingComponent },
   { path: 'riceVarieties', component: RiceVarietiesComponent },
+  { path: 'product', component: ProductComponent },
   {
     // default path
     path: '**',
@@ -40,4 +42,4 @@ const routes: Routes = [
   declarations: [],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

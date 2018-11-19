@@ -13,7 +13,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { MemberComponent } from './member/member.component';
 
 import { InputTextModule } from 'primeng/inputtext';
-import {InputTextareaModule} from 'primeng/inputtextarea';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ButtonModule } from 'primeng/button';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ToolbarModule } from 'primeng/toolbar';
@@ -28,6 +28,7 @@ import { AddRiceComponent } from './rice/add-rice/add-rice.component';
 import { CalendarModule } from 'primeng/calendar';
 import { ChartModule } from 'primeng/chart';
 import { SpinnerModule } from 'primeng/spinner';
+import { FieldsetModule } from 'primeng/fieldset';
 import { CashierComponent } from './cashier/cashier.component';
 import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
@@ -58,6 +59,7 @@ import { DisplayDateThaiFormatDDMMYYYYModule } from '@shared/pipes/display-date-
 import { RiceService } from './rice/services/rice/rice.service';
 import { ThaiBathCurrencyPipeModule } from '@shared/pipes/thai-bath-currency/thai-bath-currency.module';
 import { RiceVarietiesComponent } from './rice-varieties/rice-varieties.component';
+import { ProductComponent } from './product/product.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +83,8 @@ import { RiceVarietiesComponent } from './rice-varieties/rice-varieties.componen
     AddProductComingFormComponent,
     AddRiceVarietiesComponent,
     AddProductComponent,
-    RiceVarietiesComponent
+    RiceVarietiesComponent,
+    ProductComponent
   ],
   imports: [
     BrowserModule,
@@ -107,6 +110,7 @@ import { RiceVarietiesComponent } from './rice-varieties/rice-varieties.componen
     KeyFilterModule,
     MessagesModule,
     MessageModule,
+    FieldsetModule,
     DisplayDateThaiFormatDDMMYYYYModule,
     ThaiBathCurrencyPipeModule
   ],
@@ -122,4 +126,4 @@ import { RiceVarietiesComponent } from './rice-varieties/rice-varieties.componen
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
