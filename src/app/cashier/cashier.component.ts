@@ -6,6 +6,7 @@ import { OrderItem } from '@shared/models/cashier/order-item';
 import { Order } from '@shared/models/cashier/order';
 import { Customer } from '@shared/models/cashier/customer';
 import { CashierService } from './cashier.service'
+import { Member } from '@shared/models/member/member';
 @Component({
   selector: 'app-cashier',
   templateUrl: './cashier.component.html',
@@ -39,16 +40,18 @@ export class CashierComponent implements OnInit {
     this.order.customer = new Customer()
     this.order.itemList = [];
     this.addNewRow();
+
+    
+    this.order.member_seq = 1
   }
  
 
   addNewRow(){
     let item = new OrderItem();
-    item.id = null;
+    item.product_id = null;
     item.name = '';
     item.price = 0;
     item.quantity = 0;
-
     this.order.itemList.push(item);
   }
 
@@ -57,7 +60,7 @@ export class CashierComponent implements OnInit {
     return this.cashierService.searchCustomersByName(this.order.customer.customer_name)
   }
   selectCustomer(value:TypeaheadMatch){
-    this.order.customer.customer_name = value.item.customer_id;
+    this.order.customer.customer_id = value.item.customer_id;
     this.order.customer.customer_name = value.item.customer_name;
     this.order.customer.customer_phone = value.item.customer_phone;
     this.order.customer.customer_address = value.item.customer_address;
@@ -65,16 +68,16 @@ export class CashierComponent implements OnInit {
 
   
 
-  searchProduct(item){
+  searchProduct(item:OrderItem){
     this.productAutocomplete.results = [];
     return this.cashierService.searchProductByName(item.name);
   }
-  selectSearchProduct(event,item){
-
-    item.id= event.item.product_id;
+  selectSearchProduct(event,item:OrderItem){
+    console.log('event',event.item)
+    item.product_id= event.item.product_id;
     item.name = event.item.product_name;
     item.quantity = 1;
-    item.price = 100;
+    item.price = event.item.price;
     console.log(' item.name ', item)
   }
 

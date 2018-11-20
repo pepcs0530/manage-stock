@@ -41,14 +41,15 @@ app.post('/searchProductByName',function(req,res,next){
             
             let keyword = req.body.keyword
 
-            let sqlStr = `SELECT * FROM product 
+            let sqlStr = `SELECT * FROM product as p
+            LEFT JOIN rice_varieties as v ON p.rice_var_seq = v.rice_var_seq 
             WHERE product_name like '%${keyword}%'
             ORDER BY CASE
                when product_name = '${keyword}' THEN 1
                WHEN product_name LIKE '${keyword}%' THEN 2
                WHEN product_name LIKE '%${keyword}%' THEN 3
             END`;
-            conn.query(sqlStr, function(err, rows, fields) {
+            conn.query(sqlStr,[keyword,keyword,keyword,keyword], function(err, rows, fields) {
                 //if(err) throw err
                 if (err) {
                   console.log(err);
@@ -81,7 +82,6 @@ app.post('/saveOrder',function(req, res, next){
                     },
                     function(callback){
                         saveOrderDetails(connection,req,res,callback)
-                        callback(null)
                     }
                 ],function(err,result){
                     if(err){
@@ -97,7 +97,8 @@ app.post('/saveOrder',function(req, res, next){
                                 });
                             }
                             console.debug("complete",result)
-                            res.end()
+                            let receipt = result[1]
+                            res.end(receipt)
                         })
                     }
                 });
@@ -113,6 +114,7 @@ app.post('/saveOrder',function(req, res, next){
 function saveCustomer(connection,req,res,callback){
     async.waterfall([
         function(callback){
+            console.log(req.body.customer.customer_id)
             if(req.body.customer.customer_id==null){
             var sqlStr = 'SELECT customer_id FROM `customer` ORDER BY customer_id DESC LIMIT 1;'
             connection.query(sqlStr,function(err,result){
@@ -150,10 +152,7 @@ function saveCustomer(connection,req,res,callback){
         callback(err,result);
     })
 }
-function saveItems(connection,req,res){
-    callback(null,null)
-}
-function saveOrderDetails(connection,req,res,callback){
+function saveOrderDetails(connection,req,res,maincallback){
 //  console.log(req.body.body.date);
     async.waterfall([
         //Gen Order ID
@@ -179,28 +178,40 @@ function saveOrderDetails(connection,req,res,callback){
                 receipt:receipt,
                 issueDate:moment(req.body.date).format('YYYY-MM-DD HH:mm:ss'),
                 customer_id:'C000000001',
-                discount:req.body.discount
+                discount:req.body.discount,
+                member_seq:req.body.member_seq
             };
             
             connection.query(sqlStr,payload,function(err,result){
-                
-                if(err)console.error('saveOrderDetails',err)
-                callback(err,result)
+                console.log('Insert order to table',result)
+                callback(err,id,receipt)
             })
         },
         //inser order-item to table
-        function(id,callback){
-            let = 'INSERT INTO order SET ?';
-            let payload  = req.body.itemList
-            console.log(payload);
+        function(order_id,receipt,callback){
+            let sqlStr = 'INSERT INTO order_item SET ?';
+             req.body.itemList
+            var payload = []
+             req.body.itemList.forEach(item => {
+                payload.push({
+                    product_id:item.product_id,
+                    quantity:item.quantity,
+                    price:item.price,
+                    order_id:order_id
+                })
+            });
+            console.log(payload)
+            connection.query(sqlStr,payload,function(err,result){
+                callback(err,receipt)
+            })
+
         }
     ],
-    function(err,result){
+    function(err,receipt){
         if(err){
-            callback(err)
+            maincallback(err)
         }else{
-            console.debug(result)
-            callback(null,result)
+            maincallback(null,receipt)
         }
     })
 

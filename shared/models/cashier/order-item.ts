@@ -1,7 +1,7 @@
 import { Product } from "../product/product";
 
 export class OrderItem{
-    id:string;
+    product_id:string;
     name:string;
     quantity:number;
     price:number;

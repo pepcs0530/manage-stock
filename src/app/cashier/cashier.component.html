@@ -74,7 +74,7 @@
                             (typeaheadOnSelect)="selectSearchProduct($event,item)"
                             class="form-control">
                     {{item | json}}</td>
-                    <td><input pInputText [(ngModel)]="item.quantity" type="number" min="0" class="form-control text-right" style="width:100%" min="1" max="100"></td>
+                    <td><input pInputText [(ngModel)]="item.quantity" type="number" min="0" max="{{item.max_qty}}" class="form-control text-right" style="width:100%" min="1" max="100"></td>
                     <td><input pInputText [(ngModel)]="item.price" type="number" min="0"  class="form-control text-right" style="width:100%" min="1" max="100"></td>
                     <td class="text-right">{{item.price*item.quantity}}</td>
                 </tr> 
