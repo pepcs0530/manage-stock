@@ -43,11 +43,11 @@ app.post('/searchProductByName',function(req,res,next){
 
             let sqlStr = `SELECT * FROM product as p
             LEFT JOIN rice_varieties as v ON p.rice_var_seq = v.rice_var_seq 
-            WHERE product_name like '%${keyword}%'
+            WHERE product_name like CONCAT('%',?,'%')
             ORDER BY CASE
-               when product_name = '${keyword}' THEN 1
-               WHEN product_name LIKE '${keyword}%' THEN 2
-               WHEN product_name LIKE '%${keyword}%' THEN 3
+               when product_name = ? THEN 1
+               WHEN product_name LIKE CONCAT(?,'%') THEN 2
+               WHEN product_name LIKE CONCAT('%',?,'%') THEN 3
             END`;
             conn.query(sqlStr,[keyword,keyword,keyword,keyword], function(err, rows, fields) {
                 //if(err) throw err
@@ -82,6 +82,9 @@ app.post('/saveOrder',function(req, res, next){
                     },
                     function(callback){
                         saveOrderDetails(connection,req,res,callback)
+                    },
+                    function(callback){
+                        cutStock(connection,req,res,callback)
                     }
                 ],function(err,result){
                     if(err){
@@ -98,7 +101,8 @@ app.post('/saveOrder',function(req, res, next){
                             }
                             console.debug("complete",result)
                             let receipt = result[1]
-                            res.end(receipt)
+                            res.send({receipt:receipt})
+                            res.end()
                         })
                     }
                 });
@@ -200,7 +204,6 @@ function saveOrderDetails(connection,req,res,maincallback){
                     order_id:order_id
                 })
             });
-            console.log(payload)
             connection.query(sqlStr,payload,function(err,result){
                 callback(err,receipt)
             })
@@ -214,18 +217,20 @@ function saveOrderDetails(connection,req,res,maincallback){
             maincallback(null,receipt)
         }
     })
-
-
-    // var sqlStr = "INSERT INTO order SET ?";
-    // var payload = await new {
-    //     customer_name:req.body.customer.name,
-    //     customer_phone:req.body.customer.phone,
-    //     customer_address:req.body.customer.address
-    // };
-    // console.log(payload);
-    // connection.query(sqlStr,payload,function(err,result){
-    //     callback(err,result)
-    // })
 }
+function cutStock(connection,req,res,callback){
+    let sqlStr = ''
+    let paramList = []
+    req.body.itemList.forEach(function(item){
+        sqlStr = sqlStr + 'UPDATE product SET product_quantity = product_quantity - ? WHERE product_id = ?;' 
 
+        paramList.push(item.quantity);
+        paramList.push(item.product_id);
+    });
+
+    connection.query(sqlStr,paramList,function(err,result){
+        callback(err,result)
+    })
+
+}
 module.exports = app;

@@ -14,13 +14,7 @@ import { Member } from '@shared/models/member/member';
 })
 export class CashierComponent implements OnInit {
 
-  saleDate : Date;
-
-   
-
-
   order:Order ;
-
   customerAutomcomplete = {
     keyword:'',
     results:[]
@@ -85,7 +79,7 @@ export class CashierComponent implements OnInit {
     console.log(this.order.customer)
     this.cashierService.saveOrder(this.order)
     .subscribe(res => {
-        console.log(res)
+        this.order.receiptNo = res.receipt;
     });
   }
 }

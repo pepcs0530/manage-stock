@@ -7,6 +7,7 @@ import { Customer } from '@shared/models/cashier/customer';
 import { Order } from '@shared/models/cashier/order';
 import { Observable, from } from 'rxjs';
 import { Product } from '@shared/models/product/product';
+import { OrderResponse } from '@shared/models/cashier/order-response';
 
 @Injectable({
   providedIn: 'root'
@@ -48,7 +49,7 @@ export class CashierService {
     );
   }
 
-  saveOrder(order:Order){
+  saveOrder(order:Order):Observable<OrderResponse>{
     const headers = new Headers({
       'Content-Type': 'application/json; charset=utf-8',
       'Access-Control-Allow-Origin': '*'
@@ -57,7 +58,7 @@ export class CashierService {
 
     return this.http.post('/api/order/saveOrder', order,options).pipe(
       map(res => {
-        return res;
+        return <OrderResponse>res.json();
       })
     );
   }

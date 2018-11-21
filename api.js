@@ -62,6 +62,7 @@ var dbOptions = {
   password: 'P@ssw0rd2018',
   port: 3306,
   database: 'db_managestock'
+  multipleStatements: true
 };
 /**
  * 3 strategies can be used
