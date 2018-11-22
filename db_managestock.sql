@@ -154,22 +154,25 @@ CREATE TABLE `product` (
   `mfd_date` date DEFAULT NULL COMMENT 'วันที่ผลิต',
   `exp_date` date DEFAULT NULL COMMENT 'วันที่หมดอายุ',
   `member_seq` int(11) DEFAULT NULL COMMENT 'fk(member)',
+  `rice_var_seq` int(11) DEFAULT NULL,
   PRIMARY KEY (`product_seq`),
   KEY `product_id` (`product_id`),
   KEY `member_seq` (`member_seq`),
   KEY `lot_id` (`lot_id`),
   KEY `product_type_id` (`product_type_id`),
-  CONSTRAINT `product_ibfk_1` FOREIGN KEY (`member_seq`) REFERENCES `member` (`member_seq`)
+  KEY `rice_var_seq` (`rice_var_seq`),
+  CONSTRAINT `product_ibfk_1` FOREIGN KEY (`member_seq`) REFERENCES `member` (`member_seq`),
+  CONSTRAINT `product_ibfk_2` FOREIGN KEY (`rice_var_seq`) REFERENCES `rice_varieties` (`rice_var_seq`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 /*Data for the table `product` */
 
-insert  into `product`(`product_seq`,`product_id`,`product_name`,`product_type_id`,`time_in`,`time_out`,`rice_varieties`,`remark`,`date`,`lot_id`,`product_quantity`,`mfd_date`,`exp_date`,`member_seq`) values 
-(3,NULL,NULL,NULL,'2018-10-18 23:28:29','2018-10-18 23:30:29','หอมมะลิ','หมายเหตุ','2018-10-18',1549880169,NULL,NULL,NULL,NULL),
-(4,NULL,NULL,NULL,NULL,NULL,'หอมมะลิ',NULL,NULL,1539880169,1.00,'2018-10-01','2018-11-02',NULL),
-(5,NULL,NULL,NULL,'1970-01-01 07:00:00','1970-01-01 07:00:00','ป',NULL,'2018-11-01',1541059136,NULL,NULL,NULL,NULL),
-(8,NULL,NULL,NULL,'2018-11-04 11:00:00','2018-11-04 11:30:00','หอมมะลิ','หมายเหตุ','1970-01-01',1541307518,NULL,NULL,NULL,NULL),
-(9,NULL,NULL,NULL,'2018-11-04 11:00:00','2018-11-04 11:30:00',NULL,'หมายเหตุ','1970-01-01',1541307518,NULL,NULL,NULL,NULL);
+insert  into `product`(`product_seq`,`product_id`,`product_name`,`product_type_id`,`time_in`,`time_out`,`rice_varieties`,`remark`,`date`,`lot_id`,`product_quantity`,`mfd_date`,`exp_date`,`member_seq`,`rice_var_seq`) values 
+(3,'p0001',NULL,NULL,'2018-10-18 23:28:29','2018-10-18 23:30:29','หอมมะลิ','หมายเหตุ','2018-10-18',1549880169,5.00,'2018-11-01','2018-11-30',1,1),
+(4,NULL,NULL,NULL,NULL,NULL,'หอมมะลิ',NULL,NULL,1539880169,1.00,'2018-10-01','2018-11-02',NULL,NULL),
+(5,NULL,NULL,NULL,'1970-01-01 07:00:00','1970-01-01 07:00:00','ป',NULL,'2018-11-01',1541059136,NULL,NULL,NULL,NULL,NULL),
+(8,NULL,NULL,NULL,'2018-11-04 11:00:00','2018-11-04 11:30:00','หอมมะลิ','หมายเหตุ','1970-01-01',1541307518,NULL,NULL,NULL,NULL,NULL),
+(9,NULL,NULL,NULL,'2018-11-04 11:00:00','2018-11-04 11:30:00',NULL,'หมายเหตุ','1970-01-01',1541307518,NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `product_det` */
 
