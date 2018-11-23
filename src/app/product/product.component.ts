@@ -136,7 +136,11 @@ export class ProductComponent implements OnInit {
     this.saveProductForm.reset();
     this.displayDialog = true;
     this.saveProductForm.get('mfdDate').setValue(new Date());
-    this.saveProductForm.get('expDate').setValue(new Date());
+    const expDate = new Date();
+    console.log('expDate-->', expDate);
+    const be_expDate = new Date(expDate.setMonth(expDate.getMonth() + 6));
+    console.log('be_expDate-->', be_expDate);
+    this.saveProductForm.get('expDate').setValue(be_expDate);
   }
 
   cancel() {
