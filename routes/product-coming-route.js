@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-app.post('/create', function(req, res, next) {
+app.post('/create', function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Content-Type', 'application/json');
   console.log('---START CREATE POST ACTION---');
@@ -17,16 +17,19 @@ app.post('/create', function(req, res, next) {
     // member_fname: { ...req.body['member'] }.member_fname,
     // member_lname: { ...req.body['member'] }.member_lname,
     // member_license_place: req.body['member_license_place'],
-    rice_varieties: { ...req.body['riceVarieties'] }.rice_var_name,
+    rice_varieties: { ...req.body['riceVarieties']
+    }.rice_var_name,
     time_in: new Date(req.body['timeIn']),
     time_out: new Date(req.body['timeOut']),
-    remark: req.body['remark']
+    remark: req.body['remark'],
+    rice_var_seq: { ...req.body['riceVarieties']
+    }.rice_var_seq
   };
 
   console.log('payload-->', payload);
-  req.getConnection(function(error, conn) {
+  req.getConnection(function (error, conn) {
     try {
-      conn.query('INSERT INTO product SET ?', payload, function(err, result) {
+      conn.query('INSERT INTO product SET ?', payload, function (err, result) {
         //if(err) throw err
         if (err) {
           next(err);

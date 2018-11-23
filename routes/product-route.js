@@ -23,6 +23,67 @@ const app = express();
   });
 }); */
 
+app.post('/', function (req, res, next) {
+  //console.log('req-->', req);
+  //console.log('body-->', req.body);
+
+  var condition = req.body;
+  console.log('condition-->', condition);
+
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Content-Type', 'application/json');
+  req.getConnection(function (error, conn) {
+    console.log('---START getProductByCondition---');
+    try {
+      var sql = '';
+      sql +=
+        " SELECT r.rice_var_name, CONCAT(member_fname, ' ', member_lname) AS member, member_fname, member_lname, telephone, DATE, product_quantity ";
+      sql += ' FROM product p ';
+      sql += ' LEFT JOIN member m ON m.member_seq = p.member_seq ';
+      sql += ' LEFT JOIN rice_varieties r ON r.rice_var_seq = p.rice_var_seq ';
+      sql += ' WHERE 1=1 ';
+
+      if (condition.productId) {
+        sql += " AND product_id like '%" + condition.productId + "%' ";
+      }
+
+      if (condition.productName) {
+        sql += " AND r.rice_var_name like '%" + condition.productName + "%' ";
+      }
+
+      if (condition.mfdDate) {
+        sql += " AND DATE_FORMAT(mfd_date, '%Y%m%d') = '" + condition.mfdDate + "' ";
+      }
+
+      if (condition.expDate) {
+        sql += " AND DATE_FORMAT(exp_date, '%Y%m%d') = '" + condition.expDate + "' ";
+      }
+
+      if (condition.memberName) {
+        sql += " AND (member_fname LIKE '%" + condition.memberName + "%' OR member_lname LIKE '%" + condition.memberName + "%') ";
+      }
+
+      sql += ' ORDER BY product_seq DESC ';
+      console.log('sql-->', sql);
+      conn.query(sql, function (err, rows, fields) {
+        //if(err) throw err
+        if (err) {
+          console.log(err);
+          // req.flash('error', err);
+          next(err);
+        } else {
+          //console.log(rows)
+          res.end(JSON.stringify(rows));
+        }
+      });
+    } catch (e) {
+      console.error('err thrown: ' + e.stack);
+      res.sendStatus(500);
+    }
+    console.log('---END getProductByCondition---');
+  });
+});
+
 app.get('/getProductByLotId/(:id)', function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Content-Type', 'application/json');

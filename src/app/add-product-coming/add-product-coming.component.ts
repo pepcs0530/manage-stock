@@ -28,7 +28,7 @@ export class AddProductComingComponent implements OnInit {
     private memberService: MemberService,
     private riceService: RiceService,
     private addProductComingService: AddProductComingService
-  ) {}
+  ) { }
 
   addForm: FormGroup;
   lotIdGen: number;
@@ -59,6 +59,10 @@ export class AddProductComingComponent implements OnInit {
       timeOut: new FormControl(),
       remark: new FormControl()
     });
+
+    this.addForm.get('date').setValue(new Date());
+    this.addForm.get('timeIn').setValue(new Date());
+    this.addForm.get('timeOut').setValue(new Date());
   }
 
   genLotId() {

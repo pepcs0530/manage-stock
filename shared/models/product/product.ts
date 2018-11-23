@@ -12,4 +12,6 @@ export class Product {
   product_quantity = null;
   mfd_date = null;
   exp_date = null;
+  member_seq = null;
+  rice_var_seq = null;
 }

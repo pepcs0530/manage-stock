@@ -61,7 +61,7 @@ var dbOptions = {
   user: 'managestock',
   password: 'P@ssw0rd2018',
   port: 3306,
-  database: 'db_managestock'
+  database: 'db_managestock',
   multipleStatements: true
 };
 /**

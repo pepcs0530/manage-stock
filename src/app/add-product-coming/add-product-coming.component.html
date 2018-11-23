@@ -15,7 +15,7 @@
         <label for="float-input">วันที่</label>
       </div>
       <div class="ui-g-2">
-        <p-calendar formControlName="date" [showIcon]="true"></p-calendar>
+        <p-calendar formControlName="date" dateFormat="dd/mm/yy" [showIcon]="true"></p-calendar>
       </div>
     </div>
     <div class="ui-g">
@@ -25,8 +25,9 @@
       </div>
       <div class="ui-g-5">
         <!-- <input id="float-input" type="text" formControlName="member" size="30" style="width: 520px" pInputText> -->
-        <p-autoComplete formControlName="member" (onSelect)="onLovSelect($event)" (onClear)="onLovClear($event)" [suggestions]="results"
-          field="member_name" (completeMethod)="search($event)" [style]="{'width': '100%'}" [forceSelection]="true">
+        <p-autoComplete formControlName="member" (onSelect)="onLovSelect($event)" (onClear)="onLovClear($event)"
+          [suggestions]="results" field="member_name" (completeMethod)="search($event)" [style]="{'width': '100%'}"
+          [forceSelection]="true">
           <!-- <ng-template let-brand pTemplate="item">
             <div>
               <div>{{display}} </div>

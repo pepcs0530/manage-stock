@@ -10,27 +10,32 @@
                 <label for="float-input">รหัส</label> <br />
                 <input id="float-input" type="text" formControlName="productId" size="30" style="width: 50%" pInputText />
               </div>
-              <div class="ui-g-8">
-                <label for="float-input">ชื่อ</label> <br />
+              <div class="ui-g-4">
+                <label for="float-input">ชื่อ / พันธุ์ข้าว</label> <br />
                 <input id="float-input" type="text" formControlName="productName" size="30" style="width: 100%"
                   pInputText />
               </div>
               <div class="ui-g-4">
+                <label for="float-input">ชื่อผู้ขาย</label> <br />
+                <input id="float-input" type="text" formControlName="memberName" size="30" style="width: 100%"
+                  pInputText />
+              </div>
+              <!-- <div class="ui-g-4">
                 <label for="float-input">พันธุ์ข้าว</label> <br />
                 <input id="float-input" type="text" formControlName="riceVarieties" size="30" style="width: 100%"
                   pInputText />
-              </div>
+              </div> -->
               <div class="ui-g-4">
                 <label for="float-input">วันที่ผลิต</label> <br />
-                <p-calendar formControlName="mfdDate" [inputStyle]="{'width': '100%'}" [showIcon]="true"></p-calendar>
+                <p-calendar formControlName="mfdDate" [inputStyle]="{'width': '100%'}" dateFormat="dd/mm/yy" [showIcon]="true"></p-calendar>
               </div>
               <div class="ui-g-4">
                 <label for="float-input">วันที่หมดอายุ</label> <br />
-                <p-calendar formControlName="expDate" [inputStyle]="{'width': '100%'}" [showIcon]="true"></p-calendar>
+                <p-calendar formControlName="expDate" [inputStyle]="{'width': '100%'}" dateFormat="dd/mm/yy" [showIcon]="true"></p-calendar>
               </div>
             </div>
             <div class="ui-g-12" style="text-align: center;">
-              <button pButton type="button" icon="fa fa-search" label="ค้นหา"></button> &nbsp;
+              <button pButton type="button" icon="fa fa-search" label="ค้นหา" (click)="search()"></button> &nbsp;
               <button pButton type="button" icon="fa fa-close" label="ยกเลิก"></button>
             </div>
           </p-fieldset>
@@ -40,7 +45,8 @@
   </div>
   <div class="ui-g">
     <div class="ui-g-12">
-      <p-table [value]="products">
+      <p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct" (onRowSelect)="onRowSelect($event)"
+        [paginator]="true" [rows]="10">
         <ng-template pTemplate="caption">
           <div class="ui-g">
             <div class="ui-g-4" style="text-align: left">
@@ -57,20 +63,22 @@
         <ng-template pTemplate="header">
           <tr>
             <th style="text-align: center;" width="5%">ลำดับ</th>
-            <th [ngStyle]="{ 'text-align': 'center', 'width': '40%' }">ชื่อ-นามสกุล</th>
-            <th [ngStyle]="{ 'text-align': 'center', 'width': '30%' }">เบอร์โทร</th>
-            <th [ngStyle]="{ 'text-align': 'center', 'width': '20%' }">วันที่ที่ซื้อสินค้า</th>
+            <th [ngStyle]="{ 'text-align': 'center', 'width': '25%' }">ชื่อ / พันธุ์ข้าว</th>
+            <th [ngStyle]="{ 'text-align': 'center', 'width': '25%' }">ชื่อ-นามสกุล</th>
+            <th [ngStyle]="{ 'text-align': 'center', 'width': '20%' }">เบอร์โทร</th>
+            <th [ngStyle]="{ 'text-align': 'center', 'width': '20%' }">วันที่ซื้อสินค้า</th>
             <th [ngStyle]="{ 'text-align': 'center', 'width': '10%' }">จำนวนที่ซื้อ</th>
             <th style="text-align: center;" width="5%">ลบ</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">
-          <tr>
+          <tr [pSelectableRow]="item">
             <td class="text-right">{{ i + 1 }}</td>
-            <td>{{item.firstName}} {{item.lastName}}</td>
+            <td>{{item.rice_var_name}}</td>
+            <td>{{item.member_fname}} {{item.member_lname}}</td>
             <td>{{item.telephone}}</td>
-            <td [ngStyle]="{ 'text-align': 'center' }">{{item.buyDate}}</td>
-            <td [ngStyle]="{ 'text-align': 'right' }">{{item.qty}}</td>
+            <td [ngStyle]="{ 'text-align': 'center' }">{{item.DATE | displayDateThaiFormatDDMMYYYY}}</td>
+            <td [ngStyle]="{ 'text-align': 'right' }">{{item.product_quantity}}</td>
             <td class="text-center">
               <button pButton type="button" class="ui-button-danger" icon="fa fa-minus" (click)="delete(item)"></button>
             </td>
@@ -78,10 +86,109 @@
         </ng-template>
         <ng-template pTemplate="emptymessage" let-columns>
           <tr>
-            <td [attr.colspan]="6">ไม่พบข้อมูล</td>
+            <td [attr.colspan]="7">ไม่พบข้อมูล</td>
           </tr>
         </ng-template>
       </p-table>
     </div>
   </div>
 </form>
+
+<p-dialog header="เพิ่ม/แก้ไข ข้อมูลสินค้า" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"
+  [width]="800">
+  <div class="ui-g ui-fluid" *ngIf="product">
+    <form [formGroup]="saveProductForm">
+      <div class="ui-g">
+
+        <div class="ui-g-12">
+          <div class="ui-g-12">
+            <label for="float-input">เลขล็อต</label><br />
+            <input id="float-input" type="text" formControlName="lotId" (change)="getRiceVarities(this.saveProductForm.get('lotId').value)"
+              size="30" style="width: 150px" pInputText>
+            <!-- <div class="ui-g-3"></div>
+          <div class="ui-g-1" style="text-align: left;">
+            <label for="float-input">เลขล็อต</label>
+          </div>
+          <div class="ui-g-2">
+            <input id="float-input" type="text" formControlName="lotId" (change)="getRiceVarities(this.addProductForm.get('lotId').value)"
+              size="30" style="width: 150px" pInputText>
+          </div>
+          <div class="ui-g-1" style="text-align: right;">
+            <label for="float-input"></label>
+          </div>
+          <div class="ui-g-2"></div>
+          <div class="ui-g-3"></div> -->
+          </div>
+        </div>
+
+
+
+        <div class="ui-g-12">
+          <div class="ui-g-8">
+            <label for="float-input">พันธุ์ข้าว</label><br />
+            <input id="float-input" type="text" formControlName="riceVarieties" size="30" style="width: 100%"
+              pInputText disabled>
+          </div>
+          <div class="ui-g-4">
+            <label for="float-input">จำนวนกระสอบ(ชุด)</label><br />
+            <p-spinner size="15" formControlName="productQuantity" [min]="0" [max]="100"></p-spinner>
+          </div>
+          <!-- <div class="ui-g-3"></div>
+          <div class="ui-g-1" style="text-align: left;">
+            <label for="float-input">พันธุ์ข้าว</label>
+          </div>
+          <div class="ui-g-1">
+            <input id="float-input" type="text" formControlName="riceVarieties" size="30" style="width: 150px"
+              pInputText disabled>
+          </div>
+          <div class="ui-g-2" style="text-align: right;">
+            <label for="float-input">จำนวนกระสอบ</label>
+          </div>
+          <div class="ui-g-2">
+            <p-spinner size="15" formControlName="productQuantity" [min]="0" [max]="100"></p-spinner>
+          </div>
+          <div class="ui-g-3"></div> -->
+        </div>
+
+        <div class="ui-g-12">
+          <div class="ui-g-6">
+            <label for="float-input">วันที่ผลิต</label><br />
+            <p-calendar formControlName="mfdDate" dateFormat="dd/mm/yy" [showIcon]="true"></p-calendar>
+          </div>
+          <div class="ui-g-6">
+            <label for="float-input">วันที่หมดอายุ</label><br />
+            <p-calendar formControlName="expDate" dateFormat="dd/mm/yy" [showIcon]="true">
+            </p-calendar>
+          </div>
+          <!-- <div class="ui-g-3"></div>
+          <div class="ui-g-2" style="text-align: right;">
+            <label for="float-input">วันที่ผลิต</label>
+          </div>
+          <div class="ui-g-2" style="text-align: left;">
+            <p-calendar formControlName="mfdDate" dateFormat="dd/mm/yy" [showIcon]="true"></p-calendar>
+          </div>
+          <div class="ui-g-5"></div> -->
+        </div>
+
+
+        <!-- <div class="ui-g-12">
+        <div class="ui-g-3"></div>
+        <div class="ui-g-2" style="text-align: right;">
+          <label for="float-input">วันที่หมดอายุ</label>
+        </div>
+        <div class="ui-g-2" style="text-align: left;">
+          <p-calendar formControlName="expDate" dateFormat="dd/mm/yy" [showIcon]="true">
+          </p-calendar>
+        </div>
+        <div class="ui-g-5"></div>
+      </div> -->
+      </div>
+    </form>
+  </div>
+  <p-footer>
+    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+      <button type="button" pButton icon="fa fa-close" (click)="cancel()" label="ยกเลิก" *ngIf="!newProduct"></button>
+      <button type="button" pButton icon="fa fa-check" (click)="save()" label="บันทึก"></button>
+    </div>
+  </p-footer>
+</p-dialog>
