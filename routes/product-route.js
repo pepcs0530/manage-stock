@@ -37,7 +37,7 @@ app.post('/', function (req, res, next) {
     try {
       var sql = '';
       sql +=
-        " SELECT r.rice_var_name, CONCAT(member_fname, ' ', member_lname) AS member, member_fname, member_lname, telephone, DATE, product_quantity ";
+        " SELECT p.product_seq, r.rice_var_name, CONCAT(member_fname, ' ', member_lname) AS member, member_fname, member_lname, telephone, DATE, product_quantity, r.rice_var_seq, r.rice_var_name, p.mfd_date, p.exp_date, m.member_seq, p.lot_id ";
       sql += ' FROM product p ';
       sql += ' LEFT JOIN member m ON m.member_seq = p.member_seq ';
       sql += ' LEFT JOIN rice_varieties r ON r.rice_var_seq = p.rice_var_seq ';
@@ -90,7 +90,7 @@ app.get('/getProductByLotId/(:id)', function (req, res, next) {
   req.getConnection(function (error, conn) {
     console.log('---START getProductByLotId---');
     conn.query(
-      'SELECT rice_varieties FROM product WHERE 1=1 AND lot_id LIKE "%' +
+      'SELECT rice_var_seq, rice_varieties FROM product WHERE 1=1 AND lot_id LIKE "%' +
       req.params.id +
       '%"',
       function (err, rows, fields) {
@@ -149,6 +149,145 @@ app.post('/create', function (req, res, next) {
       console.error('err thrown: ' + e.stack);
       res.sendStatus(500);
     }
+  });
+});
+
+app.post('/add', function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Content-Type', 'application/json');
+  console.log('---START add---');
+
+  console.log('body-->', req.body);
+
+  var payload = {
+    lot_id: req.body['lotId'],
+    rice_var_seq: req.body['riceVarSeq'],
+    rice_varieties: req.body['riceVarieties'],
+    mfd_date: new Date(req.body['mfdDate']),
+    exp_date: new Date(req.body['expDate']),
+    product_quantity: req.body['productQuantity']
+  };
+
+  console.log('payload-->', payload);
+  req.getConnection(function (error, conn) {
+    try {
+      conn.query('INSERT INTO product SET ?', payload, function (err, result) {
+        //if(err) throw err
+        if (err) {
+          next(err);
+          console.log(err);
+        } else {
+          res.end();
+          console.log('Data added successfully!');
+          console.log('---END add---');
+        }
+      });
+    } catch (e) {
+      console.error('err thrown: ' + e.stack);
+      res.sendStatus(500);
+    }
+  });
+});
+
+app.put('/edit/(:id)', function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Content-Type', 'application/json');
+  console.log('---START edit---');
+
+  console.log('body-->', req.body);
+
+  var payload = {
+    lot_id: req.body['lotId'],
+    rice_var_seq: req.body['riceVarSeq'],
+    rice_varieties: req.body['riceVarieties'],
+    mfd_date: new Date(req.body['mfdDate']),
+    exp_date: new Date(req.body['expDate']),
+    product_quantity: req.body['productQuantity']
+  };
+
+  console.log('payload-->', payload);
+  req.getConnection(function (error, conn) {
+    try {
+      conn.query(
+        'UPDATE product SET ? WHERE product_seq = ' + req.params.id,
+        payload,
+        function (err, result) {
+          //if(err) throw err
+          if (err) {
+            next(err);
+            console.log(err);
+          } else {
+            res.end();
+            console.log('Data updated successfully!');
+            console.log('---END edit---');
+          }
+        }
+      );
+    } catch (e) {
+      console.error('err thrown: ' + e.stack);
+      res.sendStatus(500);
+    }
+  });
+});
+
+app.get('/getProductById/(:id)', function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Content-Type', 'application/json');
+  req.getConnection(function (error, conn) {
+    console.log('---START getProductById---');
+    try {
+
+      var sql = '';
+      sql +=
+        " SELECT p.product_seq, r.rice_var_name, CONCAT(member_fname, ' ', member_lname) AS member, member_fname, member_lname, telephone, DATE, product_quantity, r.rice_var_seq, r.rice_var_name, p.mfd_date, p.exp_date, m.member_seq, p.lot_id ";
+      sql += ' FROM product p ';
+      sql += ' LEFT JOIN member m ON m.member_seq = p.member_seq ';
+      sql += ' LEFT JOIN rice_varieties r ON r.rice_var_seq = p.rice_var_seq ';
+      sql += ' WHERE 1=1 ';
+
+      conn.query(
+        sql + ' AND product_seq = ' +
+        req.params.id +
+        ' ORDER BY product_seq ASC',
+        function (err, rows, fields) {
+          //if(err) throw err
+          if (err) {
+            console.log(err);
+            // req.flash('error', err);
+            next(err);
+          } else {
+            //console.log(rows)
+            res.end(JSON.stringify(rows));
+          }
+        }
+      );
+    } catch (e) {
+      console.error('err thrown: ' + e.stack);
+      res.sendStatus(500);
+    }
+    console.log('---END getProductById---');
+  });
+});
+
+app.delete('/deleteById/(:id)', function (req, res, next) {
+  console.log('---START deleteById---');
+
+  // var rfid = { rfid_gen: req.params.id }
+
+  req.getConnection(function (error, conn) {
+    conn.query(
+      'DELETE FROM product WHERE product_seq = ' + req.params.id,
+      null,
+      function (err, result) {
+        if (err) {
+          console.log(err);
+          next(err);
+        } else {
+          res.end();
+          console.log('---END deleteById---');
+        }
+      }
+    );
   });
 });
 

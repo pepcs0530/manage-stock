@@ -36,7 +36,7 @@
             </div>
             <div class="ui-g-12" style="text-align: center;">
               <button pButton type="button" icon="fa fa-search" label="ค้นหา" (click)="search()"></button> &nbsp;
-              <button pButton type="button" icon="fa fa-close" label="ยกเลิก"></button>
+              <button pButton type="button" icon="fa fa-close" label="ยกเลิก" (click)="productForm.reset(); clear();"></button>
             </div>
           </p-fieldset>
         </div>
