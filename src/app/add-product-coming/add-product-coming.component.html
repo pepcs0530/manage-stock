@@ -9,10 +9,11 @@
         <label for="float-input">เลขล็อต</label>
       </div>
       <div class="ui-g-2">
-        <input id="float-input" type="text" formControlName="lotId" size="20" style="width: 150px" pInputText readonly>
+        {{addForm.get('lotId').value}}
+        <!-- <input id="float-input" type="text" formControlName="lotId" size="20" style="width: 150px" pInputText readonly> -->
       </div>
       <div class="ui-g-2" style="text-align: right;">
-        <label for="float-input">วันที่</label>
+        <label for="float-input">วันที่<font style="color: red; font-weight: bold;">*</font></label>
       </div>
       <div class="ui-g-2">
         <p-calendar formControlName="date" dateFormat="dd/mm/yy" [showIcon]="true"></p-calendar>
@@ -21,7 +22,7 @@
     <div class="ui-g">
       <div class="ui-g-3"></div>
       <div class="ui-g-1" style="text-align: left;">
-        <label for="float-input">คนขาย</label>
+        <label for="float-input">คนขาย<font style="color: red; font-weight: bold;">*</font></label>
       </div>
       <div class="ui-g-5">
         <!-- <input id="float-input" type="text" formControlName="member" size="30" style="width: 520px" pInputText> -->
@@ -43,13 +44,13 @@
       <div class="ui-g-3"></div>
       <div class="ui-g-1" style="text-align: left;">
 
-        <label for="float-input">ทะเบียนรถ</label>
+        <label for="float-input">ทะเบียนรถ<font style="color: red; font-weight: bold;">*</font></label>
       </div>
       <div class="ui-g-1">
         <input id="float-input" type="text" formControlName="licensePlace" size="30" style="width: 180px" pInputText>
       </div>
       <div class="ui-g-2" style="text-align: right;">
-        <label for="float-input">พันธุ์ข้าว</label>
+        <label for="float-input">พันธุ์ข้าว<font style="color: red; font-weight: bold;">*</font></label>
       </div>
       <div class="ui-g-2">
         <p-autoComplete formControlName="riceVarieties" [suggestions]="riceVarieties" (completeMethod)="searchRiceVarieties($event)"
@@ -61,13 +62,13 @@
       <div class="ui-g-3"></div>
       <div class="ui-g-1" style="text-align: left;">
 
-        <label for="float-input">เวลาเข้า</label>
+        <label for="float-input">เวลาเข้า<font style="color: red; font-weight: bold;">*</font></label>
       </div>
       <div class="ui-g-1">
         <p-calendar formControlName="timeIn" [timeOnly]="true"></p-calendar>
       </div>
       <div class="ui-g-2" style="text-align: right;">
-        <label for="float-input">เวลาออก</label>
+        <label for="float-input">เวลาออก<font style="color: red; font-weight: bold;">*</font></label>
       </div>
       <div class="ui-g-2">
         <p-calendar formControlName="timeOut" [timeOnly]="true"></p-calendar>

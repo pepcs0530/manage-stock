@@ -54,16 +54,16 @@
     <form [formGroup]="saveRiceVarietieForm">
       <div class="ui-g">
         <div class="ui-g-12">
-          <label for="float-input">รหัส</label> &nbsp;
+          <label for="float-input">รหัส<font style="color: red; font-weight: bold;">*</font></label> &nbsp;
           <input id="float-input" type="text" formControlName="riceVarId" size="30" style="width: 150px" pInputText />
         </div>
         <div class="ui-g-8">
-          <label for="float-input">ชื่อสายพันธุ์</label> &nbsp;
-          <input id="float-input" type="text" formControlName="riceVarName" size="30" style="width: 380px" pInputText />
+          <label for="float-input">ชื่อสายพันธุ์<font style="color: red; font-weight: bold;">*</font></label> &nbsp;
+          <input id="float-input" type="text" formControlName="riceVarName" size="30" style="width: 350px" pInputText />
         </div>
         <div class="ui-g-4">
-          <label for="float-input">ราคา</label> &nbsp;
-          <input id="float-input" type="text" formControlName="price" [pKeyFilter]="decimalWithDigits" size="30" style="width: 130px"
+          <label for="float-input">ราคา<font style="color: red; font-weight: bold;">*</font></label> &nbsp;
+          <input id="float-input" type="text" formControlName="price" [pKeyFilter]="decimalWithDigits" size="30" style="width: 110px"
             pInputText />
           &nbsp; บาท
         </div>

@@ -22,6 +22,7 @@ export class ProductComponent implements OnInit {
   product: any;
   newProduct: boolean;
   displayDialog: boolean;
+  message = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -36,6 +37,7 @@ export class ProductComponent implements OnInit {
   initForm() {
     this.productForm = this.formBuilder.group({
       // keyword: [null]
+      lotId: [null],
       productId: [null],
       productName: [null],
       memberName: [null],
@@ -53,6 +55,7 @@ export class ProductComponent implements OnInit {
       mfdDate: [null],
       expDate: [null],
       memberSeq: [null],
+      member: [null]
     });
 
     /* this.saveProductForm.get('mfdDate').setValue(new Date());
@@ -65,6 +68,7 @@ export class ProductComponent implements OnInit {
     console.log('expDate-->', dateToStrYYYYMMDD(this.productForm.get('expDate').value));
 
     const payload = {
+      lotId: this.productForm.get('lotId').value,
       productId: this.productForm.get('productId').value,
       productName: this.productForm.get('productName').value,
       mfdDate: dateToStrYYYYMMDD(this.productForm.get('mfdDate').value),
@@ -97,6 +101,7 @@ export class ProductComponent implements OnInit {
       expDate: this.product['exp_date'] ? new Date(this.product['exp_date']) : null,
       riceVarSeq: this.product['rice_var_seq'],
       memberSeq: this.product['member_seq'],
+      member: this.product['member']
     });
     console.log('saveProductForm-->', this.saveProductForm);
     this.displayDialog = true;
@@ -177,7 +182,8 @@ export class ProductComponent implements OnInit {
           mfdDate: this.product['mfd_date'] ? new Date(this.product['mfd_date']) : null,
           expDate: this.product['exp_date'] ? new Date(this.product['exp_date']) : null,
           riceVarSeq: this.product['rice_var_seq'],
-          memberSeq: this.product['member_seq']
+          memberSeq: this.product['member_seq'],
+          member: this.product['member']
         });
       },
       error => console.log('Error :: ', error)
@@ -205,19 +211,24 @@ export class ProductComponent implements OnInit {
         }
       );
     } else {
-      console.log('payload-->', payload);
-      this.productService.editProduct(payload).subscribe(
-        data => {
-          this.displayDialog = false;
-          console.log('response-->', data);
-          this.search();
-          alert('แก้ไขข้อมูลเรียบร้อย');
-        },
-        error => {
-          console.error('Error editing data!');
-          return Observable.throw(error);
-        }
-      );
+      if (this.validateFormField()) {
+        console.log('payload-->', payload);
+        this.productService.editProduct(payload).subscribe(
+          data => {
+            this.displayDialog = false;
+            console.log('response-->', data);
+            this.search();
+            alert('แก้ไขข้อมูลเรียบร้อย');
+          },
+          error => {
+            console.error('Error editing data!');
+            return Observable.throw(error);
+          }
+        );
+      } else {
+        console.log('message-->', this.message);
+        alert(this.message.join('\n'));
+      }
     }
   }
 
@@ -249,7 +260,27 @@ export class ProductComponent implements OnInit {
   }
 
   clear() {
+    this.products = null;
+  }
 
+  validateFormField() {
+    this.message = [];
+    let i = 0;
+    let valid = true;
+    if (!this.saveProductForm.get('productQuantity').value) {
+      this.message[i] = 'กรุณาระบุจำนวนกระสอบ'; i++; valid = false;
+    }
+    if (!this.saveProductForm.get('mfdDate').value) {
+      this.message[i] = 'กรุณาระบุวันที่ผลิต'; i++; valid = false;
+    }
+    if (!this.saveProductForm.get('expDate').value) {
+      this.message[i] = 'กรุณาระบุวันที่หมดอายุ'; i++; valid = false;
+    }
+
+    /* console.log('message-->', this.message);
+    alert(this.message.join('\n')); */
+
+    return valid;
   }
 
 }

@@ -30,6 +30,7 @@ export class RiceVarietiesComponent implements OnInit {
   displayDialog: boolean;
 
   saveRiceVarietieForm: FormGroup;
+  message = [];
 
   ngOnInit() {
     this.initForm();
@@ -149,33 +150,43 @@ export class RiceVarietiesComponent implements OnInit {
     };
 
     if (this.newRiceVarietie) {
-      console.log('payload-->', payload);
-      this.riceVarietiesService.addRiceVarieties(payload).subscribe(
-        data => {
-          this.displayDialog = false;
-          console.log('response-->', data);
-          this.search();
-          alert('บันทึกข้อมูลเรียบร้อย');
-        },
-        error => {
-          console.error('Error adding data!');
-          return Observable.throw(error);
-        }
-      );
+      if (this.validateFormField()) {
+        console.log('payload-->', payload);
+        this.riceVarietiesService.addRiceVarieties(payload).subscribe(
+          data => {
+            this.displayDialog = false;
+            console.log('response-->', data);
+            this.search();
+            alert('บันทึกข้อมูลเรียบร้อย');
+          },
+          error => {
+            console.error('Error adding data!');
+            return Observable.throw(error);
+          }
+        );
+      } else {
+        console.log('message-->', this.message);
+        alert(this.message.join('\n'));
+      }
     } else {
-      console.log('payload-->', payload);
-      this.riceVarietiesService.editRiceVarieties(payload).subscribe(
-        data => {
-          this.displayDialog = false;
-          console.log('response-->', data);
-          this.search();
-          alert('แก้ไขข้อมูลเรียบร้อย');
-        },
-        error => {
-          console.error('Error editing data!');
-          return Observable.throw(error);
-        }
-      );
+      if (this.validateFormField()) {
+        console.log('payload-->', payload);
+        this.riceVarietiesService.editRiceVarieties(payload).subscribe(
+          data => {
+            this.displayDialog = false;
+            console.log('response-->', data);
+            this.search();
+            alert('แก้ไขข้อมูลเรียบร้อย');
+          },
+          error => {
+            console.error('Error editing data!');
+            return Observable.throw(error);
+          }
+        );
+      } else {
+        console.log('message-->', this.message);
+        alert(this.message.join('\n'));
+      }
     }
   }
 
@@ -195,5 +206,25 @@ export class RiceVarietiesComponent implements OnInit {
       },
       error => console.log('Error-->', error)
     );
+  }
+
+  validateFormField() {
+    this.message = [];
+    let i = 0;
+    let valid = true;
+    if (!this.saveRiceVarietieForm.get('riceVarId').value) {
+      this.message[i] = 'กรุณาระบุรหัส'; i++; valid = false;
+    }
+    if (!this.saveRiceVarietieForm.get('riceVarName').value) {
+      this.message[i] = 'กรุณาระบุชื่อสายพันธุ์'; i++; valid = false;
+    }
+    if (!this.saveRiceVarietieForm.get('price').value) {
+      this.message[i] = 'กรุณาระบุราคา'; i++; valid = false;
+    }
+
+    /* console.log('message-->', this.message);
+    alert(this.message.join('\n')); */
+
+    return valid;
   }
 }

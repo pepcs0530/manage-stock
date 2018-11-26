@@ -42,6 +42,8 @@ export class AddProductComingComponent implements OnInit {
   @Output()
   userSelected: any = new EventEmitter();
 
+  message = [];
+
   ngOnInit() {
     this.initForm();
     this.genLotId();
@@ -57,7 +59,8 @@ export class AddProductComingComponent implements OnInit {
       riceVarieties: new FormControl(),
       timeIn: new FormControl(),
       timeOut: new FormControl(),
-      remark: new FormControl()
+      remark: new FormControl(),
+      member_seq: new FormControl()
     });
 
     this.addForm.get('date').setValue(new Date());
@@ -110,25 +113,32 @@ export class AddProductComingComponent implements OnInit {
   }
 
   save() {
-    const payload = {
-      ...this.addForm.value
-    };
+    if (this.validateFormField()) {
+      const payload = {
+        ...this.addForm.value
+      };
 
-    console.log('payload-->', payload);
-    this.addProductComingService.addProductComing(payload).subscribe(
-      data => {
-        alert('เพิ่มข้อมูลเรียบร้อย');
-      },
-      error => {
-        console.error('Error adding data!');
-        return Observable.throw(error);
-      }
-    );
+      console.log('payload-->', payload);
+      this.addProductComingService.addProductComing(payload).subscribe(
+        data => {
+          alert('เพิ่มข้อมูลเรียบร้อย');
+          this.ngOnInit();
+        },
+        error => {
+          console.error('Error adding data!');
+          return Observable.throw(error);
+        }
+      );
+    } else {
+      console.log('message-->', this.message);
+      alert(this.message.join('\n'));
+    }
   }
 
   cancle() {
     this.addForm.reset();
-    this.genLotId();
+    // this.genLotId();
+    this.ngOnInit();
   }
 
   onLovSelect(event) {
@@ -151,5 +161,34 @@ export class AddProductComingComponent implements OnInit {
     lovName.forEach(namelov => {
       this.addForm.get(namelov).setValue(null);
     });
+  }
+
+  validateFormField() {
+    this.message = [];
+    let i = 0;
+    let valid = true;
+    if (!this.addForm.get('date').value) {
+      this.message[i] = 'กรุณาระบุวันที่'; i++; valid = false;
+    }
+    if (!this.addForm.get('member').value) {
+      this.message[i] = 'กรุณาระบุคนขาย'; i++; valid = false;
+    }
+    if (!this.addForm.get('licensePlace').value) {
+      this.message[i] = 'กรุณาระบุทะเบียนรถ'; i++; valid = false;
+    }
+    if (!this.addForm.get('riceVarieties').value) {
+      this.message[i] = 'กรุณาระบุพันธุ์ข้าว'; i++; valid = false;
+    }
+    if (!this.addForm.get('timeIn').value) {
+      this.message[i] = 'กรุณาระบุเวลาเข้า'; i++; valid = false;
+    }
+    if (!this.addForm.get('timeOut').value) {
+      this.message[i] = 'กรุณาระบุเวลาออก'; i++; valid = false;
+    }
+
+    /* console.log('message-->', this.message);
+    alert(this.message.join('\n')); */
+
+    return valid;
   }
 }

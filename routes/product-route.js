@@ -43,6 +43,10 @@ app.post('/', function (req, res, next) {
       sql += ' LEFT JOIN rice_varieties r ON r.rice_var_seq = p.rice_var_seq ';
       sql += ' WHERE 1=1 ';
 
+      if (condition.lotId) {
+        sql += " AND lot_id like '%" + condition.lotId + "%' ";
+      }
+
       if (condition.productId) {
         sql += " AND product_id like '%" + condition.productId + "%' ";
       }

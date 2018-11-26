@@ -16,7 +16,7 @@ export class DisplayDateThaiFormatDDMMYYYYPipe implements PipeTransform {
         beYear = new Date(value).getFullYear() + 543;
       } else {
         value = value.replace(/-/g, '');
-        date = value.substr(6, 2);
+        date = parseInt(value.substr(6, 2), 10) + 1; // mysql date ต้องบวกอีก 1 วัน
         month = value.substr(4, 2);
         beYear = parseInt(value.substr(0, 4), 10) + 543;
       }

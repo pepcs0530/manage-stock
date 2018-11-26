@@ -17,6 +17,8 @@ app.post('/create', function (req, res, next) {
     // member_fname: { ...req.body['member'] }.member_fname,
     // member_lname: { ...req.body['member'] }.member_lname,
     // member_license_place: req.body['member_license_place'],
+    member_seq: { ...req.body['member']
+    }.member_seq,
     rice_varieties: { ...req.body['riceVarieties']
     }.rice_var_name,
     time_in: new Date(req.body['timeIn']),

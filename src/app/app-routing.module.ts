@@ -16,7 +16,7 @@ import { RiceVarietiesComponent } from './rice-varieties/rice-varieties.componen
 import { ProductComponent } from './product/product.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/addProductComing', pathMatch: 'full' },
+  { path: '', redirectTo: '/stat', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'cashier', component: CashierComponent },
   { path: 'member', component: MemberComponent },
