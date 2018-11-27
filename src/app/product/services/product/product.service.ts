@@ -3,6 +3,7 @@ import { Headers, RequestOptions, Response, Http } from '@angular/http';
 import { Product } from '@shared/models/product/product';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Customer } from '@shared/models/customer/customer';
 
 @Injectable()
 export class ProductService {
@@ -65,6 +66,20 @@ export class ProductService {
     return this.http.get('/api/product/getProductById/' + id, options).pipe(
       map(res => {
         return <Product[]>res.json();
+      })
+    );
+  }
+
+  getCustomerListByProductSeq(id: number): Observable<Customer[]> {
+    const headers = new Headers({
+      'Content-Type': 'application/json; charset=utf-8',
+      'Access-Control-Allow-Origin': '*'
+    });
+    const options = new RequestOptions({ headers: headers });
+
+    return this.http.get('/api/customer/getCustomerListByProductSeq/' + id, options).pipe(
+      map(res => {
+        return <Customer[]>res.json();
       })
     );
   }

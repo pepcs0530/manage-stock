@@ -1,6 +1,29 @@
 <app-navbar></app-navbar>
 <form [formGroup]="riceVarietieForm">
   <div class="ui-g">
+
+    <div class="ui-g-12">
+      <div class="ui-g-offset-2 ui-g-8">
+        <div class="ui-g">
+          <div class="ui-g-12">
+            <p-fieldset legend="ค้นหา">
+              <div class="ui-g-12">
+                <div class="ui-g-offset-3 ui-g-6">
+                  <label for="float-input">รหัส / ชื่อสายพันธุ์</label> <br />
+                  <input id="float-input" type="text" formControlName="keyword" size="30" style="width: 100%"
+                    pInputText />
+                </div>
+              </div>
+              <div class="ui-g-12" style="text-align: center;">
+                <button pButton type="button" icon="fa fa-search" label="ค้นหา" (click)="search()"></button> &nbsp;
+                <button pButton type="button" icon="fa fa-close" label="ยกเลิก" (click)="riceVarietieForm.reset(); clear();"></button>
+              </div>
+            </p-fieldset>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="ui-g-12">
       <p-table #dt [value]="riceVarieties" selectionMode="single" [(selection)]="selectedRiceVarietie" (onRowSelect)="onRowSelect($event)"
         selectionMode="single" [paginator]="true" [rows]="10">
@@ -13,8 +36,8 @@
               ตารางข้อมูลสายพันธุ์ข้าว
             </div>
             <div class="ui-g-4" style="text-align: right">
-              <input type="text" formControlName="keyword" pInputText placeholder="รหัส, ชื่อสายพันธุ์" />
-              <button pButton type="button" icon="fa fa-search" (click)="search()"></button>
+              <!-- <input type="text" formControlName="keyword" pInputText placeholder="รหัส, ชื่อสายพันธุ์" />
+              <button pButton type="button" icon="fa fa-search" (click)="search()"></button> -->
             </div>
           </div>
         </ng-template>

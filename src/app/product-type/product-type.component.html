@@ -1,0 +1,104 @@
+<app-navbar></app-navbar>
+<form [formGroup]="productTypeForm">
+  <div class="ui-g">
+    <div class="ui-g-offset-2 ui-g-8">
+      <div class="ui-g">
+        <div class="ui-g-12">
+          <p-fieldset legend="ค้นหา">
+            <div class="ui-g-12">
+              <div class="ui-g-offset-3 ui-g-6">
+                <label for="float-input">ชื่อประเภทสินค้า</label> <br />
+                <input id="float-input" type="text" formControlName="productTypeName" size="30" style="width: 100%"
+                  pInputText />
+              </div>
+            </div>
+            <div class="ui-g-12" style="text-align: center;">
+              <button pButton type="button" icon="fa fa-search" label="ค้นหา" (click)="search()"></button> &nbsp;
+              <button pButton type="button" icon="fa fa-close" label="ยกเลิก" (click)="productTypeForm.reset(); clear();"></button>
+            </div>
+          </p-fieldset>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <p-table [value]="productTypes" selectionMode="single" [(selection)]="selectedProductType" (onRowSelect)="onRowSelect($event)"
+        [paginator]="true" [rows]="10">
+        <ng-template pTemplate="caption">
+          <div class="ui-g">
+            <div class="ui-g-4" style="text-align: left">
+              <button pButton type="button" icon="fa fa-plus" (click)="showDialogToAdd()"></button>
+            </div>
+            <div class="ui-g-4" style="text-align: center">
+              ตารางข้อมูลประเภทสินค้า
+            </div>
+            <div class="ui-g-4" style="text-align: right">
+              &nbsp;
+            </div>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="text-align: center;" width="5%">ลำดับ</th>
+            <th [ngStyle]="{ 'text-align': 'center' }">ชื่อประเภทสินค้า</th>
+            <th style="text-align: center;" width="5%">ลบ</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item let-i="rowIndex">
+          <tr [pSelectableRow]="item">
+            <td class="text-right">{{ i + 1 }}</td>
+            <td>{{item.product_type_name}}</td>
+            <td class="text-center">
+              <button pButton type="button" class="ui-button-danger" icon="fa fa-minus" (click)="delete(item)"></button>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+          <tr>
+            <td [attr.colspan]="3">ไม่พบข้อมูล</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</form>
+
+<p-dialog header="เพิ่ม/แก้ไข ข้อมูลประเภทสินค้า" [(visible)]="displayDialog" [responsive]="true" showEffect="fade"
+  [modal]="true" [width]="1000">
+  <div class="ui-g ui-fluid" *ngIf="productType">
+    <form [formGroup]="saveProductTypeForm">
+      <div class="ui-g">
+        <!-- <div class="ui-g-12">
+          <div class="ui-g-4">
+            <label for="float-input">เลขล็อต</label><br />
+            {{saveProductForm.get('lotId').value}}
+
+          </div>
+          <div class="ui-g-8">
+            <label for="float-input">ชื่อผู้ขาย</label><br />
+            {{saveProductForm.get('member').value}}
+          </div>
+        </div> -->
+
+        <div class="ui-g-12">
+          <div class="ui-g-8">
+            <label for="float-input">ชื่อประเภทสินค้า<font style="color: red; font-weight: bold;">*</font></label><br />
+            <input id="float-input" type="text" formControlName="productTypeName" size="100" style="width: 100%"
+              pInputText disabled>
+          </div>
+          <!-- <div class="ui-g-4">
+            <label for="float-input">จำนวนกระสอบ(ชุด)<font style="color: red; font-weight: bold;">*</font></label><br />
+            <p-spinner size="15" formControlName="productQuantity" [min]="0" [max]="100"></p-spinner>
+          </div> -->
+        </div>
+      </div>
+    </form>
+  </div>
+  <p-footer>
+    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+      <button type="button" pButton icon="fa fa-close" (click)="cancel()" label="ยกเลิก" *ngIf="!newProductType"></button>
+      <button type="button" pButton icon="fa fa-check" (click)="save()" label="บันทึก"></button>
+    </div>
+  </p-footer>
+</p-dialog>

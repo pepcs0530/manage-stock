@@ -59,4 +59,7 @@ ng g service ../app/rice-varieties/services/rice-varieties/rice-varieties <br/>
 <br/>
 ng generate component product <br/>
 ng g service ../app/product/services/product/product <br/>
+<br/>
+ng generate component product-type <br/>
+ng g service ../app/product-type/services/product-type/product-type <br/>
 `node api.js` for run api back-end <br/>

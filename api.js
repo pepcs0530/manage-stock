@@ -8,10 +8,10 @@ var mysql = require('mysql');
 var port = process.env.PORT || 4501;
 
 /* Routing */
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
   res.send('<h1>Hello Node.js</h1>');
 });
-app.get('/index', function(req, res) {
+app.get('/index', function (req, res) {
   res.send('<h1>This is index page</h1>');
 });
 
@@ -28,12 +28,16 @@ var bodyParser = require('body-parser');
  * and exposes the resulting object (containing the keys and values) on req.body.
  */
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(bodyParser.json());
-app.use(bodyParser.text({ defaultCharset: 'utf-8' }));
+app.use(bodyParser.text({
+  defaultCharset: 'utf-8'
+}));
 
 /* สั่งให้ server ทำการรัน Web Server ด้วย port ที่เรากำหนด */
-app.listen(port, function() {
+app.listen(port, function () {
   console.log('Starting node.js on port ' + port);
 });
 
@@ -77,23 +81,27 @@ app.use(myConnection(mysql, dbOptions, 'pool'));
 const route = require('./routes/api');
 const memberRoute = require('./routes/member-route');
 const productRoute = require('./routes/product-route');
+const productTypeRoute = require('./routes/product-type-route');
 const pdfRoute = require('./routes/pdf-route');
 const addProductComing = require('./routes/product-coming-route');
 const addRiceVarieties = require('./routes/rice-varieties-route');
 const notification = require('./routes/notification-route');
 const riceVarieties = require('./routes/rice-varieties-route');
-const orderRoute = require('./routes/order-route')
+const orderRoute = require('./routes/order-route');
+const customerRoute = require('./routes/customer-route');
 app.set('view engine', 'ejs');
 app.use('/api', route);
 app.use('/api/member', memberRoute);
 app.use('/api/product', productRoute);
+app.use('/api/productType', productTypeRoute);
 app.use('/api/pdf', pdfRoute);
 app.use('/api/addProductComing', addProductComing);
 app.use('/api/addRiceVarieties', addRiceVarieties);
 app.use('/api/addProduct', productRoute);
 app.use('/api/notification', notification);
 app.use('/api/riceVarieties', riceVarieties);
-app.use('/api/order',orderRoute);
+app.use('/api/order', orderRoute);
+app.use('/api/customer', customerRoute);
 //Access-Control-Allow-Origin is a response header, not a request header you need to fix the permission in your backend. so you must create cors.js file that contains all necessary permissions.
 var cors2 = require('./cors');
 app.use(cors2.permission);

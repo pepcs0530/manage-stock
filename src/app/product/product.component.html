@@ -101,36 +101,28 @@
   <div class="ui-g ui-fluid" *ngIf="product">
     <form [formGroup]="saveProductForm">
       <div class="ui-g">
+
         <div class="ui-g-12">
-          <div class="ui-g-4">
+          <div class="ui-g-2">
             <label for="float-input">เลขล็อต</label><br />
             {{saveProductForm.get('lotId').value}}
-            <!-- <input id="float-input" type="text" formControlName="lotId" (change)="getRiceVarities(this.saveProductForm.get('lotId').value)"
-              size="30" style="width: 150px" pInputText> -->
-
-            <!-- <div class="ui-g-3"></div>
-          <div class="ui-g-1" style="text-align: left;">
-            <label for="float-input">เลขล็อต</label>
           </div>
-          <div class="ui-g-2">
-            <input id="float-input" type="text" formControlName="lotId" (change)="getRiceVarities(this.addProductForm.get('lotId').value)"
-              size="30" style="width: 150px" pInputText>
-          </div>
-          <div class="ui-g-1" style="text-align: right;">
-            <label for="float-input"></label>
-          </div>
-          <div class="ui-g-2"></div>
-          <div class="ui-g-3"></div> -->
-          </div>
-          <div class="ui-g-8">
+          <div class="ui-g-4">
             <label for="float-input">ชื่อผู้ขาย</label><br />
             {{saveProductForm.get('member').value}}
           </div>
+          <div class="ui-g-3">
+            <label for="float-input">พันธุ์ข้าว</label><br />
+            <input id="float-input" type="text" formControlName="riceVarieties" size="30" style="width: 100%"
+              pInputText disabled>
+          </div>
+          <div class="ui-g-3">
+            <label for="float-input">จำนวนกระสอบ(ชุด)<font style="color: red; font-weight: bold;">*</font></label><br />
+            <p-spinner size="15" formControlName="productQuantity" [min]="0" [max]="100"></p-spinner>
+          </div>
         </div>
 
-
-
-        <div class="ui-g-12">
+        <!-- <div class="ui-g-12">
           <div class="ui-g-8">
             <label for="float-input">พันธุ์ข้าว</label><br />
             <input id="float-input" type="text" formControlName="riceVarieties" size="30" style="width: 100%"
@@ -140,22 +132,7 @@
             <label for="float-input">จำนวนกระสอบ(ชุด)<font style="color: red; font-weight: bold;">*</font></label><br />
             <p-spinner size="15" formControlName="productQuantity" [min]="0" [max]="100"></p-spinner>
           </div>
-          <!-- <div class="ui-g-3"></div>
-          <div class="ui-g-1" style="text-align: left;">
-            <label for="float-input">พันธุ์ข้าว</label>
-          </div>
-          <div class="ui-g-1">
-            <input id="float-input" type="text" formControlName="riceVarieties" size="30" style="width: 150px"
-              pInputText disabled>
-          </div>
-          <div class="ui-g-2" style="text-align: right;">
-            <label for="float-input">จำนวนกระสอบ</label>
-          </div>
-          <div class="ui-g-2">
-            <p-spinner size="15" formControlName="productQuantity" [min]="0" [max]="100"></p-spinner>
-          </div>
-          <div class="ui-g-3"></div> -->
-        </div>
+        </div> -->
 
         <div class="ui-g-12">
           <div class="ui-g-6">
@@ -167,28 +144,54 @@
             <p-calendar formControlName="expDate" dateFormat="dd/mm/yy" [showIcon]="true">
             </p-calendar>
           </div>
-          <!-- <div class="ui-g-3"></div>
-          <div class="ui-g-2" style="text-align: right;">
-            <label for="float-input">วันที่ผลิต</label>
-          </div>
-          <div class="ui-g-2" style="text-align: left;">
-            <p-calendar formControlName="mfdDate" dateFormat="dd/mm/yy" [showIcon]="true"></p-calendar>
-          </div>
-          <div class="ui-g-5"></div> -->
         </div>
 
+        <hr />
 
-        <!-- <div class="ui-g-12">
-        <div class="ui-g-3"></div>
-        <div class="ui-g-2" style="text-align: right;">
-          <label for="float-input">วันที่หมดอายุ</label>
+        <div class="ui-g-12">
+          <p-table [value]="customers" selectionMode="single" [(selection)]="selectedCustomer" (onRowSelect)="onRowSelectCustomer($event)"
+            [paginator]="true" [rows]="5">
+            <ng-template pTemplate="caption">
+              <div class="ui-g">
+                <div class="ui-g-4" style="text-align: left">
+                  <!-- <button pButton type="button" icon="fa fa-plus" (click)="showDialogToAdd()"></button> -->
+                </div>
+                <div class="ui-g-4" style="text-align: center">
+                  รายชื่อผู้ที่ซื้อ
+                </div>
+                <div class="ui-g-4" style="text-align: right">
+                  &nbsp;
+                </div>
+              </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+              <tr>
+                <th style="text-align: center;" width="5%">ลำดับ</th>
+                <th [ngStyle]="{ 'text-align': 'center', 'width': '25%' }">ชื่อ - นามสกุล</th>
+                <th [ngStyle]="{ 'text-align': 'center', 'width': '15%' }">วันที่ซื้อ</th>
+                <th [ngStyle]="{ 'text-align': 'center', 'width': '10%' }">จำนวนที่ซื้อ</th>
+                <!-- <th style="text-align: center;" width="5%">ลบ</th> -->
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-i="rowIndex">
+              <tr [pSelectableRow]="item">
+                <td class="text-right">{{ i + 1 }}</td>
+                <td class="text-left">{{item.customer_name}}</td>
+                <td class="text-center">{{item.issuedate | displayDateThaiFormatDDMMYYYY}}</td>
+                <td [ngStyle]="{ 'text-align': 'right' }">{{item.quantity}}</td>
+                <!-- <td class="text-center">
+                  <button pButton type="button" class="ui-button-danger" icon="fa fa-minus" (click)="delete(item)"></button>
+                </td> -->
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+              <tr>
+                <td [attr.colspan]="4">ไม่พบข้อมูล</td>
+              </tr>
+            </ng-template>
+          </p-table>
         </div>
-        <div class="ui-g-2" style="text-align: left;">
-          <p-calendar formControlName="expDate" dateFormat="dd/mm/yy" [showIcon]="true">
-          </p-calendar>
-        </div>
-        <div class="ui-g-5"></div>
-      </div> -->
+
       </div>
     </form>
   </div>

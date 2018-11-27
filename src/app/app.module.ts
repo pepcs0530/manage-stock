@@ -62,6 +62,8 @@ import { ThaiBathCurrencyPipeModule } from '@shared/pipes/thai-bath-currency/tha
 import { RiceVarietiesComponent } from './rice-varieties/rice-varieties.component';
 import { ProductComponent } from './product/product.component';
 import { ProductService } from './product/services/product/product.service';
+import { ProductTypeComponent } from './product-type/product-type.component';
+import { ProductTypeService } from './product-type/services/product-type/product-type.service';
 
 @NgModule({
   declarations: [
@@ -86,7 +88,8 @@ import { ProductService } from './product/services/product/product.service';
     AddRiceVarietiesComponent,
     AddProductComponent,
     RiceVarietiesComponent,
-    ProductComponent
+    ProductComponent,
+    ProductTypeComponent
   ],
   imports: [
     BrowserModule,
@@ -126,6 +129,7 @@ import { ProductService } from './product/services/product/product.service';
     NotificationService,
     RiceService,
     ProductService,
+    ProductTypeService,
     DatabaseConfig
   ],
   bootstrap: [AppComponent]

@@ -72,6 +72,10 @@ export class RiceVarietiesComponent implements OnInit {
     );
   }
 
+  clear() {
+    this.riceVarieties = null;
+  }
+
   onRowSelect(event) {
     console.log('onRowSelect-->', event);
     this.newRiceVarietie = false;

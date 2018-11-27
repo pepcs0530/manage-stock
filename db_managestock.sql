@@ -12,7 +12,7 @@ MySQL - 8.0.13 : Database - db_managestock
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`db_managestock` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`db_managestock` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
 USE `db_managestock`;
 
@@ -98,15 +98,18 @@ CREATE TABLE `order_item` (
   `quantity` int(11) NOT NULL DEFAULT '0',
   `price` decimal(10,0) NOT NULL DEFAULT '0',
   `order_id` varchar(10) NOT NULL,
+  `product_seq` int(11) DEFAULT NULL COMMENT 'FK สินค้า',
   PRIMARY KEY (`id`),
   KEY `item_order` (`order_id`),
-  KEY `product_id` (`product_id`)
+  KEY `product_id` (`product_id`),
+  KEY `FK_order_item_product` (`product_seq`),
+  CONSTRAINT `FK_order_item_product` FOREIGN KEY (`product_seq`) REFERENCES `product` (`product_seq`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `order_item` */
 
-insert  into `order_item`(`id`,`product_id`,`quantity`,`price`,`order_id`) values 
-('x000000001','test',2,100,'z000000001');
+insert  into `order_item`(`id`,`product_id`,`quantity`,`price`,`order_id`,`product_seq`) values 
+('x000000001','test',2,100,'p000000001',3);
 
 /*Table structure for table `pick_up` */
 
@@ -148,7 +151,7 @@ CREATE TABLE `product` (
   `time_out` datetime DEFAULT NULL COMMENT 'เวลาออก',
   `rice_varieties` varchar(200) DEFAULT NULL COMMENT 'พันธุ์ข้าว',
   `remark` varchar(250) DEFAULT NULL COMMENT 'หมายเหตุ',
-  `date` date DEFAULT NULL COMMENT 'วันที่บันทึก',
+  `date` datetime DEFAULT NULL COMMENT 'วันที่บันทึก',
   `lot_id` int(11) DEFAULT NULL COMMENT 'เลข lot',
   `product_quantity` decimal(10,2) DEFAULT NULL COMMENT 'จำนวนกระสอบ',
   `mfd_date` date DEFAULT NULL COMMENT 'วันที่ผลิต',
@@ -163,16 +166,22 @@ CREATE TABLE `product` (
   KEY `rice_var_seq` (`rice_var_seq`),
   CONSTRAINT `product_ibfk_1` FOREIGN KEY (`member_seq`) REFERENCES `member` (`member_seq`),
   CONSTRAINT `product_ibfk_2` FOREIGN KEY (`rice_var_seq`) REFERENCES `rice_varieties` (`rice_var_seq`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 /*Data for the table `product` */
 
 insert  into `product`(`product_seq`,`product_id`,`product_name`,`product_type_id`,`time_in`,`time_out`,`rice_varieties`,`remark`,`date`,`lot_id`,`product_quantity`,`mfd_date`,`exp_date`,`member_seq`,`rice_var_seq`) values 
-(3,'p0001',NULL,NULL,'2018-10-18 23:28:29','2018-10-18 23:30:29','หอมมะลิ','หมายเหตุ','2018-10-18',1549880169,5.00,'2018-11-01','2018-11-30',1,1),
-(4,NULL,NULL,NULL,NULL,NULL,'หอมมะลิ',NULL,NULL,1539880169,1.00,'2018-10-01','2018-11-02',NULL,NULL),
-(5,NULL,NULL,NULL,'1970-01-01 07:00:00','1970-01-01 07:00:00','ป',NULL,'2018-11-01',1541059136,NULL,NULL,NULL,NULL,NULL),
-(8,NULL,NULL,NULL,'2018-11-04 11:00:00','2018-11-04 11:30:00','หอมมะลิ','หมายเหตุ','1970-01-01',1541307518,NULL,NULL,NULL,NULL,NULL),
-(9,NULL,NULL,NULL,'2018-11-04 11:00:00','2018-11-04 11:30:00',NULL,'หมายเหตุ','1970-01-01',1541307518,NULL,NULL,NULL,NULL,NULL);
+(3,'p0001',NULL,NULL,'2018-10-18 23:28:29','2018-10-18 23:30:29','หอมมะลิ','หมายเหตุ','2018-10-18 00:00:00',1549880169,5.00,'2018-11-01','2018-11-30',1,1),
+(4,NULL,NULL,NULL,NULL,NULL,'หอมมะลิ',NULL,NULL,1539880169,1.00,'2018-10-01','2018-11-02',NULL,10),
+(5,NULL,NULL,NULL,'1970-01-01 07:00:00','1970-01-01 07:00:00','ป',NULL,'2018-11-01 00:00:00',1541059136,NULL,NULL,NULL,NULL,9),
+(8,NULL,NULL,NULL,'2018-11-04 11:00:00','2018-11-04 11:30:00','หอมมะลิ','หมายเหตุ','1970-01-01 00:00:00',1541307518,NULL,NULL,NULL,NULL,8),
+(10,NULL,NULL,NULL,'2018-11-23 11:12:39','2018-11-23 11:30:40','ข้าวเหนียว','เทส rice_var_seq','2018-11-26 00:00:00',1542946179,5.00,'2018-11-21','2018-11-29',NULL,7),
+(11,NULL,NULL,NULL,NULL,NULL,'หอมมะลิ',NULL,NULL,1549880169,2.00,'2018-11-26','2019-05-26',NULL,6),
+(12,NULL,NULL,NULL,'2018-11-25 23:30:50','2018-11-25 23:30:50','ประทุม',NULL,'2018-11-25 00:00:00',1543163450,NULL,NULL,NULL,NULL,5),
+(13,NULL,NULL,NULL,NULL,NULL,'ประทุม',NULL,NULL,1543163450,20.00,'2018-11-25','2019-03-25',NULL,4),
+(15,NULL,NULL,NULL,'2018-11-26 23:33:08','2018-11-26 23:33:08','หอมมะลิ','1543249987','2018-11-26 23:33:08',1543249987,NULL,NULL,NULL,NULL,3),
+(16,NULL,NULL,NULL,'2018-11-26 23:35:39','2018-11-26 23:35:39','ประทุม','1543250139','2018-11-26 23:35:39',1543250139,5.00,'2018-11-01','2018-11-02',2,2),
+(17,NULL,NULL,NULL,'2018-11-26 23:40:23','2018-11-26 23:40:23','ข้าวเหนียว','1543250423','2018-11-26 23:40:23',1543250423,5.00,'2018-11-01','2018-11-03',1,1);
 
 /*Table structure for table `product_det` */
 
@@ -213,18 +222,26 @@ CREATE TABLE `rice_varieties` (
   `rice_var_id` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'รหัสสายพันธุ์',
   `rice_var_name` varchar(100) DEFAULT NULL COMMENT 'ชื่อสายพันธุ์',
   `price` decimal(10,2) DEFAULT NULL COMMENT 'ราคา',
+  `product_type_seq` int(11) DEFAULT NULL COMMENT 'FK ประเภทสินค้า',
   PRIMARY KEY (`rice_var_seq`),
-  KEY `rice_var_id` (`rice_var_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+  KEY `rice_var_id` (`rice_var_id`),
+  KEY `FK_rice_varieties_product_type` (`product_type_seq`),
+  CONSTRAINT `FK_rice_varieties_product_type` FOREIGN KEY (`product_type_seq`) REFERENCES `product_det` (`product_det_seq`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 /*Data for the table `rice_varieties` */
 
-insert  into `rice_varieties`(`rice_var_seq`,`rice_var_id`,`rice_var_name`,`price`) values 
-(1,'r0001','หอมมะลิ',100.00),
-(2,'r0002','ประทุม',150.00),
-(3,'r0003','ทาง',111.00),
-(7,'r0005','ทดสอบเพิ่ม',777.00),
-(8,'r006','ข้าวเหนียว',456.00);
+insert  into `rice_varieties`(`rice_var_seq`,`rice_var_id`,`rice_var_name`,`price`,`product_type_seq`) values 
+(1,'00001','กข 31',0.00,NULL),
+(2,'00002','กข 41',0.00,NULL),
+(3,'00003','กข 47',0.00,NULL),
+(4,'00004','กข 49',0.00,NULL),
+(5,'00005','กข 57',0.00,NULL),
+(6,'00006','กข 61',0.00,NULL),
+(7,'00007','กข 71',0.00,NULL),
+(8,'00008','สุพรรณบุรี 1',0.00,NULL),
+(9,'00009','สุพรรณบุรี 2',0.00,NULL),
+(10,'00010','ปทุมธานี 1',0.00,NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

@@ -6,6 +6,7 @@ import { Product } from '@shared/models/product/product';
 import { AddProductService } from '../add-product/services/add-product/add-product.service';
 import { Observable } from '../../../node_modules/rxjs';
 import { tap, finalize } from '../../../node_modules/rxjs/operators';
+import { Customer } from '@shared/models/customer/customer';
 
 @Component({
   selector: 'app-product',
@@ -23,6 +24,9 @@ export class ProductComponent implements OnInit {
   newProduct: boolean;
   displayDialog: boolean;
   message = [];
+
+  customers: any[];
+  selectedCustomer: Customer;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -105,6 +109,22 @@ export class ProductComponent implements OnInit {
     });
     console.log('saveProductForm-->', this.saveProductForm);
     this.displayDialog = true;
+    this.getCustomerListByProductSeq(this.saveProductForm.get('productSeq').value);
+  }
+
+  getCustomerListByProductSeq(productSeq) {
+    console.log('productSeq-->', productSeq);
+    this.productService.getCustomerListByProductSeq(productSeq).subscribe(
+      resultArray => {
+        this.customers = resultArray;
+        console.log('customers-->', resultArray);
+      },
+      error => console.log('Error :: ', error)
+    );
+  }
+
+  onRowSelectCustomer(event) {
+    console.log('onRowSelect-->', event);
   }
 
   setDataToEdit(data: Product): Product {
@@ -185,6 +205,8 @@ export class ProductComponent implements OnInit {
           memberSeq: this.product['member_seq'],
           member: this.product['member']
         });
+
+        this.getCustomerListByProductSeq(this.saveProductForm.get('productSeq').value);
       },
       error => console.log('Error :: ', error)
     );
