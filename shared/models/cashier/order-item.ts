@@ -1,8 +1,9 @@
 import { Product } from "../product/product";
 
 export class OrderItem{
-    product_id:string;
+    product_seq:string;
     name:string;
     quantity:number;
+    max_quantity:number;
     price:number;
 }

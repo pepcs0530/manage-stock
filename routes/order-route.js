@@ -43,11 +43,11 @@ app.post('/searchProductByName',function(req,res,next){
 
             let sqlStr = `SELECT * FROM product as p
             LEFT JOIN rice_varieties as v ON p.rice_var_seq = v.rice_var_seq 
-            WHERE product_name like CONCAT('%',?,'%')
+            WHERE rice_var_name like CONCAT('%',?,'%')
             ORDER BY CASE
-               when product_name = ? THEN 1
-               WHEN product_name LIKE CONCAT(?,'%') THEN 2
-               WHEN product_name LIKE CONCAT('%',?,'%') THEN 3
+               when rice_var_name = ? THEN 1
+               WHEN rice_var_name LIKE CONCAT(?,'%') THEN 2
+               WHEN rice_var_name LIKE CONCAT('%',?,'%') THEN 3
             END`;
             conn.query(sqlStr,[keyword,keyword,keyword,keyword], function(err, rows, fields) {
                 //if(err) throw err
@@ -101,7 +101,7 @@ app.post('/saveOrder',function(req, res, next){
                             }
                             console.debug("complete",result)
                             let receipt = result[1]
-                            res.send({receipt:receipt})
+                            res.send({receiptNo:receipt})
                             res.end()
                         })
                     }
@@ -198,7 +198,8 @@ function saveOrderDetails(connection,req,res,maincallback){
             var payload = []
              req.body.itemList.forEach(item => {
                 payload.push({
-                    product_id:item.product_id,
+
+                    product_seq:item.product_seq,
                     quantity:item.quantity,
                     price:item.price,
                     order_id:order_id

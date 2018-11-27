@@ -7,6 +7,7 @@ import { Order } from '@shared/models/cashier/order';
 import { Customer } from '@shared/models/cashier/customer';
 import { CashierService } from './cashier.service'
 import { Member } from '@shared/models/member/member';
+import {saveAs as importedSaveAs} from "file-saver";
 @Component({
   selector: 'app-cashier',
   templateUrl: './cashier.component.html',
@@ -42,7 +43,7 @@ export class CashierComponent implements OnInit {
 
   addNewRow(){
     let item = new OrderItem();
-    item.product_id = null;
+    item.product_seq = null;
     item.name = '';
     item.price = 0;
     item.quantity = 0;
@@ -68,9 +69,10 @@ export class CashierComponent implements OnInit {
   }
   selectSearchProduct(event,item:OrderItem){
     console.log('event',event.item)
-    item.product_id= event.item.product_id;
-    item.name = event.item.product_name;
+    item.product_seq= event.item.product_seq;
+    item.name = event.item.rice_var_name;
     item.quantity = 1;
+    item.max_quantity= event.item.product_quantity;
     item.price = event.item.price;
     console.log(' item.name ', item)
   }
@@ -79,7 +81,13 @@ export class CashierComponent implements OnInit {
     console.log(this.order.customer)
     this.cashierService.saveOrder(this.order)
     .subscribe(res => {
-        this.order.receiptNo = res.receipt;
+        this.order.receiptNo = res.receiptNo;
     });
   }
+  exportReceipt(){
+    this.cashierService.exportReceipt(this.order).subscribe(blob => {
+      importedSaveAs(blob,this.order.receiptNo+'.pdf');
+    })
+  }
+
 }

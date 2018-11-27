@@ -49,7 +49,7 @@ export class CashierService {
     );
   }
 
-  saveOrder(order:Order):Observable<OrderResponse>{
+  saveOrder(order:Order):Observable<Order>{
     const headers = new Headers({
       'Content-Type': 'application/json; charset=utf-8',
       'Access-Control-Allow-Origin': '*'
@@ -58,8 +58,22 @@ export class CashierService {
 
     return this.http.post('/api/order/saveOrder', order,options).pipe(
       map(res => {
-        return <OrderResponse>res.json();
+        return <Order>res.json();
       })
     );
+  }
+  exportReceipt(order:Order):Observable<Blob>{
+  //   window.location.href = '/api/pdf/get-receipt-pdf/'+receiptNo;
+    const headers = new Headers({
+      'Content-Type': 'application/json; charset=utf-8',
+      'Access-Control-Allow-Origin': '*'
+    });
+    const options = new RequestOptions({ headers: headers });
+
+    return this.http.post('/api/pdf/get-receipt-pdf', order,options).pipe(
+      map(res =>{
+        return res.blob();
+      })
+    )
   }
 }
