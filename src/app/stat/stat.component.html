@@ -6,8 +6,9 @@
       <label for="float-input">สถิติการขายข้าวประจำเดือน</label>
     </div>
     <div class="ui-g-4 ui-md-4">
-      <input id="float-input" type="text" size="6" style="width: 250px" placeholder="YYYYMM" pInputText>&nbsp;
-      <button pButton type="button" icon="fa fa-search"></button>
+      <input id="float-input" type="text" size="6" [(ngModel)]="yyyymm" style="width: 250px" placeholder="YYYYMM"
+        pInputText>&nbsp;
+      <button pButton type="button" icon="fa fa-search" (click)="search(yyyymm)"></button>
       (เช่น 256101)
       <!-- <p-calendar [showIcon]="true"></p-calendar> -->
 
@@ -18,7 +19,7 @@
 
 </div>
 
-<div class="sticky">
+<div class="sticky" *ngIf="showBarChart">
   <div class="ui-g">
     <div class="ui-g-offset-1 ui-g-10">
       <div class="ui-g-12">
@@ -29,6 +30,14 @@
   <div class="ui-g">
     <div class="ui-g-12" style="text-align: center;">
       <font><b>กราฟแสดง</b> ยอดการขายในแต่ละชนิดสายพันธุ์ข้าว (กระสอบ)</font>
+    </div>
+  </div>
+</div>
+
+<div class="sticky" *ngIf="!showBarChart">
+  <div class="ui-g">
+    <div class="ui-g-12" style="text-align: center;">
+      <font style="color: red"><b>ไม่พบข้อมูล</b></font>
     </div>
   </div>
 </div>

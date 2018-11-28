@@ -89,6 +89,7 @@ const notification = require('./routes/notification-route');
 const riceVarieties = require('./routes/rice-varieties-route');
 const orderRoute = require('./routes/order-route');
 const customerRoute = require('./routes/customer-route');
+const statRoute = require('./routes/stat-route');
 app.set('view engine', 'ejs');
 app.use('/api', route);
 app.use('/api/member', memberRoute);
@@ -102,6 +103,7 @@ app.use('/api/notification', notification);
 app.use('/api/riceVarieties', riceVarieties);
 app.use('/api/order', orderRoute);
 app.use('/api/customer', customerRoute);
+app.use('/api/stat', statRoute);
 //Access-Control-Allow-Origin is a response header, not a request header you need to fix the permission in your backend. so you must create cors.js file that contains all necessary permissions.
 var cors2 = require('./cors');
 app.use(cors2.permission);
