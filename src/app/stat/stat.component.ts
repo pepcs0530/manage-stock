@@ -1,5 +1,6 @@
 declare function require(path: string);
 import { Component, OnInit } from '@angular/core';
+import { StatService } from './services/stat/stat.service';
 
 
 @Component({
@@ -11,8 +12,12 @@ export class StatComponent implements OnInit {
     imgPath = require('src/assets/images/rice.jpg');
     data: any;
     display: Boolean;
+    showBarChart: Boolean;
+    yyyymm: string;
 
-    constructor() { }
+    constructor(
+        private statService: StatService
+    ) { }
 
     ngOnInit() {
         this.display = true;
@@ -44,6 +49,37 @@ export class StatComponent implements OnInit {
                     data: [28, 48, 40, 19, 86, 27, 90]
                 } */
             ]
-        }
+        };
+    }
+
+    search(key) {
+        this.statService.getStatRiceVarietiesByCondition(key).subscribe(
+            resultArray => {
+                // this.members = resultArray;
+                console.log('Result-->', resultArray);
+
+                this.data = Object.assign(
+                    {},
+                    {
+                        labels: resultArray.map(a => a.rice_var_name),
+                        datasets: [
+                            {
+                                label: 'ชนิดสายพันธุ์ข้าว',
+                                backgroundColor: '#42A5F5',
+                                borderColor: '#1E88E5',
+                                data: resultArray.map(a => a.quantity)
+                            }
+                        ]
+                    }
+                );
+
+                if (resultArray.length > 0) {
+                    this.showBarChart = true;
+                } else {
+                    this.showBarChart = false;
+                }
+            },
+            error => console.log('Error :: ', error)
+        );
     }
 }
