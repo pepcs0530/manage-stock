@@ -123,7 +123,7 @@ export class CashierComponent implements OnInit {
   }
   exportReceipt() {
     this.cashierService.exportReceipt(this.order).subscribe(blob => {
-      // importedSaveAs(blob, this.order.receiptNo + '.pdf');
+      
     });
   }
 

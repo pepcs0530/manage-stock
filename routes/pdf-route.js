@@ -1,53 +1,76 @@
 const express = require('express');
 const path = require('path')
-var phantom = require('phantom');
+const phantom = require('phantom');
+const moment = require('moment')
 const app = express();
 
 app.get('/',function (req,res) {
-    res.end('PDF OK');
+  res.render('index',{page:'Home', menuId:'home'});
 } )
-app.get('/order-receipt', function(req, res, next) {
-  res.render('receipt', {page:'Home', menuId:'home',receiptNo:req.params.receiptNo});
+app.get('/logo',function(req, res, next){
+  res.sendfile('./public/images/logo.jpg')
+})
+app.post('/order-receipt', function(req, res, next) {
+  
+  // let model = req.body['date']
+  let model = req.body
+   model.totalPrice = totalPrice(model.itemList) - model.discount
+   model.date = moment(model.date).format('DD/MM/YYYY')
+  res.render('receipt', model);
 });
 
+filePath = './file/receipt.pdf'
+app.get('/get-receipt-pdf/' ,async(req,res) =>{
 
-app.get('/get-receipt-pdf/:receiptNo' ,async(req,res) =>{
-  var port = process.env.PORT || 4501;
-  const props = [{propName :'paperSize',propConf: {format: 'A4', orientation: 'portrait'}},{propName :'viewportSize',propConf: {width: 1920, height: 1080}}];
-  let filePath = await genPhantomPdf('http://localhost:'+port+'/api/pdf/order-receipt/'+req.params.receiptNo,props);
   await res.sendfile(path.join(filePath));
+  console.log("Get file success")
 
 })
 app.post('/get-receipt-pdf' ,async(req,res) =>{
   var port = process.env.PORT || 4501;
   const props = [{propName :'paperSize',propConf: {format: 'A4', orientation: 'portrait'}},{propName :'viewportSize',propConf: {width: 1920, height: 1080}}];
-  let filePath = await genPhantomPdf('http://localhost:'+port+'/api/pdf/order-receipt',props);
+  await genPhantomPdf('http://localhost:'+port+'/api/pdf/order-receipt',props,req.body);
   //await res.send(new File(path.resolve(filePath)));
 
-     var fs = require('fs');
-   await fs.readFile(path.resolve(filePath), function(err, data) {
-      //res.writeHead(200, {'Content-Type': 'text/html'});
-     // res.write(data);
-      res.send(new ArrayBuffer(data) )
-      console.log(data);
-     // res.end();
-    });
+ await res.end()
   
 
 })
-const genPhantomPdf = async(url,props) => {
+
+
+const genPhantomPdf = async(url,props,data) => {
   const instance = await phantom.create()
   const page = await instance.createPage()
   await  props.forEach(prop => {
      page.property(prop.propName,prop.propConf)    
   });
-  const status = await page.open(url)
+
+  var settings = {
+    operation: "POST",
+    encoding: "utf8",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    data: JSON.stringify(data)
+  };
+  const status = await page.open(url,settings)
   console.log('doc status',status)
 
-  await page.render('./scr.pdf')
+  await page.render(filePath)
 
   await instance.exit()
+}
 
-  return await './scr.pdf'
+const pricelist = function(itemList){
+  var pricelist = itemList.map(function (curr){
+    return curr.price*curr.quantity
+  }) 
+  return pricelist
+}
+const totalPrice = function(itemList){
+  var totalPrice =  pricelist(itemList).reduce(function (prev,curr){
+    return prev + curr;
+  });
+  return totalPrice;
 }
 module.exports = app;

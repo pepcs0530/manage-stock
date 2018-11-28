@@ -1,5 +1,6 @@
 /* โหลด Express มาใช้งาน */
-var app = require('express')();
+var express =  require('express')
+var app =express();
 
 /* โหลด MySql มาใช้งาน */
 var mysql = require('mysql');
@@ -14,13 +15,14 @@ app.get('/', function (req, res) {
 app.get('/index', function (req, res) {
   res.send('<h1>This is index page</h1>');
 });
-
+/* Init static path */
+var path = require('path')
+app.use( express.static( path.join(__dirname,"public") ) );
 /**
  * body-parser module is used to read HTTP POST data
  * it's an express middleware that reads form's input
  * and store it as javascript object
  */
-
 var bodyParser = require('body-parser');
 /**
  * bodyParser.urlencoded() parses the text as URL encoded data
@@ -35,7 +37,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.text({
   defaultCharset: 'utf-8'
 }));
-
 /* สั่งให้ server ทำการรัน Web Server ด้วย port ที่เรากำหนด */
 app.listen(port, function () {
   console.log('Starting node.js on port ' + port);

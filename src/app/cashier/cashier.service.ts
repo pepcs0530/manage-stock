@@ -62,7 +62,7 @@ export class CashierService {
       })
     );
   }
-  exportReceipt(order:Order):Observable<Blob>{
+  exportReceipt(order:Order){
   //   window.location.href = '/api/pdf/get-receipt-pdf/'+receiptNo;
     const headers = new Headers({
       'Content-Type': 'application/json; charset=utf-8',
@@ -72,7 +72,10 @@ export class CashierService {
 
     return this.http.post('/api/pdf/get-receipt-pdf', order,options).pipe(
       map(res =>{
-        return res.blob();
+        let url = '/api/pdf/get-receipt-pdf'
+        var win = window.open(url, '_blank');
+        
+        return 
       })
     )
   }
