@@ -55,6 +55,7 @@
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
+                    <th style="width:15px">ลบ</th>
                     <th style="width: 15px">ลำดับ</th>
                     <th>รายการ<span class="text-danger">*</span></th>
                     <th style="width: 15%">จำนวน<span class="text-danger">*</span></th>
@@ -64,6 +65,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let item of order.itemList; let i =index">
+                    <td><a class="text-danger" (click)="removeItem(i)"><i class="glyphicon glyphicon-remove"></i></a></td>
                     <td class="text-right">{{i + 1}}</td>
                     <td class="ui-fluid">
                     <!--     <p-autoComplete [(ngModel)]="item.name" [suggestions]="productAutocomplete.results" field="product_name" dataKey="product_id" (completeMethod)="searchProduct($event)" (onSelect)="selectSearchProduct($event,item)"  emptyMessage="ไม่พบสินค้า" styleClass="wid100"></p-autoComplete> -->
@@ -85,6 +87,7 @@
                 </tr> 
                 <tr>
                     <td class="text-right"></td>
+                    <td class="text-right"></td>
                     <td class="ui-fluid" colspan="4"><p-button type label="เพิ่มรายการ" icon="pi pi-plus" (onClick)="addNewRow()"></p-button></td>
                     
                     
@@ -96,7 +99,7 @@
                     <th class=""><input type="number" pInputText [(ngModel)]="order.discount" class="form-control text-right"></th>
                 </tr>
                 <tr>
-                    <th class="text-center" colspan="4">รวม</th>
+                    <th class="text-center" colspan="5">รวม</th>
                     <th class="text-right">{{0+order.totalPrice-order.discount}}</th>
                 </tr>
             </tfoot>
@@ -107,4 +110,5 @@
             <button pButton type="button" (click)="exportReceipt()"icon="pi pi-print" label="ออกใบเสร็จ" class="ui-button-primary pull-right"style="margin-right: .25em"></button>
         </p-footer>
     </p-panel>
+   
 </div>

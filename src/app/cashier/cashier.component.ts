@@ -76,7 +76,17 @@ export class CashierComponent implements OnInit {
     item.price = event.item.price;
     console.log(' item.name ', item)
   }
-
+  removeItem(i){
+    if(this.order.itemList.length >1){ 
+      let itemList=[]
+      this.order.itemList.forEach((element,index) => {
+        if(index!==i){
+          itemList.push(element);
+        }
+      });
+      this.order.itemList = itemList;
+    }
+  }
   paymentProcess(){
     console.log(this.order.customer)
     this.cashierService.saveOrder(this.order)
