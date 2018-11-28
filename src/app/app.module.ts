@@ -64,6 +64,7 @@ import { ProductComponent } from './product/product.component';
 import { ProductService } from './product/services/product/product.service';
 import { ProductTypeComponent } from './product-type/product-type.component';
 import { ProductTypeService } from './product-type/services/product-type/product-type.service';
+import { StatService } from './stat/services/stat/stat.service';
 
 @NgModule({
   declarations: [
@@ -130,6 +131,7 @@ import { ProductTypeService } from './product-type/services/product-type/product
     RiceService,
     ProductService,
     ProductTypeService,
+    StatService,
     DatabaseConfig
   ],
   bootstrap: [AppComponent]

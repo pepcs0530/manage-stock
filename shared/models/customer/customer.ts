@@ -12,7 +12,7 @@ export class Customer {
     member_seq?: any = null;
 
     // join order_item
-    id?: any = null;
+    item_seq?: any = null;
     product_id?: any = null;
     quantity?: any = null;
     price?: any = null;
