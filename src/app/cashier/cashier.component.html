@@ -30,7 +30,7 @@
                     </div>
                     <div class="col-sm-3 pull-right">
                         <div class="form-group ui-fluid">
-                            <label>วันที่</label><br/><span class="text-danger">*</span>
+                            <label>วันที่</label><span class="text-danger">*</span>
                             <p-calendar [(ngModel)]="order.date"  [showIcon]="true"></p-calendar>
                         </div>
                     </div>
@@ -70,8 +70,8 @@
                     <td class="ui-fluid">
                     <!--     <p-autoComplete [(ngModel)]="item.name" [suggestions]="productAutocomplete.results" field="product_name" dataKey="product_id" (completeMethod)="searchProduct($event)" (onSelect)="selectSearchProduct($event,item)"  emptyMessage="ไม่พบสินค้า" styleClass="wid100"></p-autoComplete> -->
                     <ng-template #productItemTemplate let-model="item" let-index="index">
-                        <h5>{{model.rice_var_name}}</h5>
-                        LOT: {{model.lot_id}}
+                        <h3><strong>{{model.rice_var_name}}</strong></h3>
+                        ล็อต: {{model.lot_id}}  คงคลัง: {{model.product_quantity}}
                       </ng-template>
                     <input pInputText type="text" class="form-control" [(ngModel)]="item.name"
                             [typeahead]="searchProduct(item)"
@@ -95,19 +95,19 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <th class="text-center" colspan="4">ส่วนลด</th>
+                    <th class="text-center" colspan="5">ส่วนลด</th>
                     <th class=""><input type="number" pInputText [(ngModel)]="order.discount" class="form-control text-right"></th>
                 </tr>
                 <tr>
                     <th class="text-center" colspan="5">รวม</th>
-                    <th class="text-right">{{0+order.totalPrice-order.discount}}</th>
+                    <th class="text-right">{{ 0 + order.totalPrice }}</th>
                 </tr>
             </tfoot>
         </table>
         <p-footer>
             <button pButton type="button" (click)="ngOnInit()" icon="pi pi-times" label="ยกเลิก" class="ui-button-danger" style="margin-right: .25em"></button>
-            <button pButton type="submit" (click)="paymentProcess()" icon="pi pi-check" label="ดำเนินการ" class="ui-button-success pull-right"></button>
-            <button pButton type="button" (click)="exportReceipt()"icon="pi pi-print" label="ออกใบเสร็จ" class="ui-button-primary pull-right"style="margin-right: .25em"></button>
+            <button pButton type="submit" (click)="paymentProcess()" *ngIf="!isSave" icon="pi pi-check" label="ดำเนินการ" class="ui-button-success pull-right"></button>
+            <button pButton type="button" (click)="exportReceipt()" *ngIf="isSave"  icon="pi pi-print" label="ออกใบเสร็จ" class="ui-button-primary pull-right"style="margin-right: .25em"></button>
         </p-footer>
     </p-panel>
    

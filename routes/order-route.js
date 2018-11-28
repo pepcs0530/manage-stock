@@ -43,7 +43,7 @@ app.post('/searchProductByName',function(req,res,next){
 
             let sqlStr = `SELECT * FROM product as p
             LEFT JOIN rice_varieties as v ON p.rice_var_seq = v.rice_var_seq 
-            WHERE rice_var_name like CONCAT('%',?,'%')
+            WHERE rice_var_name like CONCAT('%',?,'%') AND product_quantity > 0
             ORDER BY CASE
                when rice_var_name = ? THEN 1
                WHEN rice_var_name LIKE CONCAT(?,'%') THEN 2
@@ -223,10 +223,10 @@ function cutStock(connection,req,res,callback){
     let sqlStr = ''
     let paramList = []
     req.body.itemList.forEach(function(item){
-        sqlStr = sqlStr + 'UPDATE product SET product_quantity = product_quantity - ? WHERE product_id = ?;' 
+        sqlStr = sqlStr + 'UPDATE product SET product_quantity = product_quantity - ? WHERE product_seq = ?;' 
 
         paramList.push(item.quantity);
-        paramList.push(item.product_id);
+        paramList.push(item.product_seq);
     });
 
     connection.query(sqlStr,paramList,function(err,result){
