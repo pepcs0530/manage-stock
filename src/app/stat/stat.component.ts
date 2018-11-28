@@ -10,6 +10,7 @@ import { StatService } from './services/stat/stat.service';
 })
 export class StatComponent implements OnInit {
     imgPath = require('src/assets/images/rice.jpg');
+    numberOnly: RegExp = /^\d+$/;
     data: any;
     display: Boolean;
     showBarChart: Boolean;
@@ -64,7 +65,7 @@ export class StatComponent implements OnInit {
                         labels: resultArray.map(a => a.rice_var_name),
                         datasets: [
                             {
-                                label: 'ชนิดสายพันธุ์ข้าว',
+                                label: 'จำนวนกระสอบ',
                                 backgroundColor: '#42A5F5',
                                 borderColor: '#1E88E5',
                                 data: resultArray.map(a => a.quantity)
