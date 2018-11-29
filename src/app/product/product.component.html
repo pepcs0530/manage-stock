@@ -68,6 +68,7 @@
             <!-- <th [ngStyle]="{ 'text-align': 'center', 'width': '25%' }">ชื่อ-นามสกุลผู้ขาย</th>
             <th [ngStyle]="{ 'text-align': 'center', 'width': '20%' }">เบอร์โทร</th>
             <th [ngStyle]="{ 'text-align': 'center', 'width': '20%' }">วันที่ซื้อสินค้า</th> -->
+            <th [ngStyle]="{ 'text-align': 'center', 'width': '10%' }">ราคา</th>
             <th [ngStyle]="{ 'text-align': 'center', 'width': '10%' }">จำนวนคงเหลือในคลัง</th>
             <th style="text-align: center;" width="5%">ลบ</th>
           </tr>
@@ -80,6 +81,7 @@
             <!-- <td>{{item.member_fname}} {{item.member_lname}}</td>
             <td>{{item.telephone}}</td>
             <td [ngStyle]="{ 'text-align': 'center' }">{{item.DATE | displayDateThaiFormatDDMMYYYY}}</td> -->
+            <td [ngStyle]="{ 'text-align': 'right' }">{{item.price | thaiBathCurrencyPipe}}</td>
             <td [ngStyle]="{ 'text-align': 'right' }">{{item.product_quantity}}</td>
             <td class="text-center">
               <button pButton type="button" class="ui-button-danger" icon="fa fa-minus" (click)="delete(item)"></button>

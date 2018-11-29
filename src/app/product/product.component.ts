@@ -59,6 +59,7 @@ export class ProductComponent implements OnInit {
       mfdDate: [null],
       expDate: [null],
       memberSeq: [null],
+      price: [null],
       member: [null]
     });
 
@@ -105,6 +106,7 @@ export class ProductComponent implements OnInit {
       expDate: this.product['exp_date'] ? new Date(this.product['exp_date']) : null,
       riceVarSeq: this.product['rice_var_seq'],
       memberSeq: this.product['member_seq'],
+      price: this.product['price'],
       member: this.product['member']
     });
     console.log('saveProductForm-->', this.saveProductForm);

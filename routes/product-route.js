@@ -37,7 +37,7 @@ app.post('/', function (req, res, next) {
     try {
       var sql = '';
       sql +=
-        " SELECT p.product_seq, r.rice_var_name, CONCAT(member_fname, ' ', member_lname) AS member, member_fname, member_lname, telephone, DATE, product_quantity, r.rice_var_seq, r.rice_var_name, p.mfd_date, p.exp_date, m.member_seq, p.lot_id ";
+        " SELECT p.product_seq, r.rice_var_name, CONCAT(member_fname, ' ', member_lname) AS member, member_fname, member_lname, telephone, DATE, product_quantity, r.rice_var_seq, r.rice_var_name, p.mfd_date, p.exp_date, m.member_seq, p.lot_id, price ";
       sql += ' FROM product p ';
       sql += ' LEFT JOIN member m ON m.member_seq = p.member_seq ';
       sql += ' LEFT JOIN rice_varieties r ON r.rice_var_seq = p.rice_var_seq ';
