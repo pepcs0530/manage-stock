@@ -6,12 +6,16 @@
       <label for="float-input">สถิติการขายข้าวประจำเดือน</label>
     </div>
     <div class="ui-g-4 ui-md-4">
-      <input id="float-input" type="text" maxlength="6" size="6" [(ngModel)]="yyyymm" [pKeyFilter]="numberOnly" style="width: 250px"
-        placeholder="YYYYMM" pInputText>&nbsp;
-      <button pButton type="button" icon="fa fa-search" (click)="search(yyyymm)"></button>
-      (เช่น 256101)
+      <!-- <input id="float-input" type="text" maxlength="6" size="6" [(ngModel)]="yyyymm" [pKeyFilter]="numberOnly" style="width: 250px"
+        placeholder="ปี พ.ศ. / เดือน" pInputText>&nbsp; -->
+
+      <!-- <button pButton type="button" icon="fa fa-search" (click)="search(yyyymm)"></button>
+      (เช่น 256101) -->
+
       <!-- <p-calendar [showIcon]="true"></p-calendar> -->
 
+      <p-calendar [(ngModel)]="yyyymm" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2100"></p-calendar>&nbsp;
+      <button pButton type="button" icon="fa fa-search" (click)="search(yyyymm)"></button>
     </div>
     <div class="ui-g-2"></div>
   </div>

@@ -21,7 +21,7 @@ export class MemberComponent implements OnInit {
     private formBuilder: FormBuilder,
     // @Inject(forwardRef(() => MemberService)) memberService
     private memberService: MemberService // @Inject(MemberService) public memberService: MemberService
-  ) {}
+  ) { }
 
   memberForm: FormGroup;
   saveMemberForm: FormGroup;
@@ -37,6 +37,7 @@ export class MemberComponent implements OnInit {
   newMember: boolean;
   members: Member[];
   cols: any[];
+  message = [];
 
   ngOnInit() {
     this.initForm();
@@ -101,6 +102,19 @@ export class MemberComponent implements OnInit {
     this.member = {};
     this.saveMemberForm.reset();
     this.displayDialog = true;
+    this.getMaxMemberId();
+  }
+
+  getMaxMemberId() {
+    this.memberService.getMaxMemberId().subscribe(
+      resultArray => {
+        console.log('Result-->', resultArray);
+        this.saveMemberForm.patchValue({
+          memberId: resultArray[0]['member_id']
+        });
+      },
+      error => console.log('Error :: ', error)
+    );
   }
 
   /* save() {
@@ -123,33 +137,43 @@ export class MemberComponent implements OnInit {
     };
 
     if (this.newMember) {
-      console.log('payload-->', payload);
-      this.memberService.addMember(payload).subscribe(
-        data => {
-          this.displayDialog = false;
-          console.log('response-->', data);
-          this.search();
-          alert('บันทึกข้อมูลเรียบร้อย');
-        },
-        error => {
-          console.error('Error adding data!');
-          return Observable.throw(error);
-        }
-      );
+      if (this.validateFormField()) {
+        console.log('payload-->', payload);
+        this.memberService.addMember(payload).subscribe(
+          data => {
+            this.displayDialog = false;
+            console.log('response-->', data);
+            this.search();
+            alert('บันทึกข้อมูลเรียบร้อย');
+          },
+          error => {
+            console.error('Error adding data!');
+            return Observable.throw(error);
+          }
+        );
+      } else {
+        console.log('message-->', this.message);
+        alert(this.message.join('\n'));
+      }
     } else {
-      console.log('payload-->', payload);
-      this.memberService.editMember(payload).subscribe(
-        data => {
-          this.displayDialog = false;
-          console.log('response-->', data);
-          this.search();
-          alert('แก้ไขข้อมูลเรียบร้อย');
-        },
-        error => {
-          console.error('Error editing data!');
-          return Observable.throw(error);
-        }
-      );
+      if (this.validateFormField()) {
+        console.log('payload-->', payload);
+        this.memberService.editMember(payload).subscribe(
+          data => {
+            this.displayDialog = false;
+            console.log('response-->', data);
+            this.search();
+            alert('แก้ไขข้อมูลเรียบร้อย');
+          },
+          error => {
+            console.error('Error editing data!');
+            return Observable.throw(error);
+          }
+        );
+      } else {
+        console.log('message-->', this.message);
+        alert(this.message.join('\n'));
+      }
     }
   }
 
@@ -250,5 +274,31 @@ export class MemberComponent implements OnInit {
       member[prop] = c[prop];
     }
     return member;
+  }
+
+  validateFormField() {
+    this.message = [];
+    let i = 0;
+    let valid = true;
+    if (!this.saveMemberForm.get('memberId').value) {
+      this.message[i] = 'กรุณาระบุรหัส'; i++; valid = false;
+    }
+    if (!this.saveMemberForm.get('memberFname').value) {
+      this.message[i] = 'กรุณาระบุชื่อ'; i++; valid = false;
+    }
+    if (!this.saveMemberForm.get('memberLname').value) {
+      this.message[i] = 'กรุณาระบุนามสกุล'; i++; valid = false;
+    }
+    if (!this.saveMemberForm.get('address').value) {
+      this.message[i] = 'กรุณาระบุที่อยู่'; i++; valid = false;
+    }
+    if (!this.saveMemberForm.get('telephone').value) {
+      this.message[i] = 'กรุณาระบุโทรศัพท์'; i++; valid = false;
+    }
+    if (!this.saveMemberForm.get('memberLicensePlace').value) {
+      this.message[i] = 'กรุณาระบุทะเบียนรถ'; i++; valid = false;
+    }
+
+    return valid;
   }
 }

@@ -1,6 +1,7 @@
 declare function require(path: string);
 import { Component, OnInit } from '@angular/core';
 import { StatService } from './services/stat/stat.service';
+import { dateToStrYYYYMMDD } from '@shared/utils/date-to-str-yyyymmdd';
 
 
 @Component({
@@ -54,33 +55,39 @@ export class StatComponent implements OnInit {
     }
 
     search(key) {
-        this.statService.getStatRiceVarietiesByCondition(key).subscribe(
-            resultArray => {
-                // this.members = resultArray;
-                console.log('Result-->', resultArray);
+        if (key) {
+            const yyyymm = dateToStrYYYYMMDD(key).substr(0, 6);
+            console.log('yyyymm-->', yyyymm);
+            this.statService.getStatRiceVarietiesByCondition(yyyymm).subscribe(
+                resultArray => {
+                    // this.members = resultArray;
+                    console.log('Result-->', resultArray);
 
-                this.data = Object.assign(
-                    {},
-                    {
-                        labels: resultArray.map(a => a.rice_var_name),
-                        datasets: [
-                            {
-                                label: 'จำนวนกระสอบ',
-                                backgroundColor: '#42A5F5',
-                                borderColor: '#1E88E5',
-                                data: resultArray.map(a => a.quantity)
-                            }
-                        ]
+                    this.data = Object.assign(
+                        {},
+                        {
+                            labels: resultArray.map(a => a.rice_var_name),
+                            datasets: [
+                                {
+                                    label: 'จำนวนกระสอบ',
+                                    backgroundColor: '#42A5F5',
+                                    borderColor: '#1E88E5',
+                                    data: resultArray.map(a => a.quantity)
+                                }
+                            ]
+                        }
+                    );
+
+                    if (resultArray.length > 0) {
+                        this.showBarChart = true;
+                    } else {
+                        this.showBarChart = false;
                     }
-                );
-
-                if (resultArray.length > 0) {
-                    this.showBarChart = true;
-                } else {
-                    this.showBarChart = false;
-                }
-            },
-            error => console.log('Error :: ', error)
-        );
+                },
+                error => console.log('Error :: ', error)
+            );
+        } else {
+            alert('กรุณาระบุเดือน/ปี');
+        }
     }
 }

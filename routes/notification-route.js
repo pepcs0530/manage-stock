@@ -1,14 +1,14 @@
 const express = require('express');
 const app = express();
 
-app.get('/', function(req, res, next) {
+app.get('/', function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Content-Type', 'application/json');
-  req.getConnection(function(error, conn) {
+  req.getConnection(function (error, conn) {
     console.log('---START getNotification---');
     conn.query(
-      'SELECT * FROM product WHERE 1=1 AND DATEDIFF(exp_date, NOW()) < 30 ORDER BY product_seq DESC',
-      function(err, rows, fields) {
+      'SELECT * FROM product WHERE 1=1 AND DATEDIFF(exp_date, NOW()) < 30 ORDER BY exp_date, product_quantity ASC',
+      function (err, rows, fields) {
         //if(err) throw err
         if (err) {
           next(err);
@@ -23,7 +23,7 @@ app.get('/', function(req, res, next) {
   });
 });
 
-app.post('/getNotificationByCondition', function(req, res, next) {
+app.post('/getNotificationByCondition', function (req, res, next) {
   /* console.log('req-->', req);
   console.log('body-->', req.body); */
   var condition = req.body;
@@ -31,7 +31,7 @@ app.post('/getNotificationByCondition', function(req, res, next) {
 
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Content-Type', 'application/json');
-  req.getConnection(function(error, conn) {
+  req.getConnection(function (error, conn) {
     console.log('---START getNotificationByCondition---');
     try {
       var sql = '';
@@ -49,9 +49,9 @@ app.post('/getNotificationByCondition', function(req, res, next) {
           "%') ";
       }
 
-      sql += ' ORDER BY product_seq DESC ';
+      sql += ' ORDER BY exp_date, product_quantity ASC ';
       console.error('sql: ', sql);
-      conn.query(sql, function(err, rows, fields) {
+      conn.query(sql, function (err, rows, fields) {
         //if(err) throw err
         if (err) {
           console.log(err);

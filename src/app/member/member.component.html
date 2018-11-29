@@ -3,41 +3,19 @@
 <form [formGroup]="memberForm">
   <div class="ui-g">
     <div class="ui-g-12">
-      <p-table
-        #dt
-        [value]="members"
-        selectionMode="single"
-        [(selection)]="selectedMember"
-        (onRowSelect)="onRowSelect($event)"
-        [paginator]="true"
-        [rows]="10"
-      >
+      <p-table #dt [value]="members" selectionMode="single" [(selection)]="selectedMember" (onRowSelect)="onRowSelect($event)"
+        [paginator]="true" [rows]="10">
         <ng-template pTemplate="caption">
           <div class="ui-g">
             <div class="ui-g-4" style="text-align: left">
-              <button
-                pButton
-                type="button"
-                icon="fa fa-plus"
-                (click)="showDialogToAdd()"
-              ></button>
+              <button pButton type="button" icon="fa fa-plus" (click)="showDialogToAdd()"></button>
             </div>
             <div class="ui-g-4" style="text-align: center">
               ตารางข้อมูลสมาชิก
             </div>
             <div class="ui-g-4" style="text-align: right">
-              <input
-                type="text"
-                formControlName="keyword"
-                pInputText
-                placeholder="รหัสสมาชิก ชื่อ เบอร์โทรศัพท์"
-              />
-              <button
-                pButton
-                type="button"
-                icon="fa fa-search"
-                (click)="search()"
-              ></button>
+              <input type="text" formControlName="keyword" pInputText placeholder="รหัสสมาชิก ชื่อ เบอร์โทรศัพท์" />
+              <button pButton type="button" icon="fa fa-search" (click)="search()"></button>
             </div>
           </div>
         </ng-template>
@@ -61,13 +39,7 @@
             <td class="text-left">{{ item.address }}</td>
             <td class="text-left">{{ item.member_license_place }}</td>
             <td class="text-center">
-              <button
-                pButton
-                type="button"
-                class="ui-button-danger"
-                icon="fa fa-minus"
-                (click)="delete(item)"
-              ></button>
+              <button pButton type="button" class="ui-button-danger" icon="fa fa-minus" (click)="delete(item)"></button>
             </td>
           </tr>
         </ng-template>
@@ -76,102 +48,44 @@
   </div>
 </form>
 
-<p-dialog
-  header="เพิ่ม/แก้ไข ข้อมูลสมาชิก"
-  [(visible)]="displayDialog"
-  [responsive]="true"
-  showEffect="fade"
-  [modal]="true"
-  [width]="800"
->
+<p-dialog header="{{newMember ? 'เพิ่ม' : 'แก้ไข'}}ข้อมูลสมาชิก" [(visible)]="displayDialog" [responsive]="true"
+  showEffect="fade" [modal]="true" [width]="800">
   <div class="ui-g ui-fluid" *ngIf="member">
     <form [formGroup]="saveMemberForm">
       <div class="ui-g">
         <div class="ui-g-12">
-          <label for="float-input">รหัส</label> &nbsp;
-          <input
-            id="float-input"
-            type="text"
-            formControlName="memberId"
-            size="30"
-            style="width: 150px"
-            pInputText
-          />
+          <label for="float-input">รหัส<font style="color: red; font-weight: bold;">*</font></label> &nbsp;
+          <input id="float-input" type="text" formControlName="memberId" size="30" style="width: 150px" pInputText
+            disabled />
         </div>
         <div class="ui-g-6">
-          <label for="float-input">ชื่อ</label> &nbsp;
-          <input
-            id="float-input"
-            type="text"
-            formControlName="memberFname"
-            size="30"
-            style="width: 89%"
-            pInputText
-          />
+          <label for="float-input">ชื่อ<font style="color: red; font-weight: bold;">*</font></label> &nbsp;
+          <input id="float-input" type="text" formControlName="memberFname" size="30" style="width: 89%" pInputText />
         </div>
         <div class="ui-g-6">
-          <label for="float-input">นามสกุล</label> &nbsp;
-          <input
-            id="float-input"
-            type="text"
-            formControlName="memberLname"
-            size="30"
-            style="width: 79%"
-            pInputText
-          />
+          <label for="float-input">นามสกุล<font style="color: red; font-weight: bold;">*</font></label> &nbsp;
+          <input id="float-input" type="text" formControlName="memberLname" size="30" style="width: 79%" pInputText />
         </div>
         <div class="ui-g-12">
-          <label for="float-input">ที่อยู่</label> &nbsp;
-          <textarea
-            id="float-input"
-            formControlName="address"
-            rows="2"
-            cols="90"
-            pInputTextarea
-          ></textarea>
+          <label for="float-input">ที่อยู่<font style="color: red; font-weight: bold;">*</font></label> &nbsp;
+          <textarea id="float-input" formControlName="address" rows="2" cols="90" pInputTextarea></textarea>
         </div>
         <div class="ui-g-6">
-          <label for="float-input">เบอร์โทรศัพท์</label> &nbsp;
-          <input
-            id="float-input"
-            type="text"
-            formControlName="telephone"
-            size="30"
-            style="width: 69%"
-            pInputText
-          />
+          <label for="float-input">เบอร์โทรศัพท์<font style="color: red; font-weight: bold;">*</font></label> &nbsp;
+          <input id="float-input" type="text" formControlName="telephone" size="30" style="width: 69%" pInputText />
         </div>
         <div class="ui-g-6">
-          <label for="float-input">ทะเบียนรถ</label> &nbsp;
-          <input
-            id="float-input"
-            type="text"
-            formControlName="memberLicensePlace"
-            size="30"
-            style="width: 75%"
-            pInputText
-          />
+          <label for="float-input">ทะเบียนรถ<font style="color: red; font-weight: bold;">*</font></label> &nbsp;
+          <input id="float-input" type="text" formControlName="memberLicensePlace" size="30" style="width: 75%"
+            pInputText />
         </div>
       </div>
     </form>
   </div>
   <p-footer>
     <div class="ui-dialog-buttonpane ui-helper-clearfix">
-      <button
-        type="button"
-        pButton
-        icon="fa fa-close"
-        (click)="cancel()"
-        label="ยกเลิก"
-        *ngIf="!newMember"
-      ></button>
-      <button
-        type="button"
-        pButton
-        icon="fa fa-check"
-        (click)="save()"
-        label="บันทึก"
-      ></button>
+      <button type="button" pButton icon="fa fa-close" (click)="cancel()" label="ยกเลิก" *ngIf="!newMember"></button>
+      <button type="button" pButton icon="fa fa-check" (click)="save()" label="บันทึก"></button>
     </div>
   </p-footer>
 </p-dialog>

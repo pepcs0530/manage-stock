@@ -71,8 +71,8 @@
   </div>
 </form>
 
-<p-dialog header="เพิ่ม/แก้ไข ข้อมูลสายพันธุ์ข้าว" [(visible)]="displayDialog" [responsive]="true" showEffect="fade"
-  [modal]="true" [width]="800">
+<p-dialog header="{{newRiceVarietie ? 'เพิ่ม' : 'แก้ไข'}}ข้อมูลสายพันธุ์ข้าว" [(visible)]="displayDialog" [responsive]="true"
+  showEffect="fade" [modal]="true" [width]="800">
   <div class="ui-g ui-fluid" *ngIf="riceVarietie">
     <form [formGroup]="saveRiceVarietieForm">
       <div class="ui-g">
