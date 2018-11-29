@@ -96,8 +96,8 @@
   </div>
 </form>
 
-<p-dialog header="เพิ่ม/แก้ไข ข้อมูลสินค้า" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"
-  [width]="1000">
+<p-dialog header="{{newProduct ? 'เพิ่ม' : 'แก้ไข'}}ข้อมูลสินค้า" [(visible)]="displayDialog" [responsive]="true"
+  showEffect="fade" [modal]="true" [width]="1000">
   <div class="ui-g ui-fluid" *ngIf="product">
     <form [formGroup]="saveProductForm">
       <div class="ui-g">

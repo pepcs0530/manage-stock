@@ -14,7 +14,7 @@ app.get('/getStatRiceVarietiesByCondition/(:yyyymm)', function (req, res, next) 
       ' INNER JOIN customer c ON c.customer_id = o.customer_id ' +
       ' INNER JOIN rice_varieties r ON r.rice_var_seq = p.rice_var_seq ' +
       ' WHERE 1=1 ' +
-      ' AND DATE_FORMAT(issuedate, "%Y%m") + 54300 = ' + req.params.yyyymm +
+      ' AND DATE_FORMAT(issuedate, "%Y%m") = ' + req.params.yyyymm +
       ' GROUP BY r.rice_var_seq ',
       function (err, rows, fields) {
         //if(err) throw err

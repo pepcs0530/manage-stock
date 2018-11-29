@@ -48,6 +48,20 @@ export class MemberService {
     );
   }
 
+  getMaxMemberId(): Observable<Member[]> {
+    const headers = new Headers({
+      'Content-Type': 'application/json; charset=utf-8',
+      'Access-Control-Allow-Origin': '*'
+    });
+    const options = new RequestOptions({ headers: headers });
+
+    return this.http.get('/api/member/getMaxMemberId', options).pipe(
+      map(res => {
+        return <Member[]>res.json();
+      })
+    );
+  }
+
   addMember(payload) {
     console.log('payload-->', payload);
     const headers = new Headers({

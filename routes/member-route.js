@@ -4,15 +4,15 @@ const async = require('async');
 const app = express();
 
 // SHOW LIST OF MEMBER
-app.get('/', function(req, res, next) {
+app.get('/', function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Content-Type', 'application/json');
-  req.getConnection(function(error, conn) {
+  req.getConnection(function (error, conn) {
     console.log('---START QUERY LIST OF MEMBER---');
     try {
       conn.query(
         'SELECT member_seq, member_id, concat(member_fname, " ", member_lname) as member_name, member_license_place, telephone, address  FROM member ORDER BY member_seq ASC',
-        function(err, rows, fields) {
+        function (err, rows, fields) {
           //if(err) throw err
           if (err) {
             console.log(err);
@@ -32,17 +32,42 @@ app.get('/', function(req, res, next) {
   });
 });
 
-app.get('/getMemberById/(:id)', function(req, res, next) {
+app.get('/getMaxMemberId', function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Content-Type', 'application/json');
-  req.getConnection(function(error, conn) {
+  req.getConnection(function (error, conn) {
+    console.log('---START getMaxMemberId---');
+    try {
+      conn.query(
+        ' SELECT LPAD(MAX(member_id) + 1,5,"0") AS member_id FROM member ',
+        function (err, rows, fields) {
+          if (err) {
+            console.log(err);
+            next(err);
+          } else {
+            res.end(JSON.stringify(rows));
+          }
+        }
+      );
+    } catch (e) {
+      console.error('err thrown: ' + e.stack);
+      res.sendStatus(500);
+    }
+    console.log('---END getMaxMemberId---');
+  });
+});
+
+app.get('/getMemberById/(:id)', function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Content-Type', 'application/json');
+  req.getConnection(function (error, conn) {
     console.log('---START QUERY LIST OF MEMBER---');
     try {
       conn.query(
-        'SELECT member_seq, member_id, concat(member_fname, " ", member_lname) as member_name, member_license_place, telephone, address  FROM member WHERE member_seq = ' +
-          req.params.id +
-          ' ORDER BY member_seq ASC',
-        function(err, rows, fields) {
+        'SELECT member_seq, member_id, member_fname, member_lname, concat(member_fname, " ", member_lname) as member_name, member_license_place, telephone, address  FROM member WHERE member_seq = ' +
+        req.params.id +
+        ' ORDER BY member_seq ASC',
+        function (err, rows, fields) {
           //if(err) throw err
           if (err) {
             console.log(err);
@@ -62,7 +87,7 @@ app.get('/getMemberById/(:id)', function(req, res, next) {
   });
 });
 
-app.post('/', function(req, res, next) {
+app.post('/', function (req, res, next) {
   console.log('req-->', req);
   console.log('body-->', req.body);
 
@@ -76,7 +101,7 @@ app.post('/', function(req, res, next) {
 
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Content-Type', 'application/json');
-  req.getConnection(function(error, conn) {
+  req.getConnection(function (error, conn) {
     console.log('---START QUERY MEMBER BY CONDITION---');
     try {
       var sql = '';
@@ -99,7 +124,7 @@ app.post('/', function(req, res, next) {
       }
 
       sql += ' ORDER BY member_seq DESC ';
-      conn.query(sql, function(err, rows, fields) {
+      conn.query(sql, function (err, rows, fields) {
         //if(err) throw err
         if (err) {
           console.log(err);
@@ -118,14 +143,14 @@ app.post('/', function(req, res, next) {
   });
 });
 
-app.post('/addmember', function(req, res, next) {
+app.post('/addmember', function (req, res, next) {
   var LOG_NAME = '/addmember';
   async.waterfall(
     [
       function getConnection(callback) {
         res.setHeader('Access-Control-Allow-Origin', '*');
         res.setHeader('Content-Type', 'application/json');
-        req.getConnection(function(err, conn) {
+        req.getConnection(function (err, conn) {
           console.log(LOG_NAME, 'DB Connected.');
           callback(err, conn);
         });
@@ -133,7 +158,7 @@ app.post('/addmember', function(req, res, next) {
       function genNextMemberId(conn, callback) {
         var sql =
           'SELECT member_seq FROM member ORDER BY member_seq DESC LIMIT 1';
-        conn.query(sql, function(err, rows, fields) {
+        conn.query(sql, function (err, rows, fields) {
           if (err) {
             callback(err);
           } else {
@@ -152,7 +177,7 @@ app.post('/addmember', function(req, res, next) {
           data.member_license_place
         }', '${data.telephone}', '${data.address}')`;
         console.log(sql);
-        conn.query(sql, function(err, result) {
+        conn.query(sql, function (err, result) {
           if (err) {
             callback(err);
           } else {
@@ -161,7 +186,7 @@ app.post('/addmember', function(req, res, next) {
         });
       }
     ],
-    function(err, result) {
+    function (err, result) {
       if (err) {
         console.log('ERROR', err);
         res.status(500).end();
@@ -172,7 +197,7 @@ app.post('/addmember', function(req, res, next) {
   );
 });
 
-app.post('/add', function(req, res, next) {
+app.post('/add', function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Content-Type', 'application/json');
   console.log('---START add---');
@@ -189,9 +214,9 @@ app.post('/add', function(req, res, next) {
   };
 
   console.log('payload-->', payload);
-  req.getConnection(function(error, conn) {
+  req.getConnection(function (error, conn) {
     try {
-      conn.query('INSERT INTO member SET ?', payload, function(err, result) {
+      conn.query('INSERT INTO member SET ?', payload, function (err, result) {
         //if(err) throw err
         if (err) {
           next(err);
@@ -209,7 +234,7 @@ app.post('/add', function(req, res, next) {
   });
 });
 
-app.put('/edit/(:id)', function(req, res, next) {
+app.put('/edit/(:id)', function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Content-Type', 'application/json');
   console.log('---START edit---');
@@ -227,12 +252,12 @@ app.put('/edit/(:id)', function(req, res, next) {
   };
 
   console.log('payload-->', payload);
-  req.getConnection(function(error, conn) {
+  req.getConnection(function (error, conn) {
     try {
       conn.query(
         'UPDATE member SET ? WHERE member_seq = ' + req.params.id,
         payload,
-        function(err, result) {
+        function (err, result) {
           //if(err) throw err
           if (err) {
             next(err);
@@ -251,16 +276,16 @@ app.put('/edit/(:id)', function(req, res, next) {
   });
 });
 
-app.delete('/deleteById/(:id)', function(req, res, next) {
+app.delete('/deleteById/(:id)', function (req, res, next) {
   console.log('---START deleteById---');
 
   // var rfid = { rfid_gen: req.params.id }
 
-  req.getConnection(function(error, conn) {
+  req.getConnection(function (error, conn) {
     conn.query(
       'DELETE FROM member WHERE member_seq = ' + req.params.id,
       null,
-      function(err, result) {
+      function (err, result) {
         if (err) {
           console.log(err);
           next(err);
