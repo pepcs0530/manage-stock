@@ -13,6 +13,7 @@ export class StatComponent implements OnInit {
     imgPath = require('src/assets/images/rice.jpg');
     numberOnly: RegExp = /^\d+$/;
     data: any;
+    barOptions: any;
     display: Boolean;
     showBarChart: Boolean;
     yyyymm: string;
@@ -52,6 +53,39 @@ export class StatComponent implements OnInit {
                 } */
             ]
         };
+
+        this.barOptions = {
+            responsive: true,
+            tooltips: {
+                mode: 'index',
+                intersect: true,
+                callbacks: {
+                    label: function (tooltipItem, data) {
+                        const datasetLabel = data.datasets[tooltipItem.datasetIndex].label || '';
+                        // return datasetLabel + ' : ' + formatNumber(tooltipItem.yLabel, 'en', '.2');
+                        return 'จำนวน ' + tooltipItem.yLabel + ' กระสอบ';
+                    }
+                }
+            },
+            scales: {
+                yAxes: [{
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    ticks: {
+                        callback: function (label, index, labels) {
+                            // return formatNumber(label, 'en', '1.');
+                            return label;
+                        }
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'จำนวนกระสอบ'
+                    }
+                }]
+            }
+        };
+
     }
 
     search(key) {
@@ -69,7 +103,7 @@ export class StatComponent implements OnInit {
                             labels: resultArray.map(a => a.rice_var_name),
                             datasets: [
                                 {
-                                    label: 'จำนวนกระสอบ',
+                                    label: 'ยอดขายในแต่ละสายพันธุ์',
                                     backgroundColor: '#42A5F5',
                                     borderColor: '#1E88E5',
                                     data: resultArray.map(a => a.quantity)
