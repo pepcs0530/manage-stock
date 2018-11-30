@@ -49,7 +49,7 @@ CREATE TABLE `member` (
   `address` varchar(100) DEFAULT NULL COMMENT 'ที่อยู่',
   PRIMARY KEY (`member_seq`),
   KEY `member_id` (`member_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 /*Data for the table `member` */
 
@@ -63,53 +63,57 @@ insert  into `member`(`member_seq`,`member_id`,`member_fname`,`member_lname`,`me
 (11,'00011','เพิ่มพล','กุรัง','กกก-9999','080008000','423/9 ratchathewi'),
 (12,'00012','เพิ่มพล','กุรัง','กกก-9999','080008000','423/9 ratchathewi'),
 (13,'00013','เพิ่มพล','กุรัง','กกก-9999','080008000','423/9 ratchathewi'),
-(14,'14','เพิ่มพล','กุรัง','กกก-9999','080008000','423/9 ratchathewi'),
+(14,'00014','เพิ่มพล','กุรัง','กกก-9999','080008000','423/9 ratchathewi'),
 (15,'00015','เพิ่มพล','กุรัง','กกก-9999','080008000','423/9 ratchathewi'),
-(16,'0001x','x','x','x','x','x');
+(26,'00016','ทดสอบ','ทดสอบ','ทดสอบ','012345678','ทดสอบ');
 
 /*Table structure for table `order` */
 
 DROP TABLE IF EXISTS `order`;
 
 CREATE TABLE `order` (
-  `order_id` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `receipt` varchar(10) NOT NULL,
+  `order_id` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `receipt` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `issuedate` datetime NOT NULL,
-  `customer_id` varchar(10) NOT NULL,
+  `customer_id` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `discount` decimal(10,0) DEFAULT NULL,
   `member_seq` int(11) NOT NULL,
   PRIMARY KEY (`order_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `order` */
 
 insert  into `order`(`order_id`,`receipt`,`issuedate`,`customer_id`,`discount`,`member_seq`) values 
-('p000000001','r000000001','2018-11-05 23:35:46','c000000001',10,0),
-('P000000002','R000000002','2018-11-10 15:01:22','C000000001',0,0),
-('P000000003','R000000003','2018-11-11 23:26:24','C000000001',10,0);
+('p000000001','R000000001','2018-11-28 23:35:46','c000000001',10,0),
+('p000000002','R000000002','2018-11-29 15:01:22','C000000001',0,0),
+('p000000003','R000000003','2018-11-30 23:26:24','C000000001',10,0),
+('p000000004','R000000004','2018-11-01 11:39:32','C000000001',10,0),
+('p000000005','R000000005','2018-11-02 11:40:12','C000000002',15,0);
 
 /*Table structure for table `order_item` */
 
 DROP TABLE IF EXISTS `order_item`;
 
 CREATE TABLE `order_item` (
-  `id` varchar(10) NOT NULL,
-  `product_id` varchar(10) NOT NULL,
+  `item_seq` int(10) NOT NULL AUTO_INCREMENT,
   `quantity` int(11) NOT NULL DEFAULT '0',
   `price` decimal(10,0) NOT NULL DEFAULT '0',
-  `order_id` varchar(10) NOT NULL,
+  `order_id` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `product_seq` int(11) DEFAULT NULL COMMENT 'FK สินค้า',
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`item_seq`),
   KEY `item_order` (`order_id`),
-  KEY `product_id` (`product_id`),
   KEY `FK_order_item_product` (`product_seq`),
   CONSTRAINT `FK_order_item_product` FOREIGN KEY (`product_seq`) REFERENCES `product` (`product_seq`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 /*Data for the table `order_item` */
 
-insert  into `order_item`(`id`,`product_id`,`quantity`,`price`,`order_id`,`product_seq`) values 
-('x000000001','test',2,100,'p000000001',3);
+insert  into `order_item`(`item_seq`,`quantity`,`price`,`order_id`,`product_seq`) values 
+(1,25,100,'p000000001',17),
+(2,11,200,'p000000002',16),
+(3,15,150,'p000000003',15),
+(5,17,170,'p000000004',5),
+(6,22,135,'p000000005',17);
 
 /*Table structure for table `pick_up` */
 
@@ -172,7 +176,7 @@ CREATE TABLE `product` (
 
 insert  into `product`(`product_seq`,`product_id`,`product_name`,`product_type_id`,`time_in`,`time_out`,`rice_varieties`,`remark`,`date`,`lot_id`,`product_quantity`,`mfd_date`,`exp_date`,`member_seq`,`rice_var_seq`) values 
 (3,'p0001',NULL,NULL,'2018-10-18 23:28:29','2018-10-18 23:30:29','หอมมะลิ','หมายเหตุ','2018-10-18 00:00:00',1549880169,5.00,'2018-11-01','2018-11-30',1,1),
-(4,NULL,NULL,NULL,NULL,NULL,'หอมมะลิ',NULL,NULL,1539880169,1.00,'2018-10-01','2018-11-02',NULL,10),
+(4,NULL,NULL,NULL,NULL,NULL,'หอมมะลิ',NULL,NULL,1539880169,7.00,'2018-10-01','2018-11-02',NULL,10),
 (5,NULL,NULL,NULL,'1970-01-01 07:00:00','1970-01-01 07:00:00','ป',NULL,'2018-11-01 00:00:00',1541059136,NULL,NULL,NULL,NULL,9),
 (8,NULL,NULL,NULL,'2018-11-04 11:00:00','2018-11-04 11:30:00','หอมมะลิ','หมายเหตุ','1970-01-01 00:00:00',1541307518,NULL,NULL,NULL,NULL,8),
 (10,NULL,NULL,NULL,'2018-11-23 11:12:39','2018-11-23 11:30:40','ข้าวเหนียว','เทส rice_var_seq','2018-11-26 00:00:00',1542946179,5.00,'2018-11-21','2018-11-29',NULL,7),
@@ -232,16 +236,16 @@ CREATE TABLE `rice_varieties` (
 /*Data for the table `rice_varieties` */
 
 insert  into `rice_varieties`(`rice_var_seq`,`rice_var_id`,`rice_var_name`,`price`,`product_type_seq`) values 
-(1,'00001','กข 31',0.00,NULL),
-(2,'00002','กข 41',0.00,NULL),
-(3,'00003','กข 47',0.00,NULL),
-(4,'00004','กข 49',0.00,NULL),
-(5,'00005','กข 57',0.00,NULL),
-(6,'00006','กข 61',0.00,NULL),
-(7,'00007','กข 71',0.00,NULL),
-(8,'00008','สุพรรณบุรี 1',0.00,NULL),
-(9,'00009','สุพรรณบุรี 2',0.00,NULL),
-(10,'00010','ปทุมธานี 1',0.00,NULL);
+(1,'00001','กข 31',1800.00,NULL),
+(2,'00002','กข 41',90.00,NULL),
+(3,'00003','กข 47',250.00,NULL),
+(4,'00004','กข 49',250.00,NULL),
+(5,'00005','กข 57',250.00,NULL),
+(6,'00006','กข 61',150.00,NULL),
+(7,'00007','กข 71',300.00,NULL),
+(8,'00008','สุพรรณบุรี 1',1200.00,NULL),
+(9,'00009','สุพรรณบุรี 2',60.00,NULL),
+(10,'00010','ปทุมธานี 1',90.00,NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

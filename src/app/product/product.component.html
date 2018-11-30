@@ -178,7 +178,7 @@
             <ng-template pTemplate="body" let-item let-i="rowIndex">
               <tr [pSelectableRow]="item">
                 <td class="text-right">{{ i + 1 }}</td>
-                <td class="text-left">{{item.customer_name}}</td>
+                <td class="text-left">{{item.member_fname}} {{item.member_lname}}</td>
                 <td class="text-center">{{item.issuedate | displayDateThaiFormatDDMMYYYY}}</td>
                 <td [ngStyle]="{ 'text-align': 'right' }">{{item.quantity}}</td>
                 <!-- <td class="text-center">
