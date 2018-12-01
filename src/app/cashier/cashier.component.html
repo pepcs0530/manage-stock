@@ -14,7 +14,7 @@
                             <input pInputText type="text" class="form-control" [(ngModel)]="order.customer.customer_name"
                                 [typeahead]="searchCustomer()"
                                 typeaheadOptionField="customer_name"
-                                typeaheadMinLength="1"
+                                typeaheadMinLength="3"
                                 typeaheadWaitMs="500"
                                 typeaheadLoading="searchCustomer($event)"
                                 (typeaheadOnSelect)="selectCustomer($event)"
@@ -79,6 +79,7 @@
                             typeaheadLoading="searchProduct($event,item)"
                             (typeaheadOnSelect)="selectSearchProduct($event,item)"
                             [typeaheadItemTemplate]="productItemTemplate"
+                            typeaheadMinLength="3"
                             class="form-control">
                     </td>
                     <td><input pInputText [(ngModel)]="item.quantity" type="number" min="0" max="{{item.max_quantity}}" class="form-control text-right" style="width:100%" min="1" max="100"></td>

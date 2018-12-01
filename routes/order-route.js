@@ -9,9 +9,13 @@ app.post('/searchCustomersByName',function(req,res,next){
                 console.error('Cannot get database connection');
             }
             let keyword = req.body.keyword
-            let sqlStr =`SELECT customer_id,customer_name,customer_phone,customer_address
-                         FROM customer
-                         WHERE customer_name like '%${keyword}%'
+            let sqlStr =`select  * FROM (SELECT customer_id,customer_name,customer_phone,customer_address 
+                FROM customer 
+                where customer_name like '%${keyword}%'
+                UNION 
+                SELECT null AS customer_id, CONCAT(member_fname,' ',member_lname) AS customer_name, telephone AS customer_phone,address AS customer_aaddress 
+                FROM member
+                where CONCAT(member_fname,' ',member_lname) like '%${keyword}%') AS all_customer GROUP BY customer_name
                          ORDER BY CASE
                             when customer_name = '${keyword}' THEN 1
                             WHEN customer_name LIKE '${keyword}%' THEN 2
