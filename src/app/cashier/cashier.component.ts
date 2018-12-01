@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
+import { Moment } from 'moment'
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
 import { OrderItem } from '@shared/models/cashier/order-item';
 import { Order } from '@shared/models/cashier/order';

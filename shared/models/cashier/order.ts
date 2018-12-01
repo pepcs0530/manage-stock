@@ -1,6 +1,6 @@
 import { Customer } from "./customer";
 import { OrderItem } from "./order-item";
-
+import * as moment from 'moment';
 export class Order{
     id:string;
     customer:Customer;
@@ -9,6 +9,9 @@ export class Order{
     itemList:OrderItem[];
     discount:number;
     member_seq:number;
+    get dateFormetted():string{
+        return moment(this.date).format('DD/MM/YYYY')
+    }
     get pricelist():number[]{
              return this.itemList.map(function (curr){
             return curr.price*curr.quantity
