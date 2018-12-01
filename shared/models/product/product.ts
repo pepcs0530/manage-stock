@@ -16,4 +16,5 @@ export class Product {
   rice_var_seq?: any = null;
   rice_var_name?: any = null;
   quantity?: any = null;
+  sum_quantity?: any = null;
 }

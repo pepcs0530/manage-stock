@@ -82,7 +82,7 @@
             <td>{{item.telephone}}</td>
             <td [ngStyle]="{ 'text-align': 'center' }">{{item.DATE | displayDateThaiFormatDDMMYYYY}}</td> -->
             <td [ngStyle]="{ 'text-align': 'right' }">{{item.price | thaiBathCurrencyPipe}}</td>
-            <td [ngStyle]="{ 'text-align': 'right' }">{{item.product_quantity}}</td>
+            <td [ngStyle]="{ 'text-align': 'right' }">{{item.product_quantity | commaNoDecimalPipe}}</td>
             <td class="text-center">
               <button pButton type="button" class="ui-button-danger" icon="fa fa-minus" (click)="delete(item)"></button>
             </td>
@@ -120,7 +120,7 @@
           </div>
           <div class="ui-g-3">
             <label for="float-input">จำนวนกระสอบ(ชุด)<font style="color: red; font-weight: bold;">*</font></label><br />
-            <p-spinner size="15" formControlName="productQuantity" [min]="0" [max]="100"></p-spinner>
+            <p-spinner size="15" formControlName="productQuantity" [min]="0" [max]="10000"></p-spinner>
           </div>
         </div>
 
@@ -139,11 +139,12 @@
         <div class="ui-g-12">
           <div class="ui-g-6">
             <label for="float-input">วันที่ผลิต<font style="color: red; font-weight: bold;">*</font></label><br />
-            <p-calendar formControlName="mfdDate" dateFormat="dd/mm/yy" [showIcon]="true"></p-calendar>
+            <p-calendar formControlName="mfdDate" dateFormat="dd/mm/yy" [showIcon]="true" (onSelect)="selectMfdDate()"
+              [disabled]="disableMfdDate"></p-calendar>
           </div>
           <div class="ui-g-6">
             <label for="float-input">วันที่หมดอายุ<font style="color: red; font-weight: bold;">*</font></label><br />
-            <p-calendar formControlName="expDate" dateFormat="dd/mm/yy" [showIcon]="true">
+            <p-calendar formControlName="expDate" dateFormat="dd/mm/yy" [showIcon]="true" [disabled]="disableExpDate">
             </p-calendar>
           </div>
         </div>

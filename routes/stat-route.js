@@ -31,4 +31,29 @@ app.get('/getStatRiceVarietiesByCondition/(:yyyymm)', function (req, res, next) 
   });
 });
 
+app.get('/getStatRiceVarietiesBalance', function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Content-Type', 'application/json');
+  req.getConnection(function (error, conn) {
+    console.log('---START getStatRiceVarietiesBalance---');
+    conn.query(
+      ' SELECT r.rice_var_name, SUM(p.product_quantity) AS sum_quantity  ' +
+      ' FROM product p ' +
+      ' INNER JOIN rice_varieties r ON r.rice_var_seq = p.rice_var_seq ' +
+      ' GROUP BY p.rice_var_seq ',
+      function (err, rows, fields) {
+        //if(err) throw err
+        if (err) {
+          next(err);
+          console.log(err);
+        } else {
+          //console.log(rows)
+          res.end(JSON.stringify(rows));
+        }
+      }
+    );
+    console.log('---END getStatRiceVarietiesBalance---');
+  });
+});
+
 module.exports = app;

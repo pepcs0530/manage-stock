@@ -29,6 +29,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { ChartModule } from 'primeng/chart';
 import { SpinnerModule } from 'primeng/spinner';
 import { FieldsetModule } from 'primeng/fieldset';
+import { TabViewModule } from 'primeng/tabview';
 import { CashierComponent } from './cashier/cashier.component';
 import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
@@ -65,6 +66,7 @@ import { ProductService } from './product/services/product/product.service';
 import { ProductTypeComponent } from './product-type/product-type.component';
 import { ProductTypeService } from './product-type/services/product-type/product-type.service';
 import { StatService } from './stat/services/stat/stat.service';
+import { CommaNoDecimalModule } from '@shared/pipes/comma-no-decimal/comma-no-decimal.module';
 
 @NgModule({
   declarations: [
@@ -111,6 +113,7 @@ import { StatService } from './stat/services/stat/stat.service';
     CardModule,
     TableModule,
     DialogModule,
+    TabViewModule,
     MyDatePickerModule,
     HttpModule,
     KeyFilterModule,
@@ -119,7 +122,8 @@ import { StatService } from './stat/services/stat/stat.service';
     TypeaheadModule,
     FieldsetModule,
     DisplayDateThaiFormatDDMMYYYYModule,
-    ThaiBathCurrencyPipeModule
+    ThaiBathCurrencyPipeModule,
+    CommaNoDecimalModule
   ],
   exports: [],
   providers: [
