@@ -2,6 +2,8 @@ declare function require(path: string);
 import { Component, OnInit } from '@angular/core';
 import { StatService } from './services/stat/stat.service';
 import { dateToStrYYYYMMDD } from '@shared/utils/date-to-str-yyyymmdd';
+import { formatNumber } from '../../../node_modules/@angular/common';
+import { removeComma } from '@shared/utils/remove-comma';
 
 
 @Component({
@@ -17,6 +19,9 @@ export class StatComponent implements OnInit {
     display: Boolean;
     showBarChart: Boolean;
     yyyymm: string;
+
+    data2: any;
+    barOptions2: any;
 
     constructor(
         private statService: StatService
@@ -45,46 +50,10 @@ export class StatComponent implements OnInit {
                     borderColor: '#1E88E5',
                     data: [65, 59, 80, 81, 56, 53, 51, 15, 18, 30, 35, 40]
                 }
-                /* {
-                    label: 'My Second dataset',
-                    backgroundColor: '#9CCC65',
-                    borderColor: '#7CB342',
-                    data: [28, 48, 40, 19, 86, 27, 90]
-                } */
             ]
         };
 
-        this.barOptions = {
-            responsive: true,
-            tooltips: {
-                mode: 'index',
-                intersect: true,
-                callbacks: {
-                    label: function (tooltipItem, data) {
-                        const datasetLabel = data.datasets[tooltipItem.datasetIndex].label || '';
-                        // return datasetLabel + ' : ' + formatNumber(tooltipItem.yLabel, 'en', '.2');
-                        return 'จำนวน ' + tooltipItem.yLabel + ' กระสอบ';
-                    }
-                }
-            },
-            scales: {
-                yAxes: [{
-                    type: 'linear',
-                    display: true,
-                    position: 'left',
-                    ticks: {
-                        callback: function (label, index, labels) {
-                            // return formatNumber(label, 'en', '1.');
-                            return label;
-                        }
-                    },
-                    scaleLabel: {
-                        display: true,
-                        labelString: 'จำนวนกระสอบ'
-                    }
-                }]
-            }
-        };
+        this.getStatRiceVarietiesBalance();
 
     }
 
@@ -112,6 +81,44 @@ export class StatComponent implements OnInit {
                         }
                     );
 
+                    this.barOptions = {
+                        responsive: true,
+                        tooltips: {
+                            mode: 'index',
+                            intersect: true,
+                            callbacks: {
+                                label: function (tooltipItem, data) {
+                                    const datasetLabel = data.datasets[tooltipItem.datasetIndex].label || '';
+                                    // return datasetLabel + ' : ' + formatNumber(tooltipItem.yLabel, 'en', '.2');
+                                    return 'จำนวน ' + formatNumber(parseFloat(removeComma(tooltipItem.yLabel)), 'en', '1.') + ' กระสอบ';
+                                }
+                            }
+                        },
+                        scales: {
+                            yAxes: [{
+                                type: 'linear',
+                                display: true,
+                                position: 'left',
+                                ticks: {
+                                    callback: function (label, index, labels) {
+                                        // return formatNumber(label, 'en', '1.');
+                                        return label;
+                                    }
+                                },
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'จำนวนกระสอบ'
+                                }
+                            }],
+                            xAxes: [{
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'สายพันธุ์ข้าว'
+                                }
+                            }]
+                        }
+                    };
+
                     if (resultArray.length > 0) {
                         this.showBarChart = true;
                     } else {
@@ -122,6 +129,76 @@ export class StatComponent implements OnInit {
             );
         } else {
             alert('กรุณาระบุเดือน/ปี');
+        }
+    }
+
+    getStatRiceVarietiesBalance() {
+        this.statService.getStatRiceVarietiesBalance().subscribe(
+            resultArray => {
+                // this.members = resultArray;
+                console.log('Result-->', resultArray);
+
+                this.data2 = Object.assign(
+                    {},
+                    {
+                        labels: resultArray.map(a => a.rice_var_name),
+                        datasets: [
+                            {
+                                label: 'ยอดคงเหลือในแต่ละสายพันธุ์',
+                                backgroundColor: '#9CCC65',
+                                borderColor: '#9CCC70',
+                                data: resultArray.map(a => a.sum_quantity)
+                            }
+                        ]
+                    }
+                );
+
+                this.barOptions2 = {
+                    responsive: true,
+                    tooltips: {
+                        mode: 'index',
+                        intersect: true,
+                        callbacks: {
+                            label: function (tooltipItem, data) {
+                                const datasetLabel = data.datasets[tooltipItem.datasetIndex].label || '';
+                                // return datasetLabel + ' : ' + formatNumber(tooltipItem.yLabel, 'en', '.2');
+                                return 'จำนวน ' + formatNumber(parseFloat(removeComma(tooltipItem.yLabel)), 'en', '1.') + ' กระสอบ';
+                            }
+                        }
+                    },
+                    scales: {
+                        yAxes: [{
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            ticks: {
+                                callback: function (label, index, labels) {
+                                    // return formatNumber(label, 'en', '1.');
+                                    return label;
+                                }
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'จำนวนกระสอบ'
+                            }
+                        }],
+                        xAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'สายพันธุ์ข้าว'
+                            }
+                        }]
+                    }
+                };
+            },
+            error => console.log('Error :: ', error)
+        );
+    }
+
+    onTabChange(event) {
+        console.log('event-->', event);
+        if (event.index === 1) {
+            this.getStatRiceVarietiesBalance();
         }
     }
 }
