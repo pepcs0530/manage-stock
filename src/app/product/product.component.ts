@@ -28,6 +28,9 @@ export class ProductComponent implements OnInit {
   customers: any[];
   selectedCustomer: Customer;
 
+  disableMfdDate: boolean;
+  disableExpDate: boolean;
+
   constructor(
     private formBuilder: FormBuilder,
     private productService: ProductService,
@@ -112,6 +115,10 @@ export class ProductComponent implements OnInit {
     console.log('saveProductForm-->', this.saveProductForm);
     this.displayDialog = true;
     this.getCustomerListByProductSeq(this.saveProductForm.get('productSeq').value);
+
+    // this.saveProductForm.controls['mfd_date'].disable();
+    this.disableMfdDate = this.saveProductForm.get('mfdDate').value !== null ? true : false;
+    this.disableExpDate = this.saveProductForm.get('expDate').value !== null ? true : false;
   }
 
   getCustomerListByProductSeq(productSeq) {
@@ -305,6 +312,15 @@ export class ProductComponent implements OnInit {
     alert(this.message.join('\n')); */
 
     return valid;
+  }
+
+  selectMfdDate() {
+    console.log('mfdDate-->', this.saveProductForm.get('mfdDate').value);
+    // console.log('expDate-->', this.saveProductForm.get('expDate').value.getMonth() + 7);
+    const expDate = new Date(this.saveProductForm.get('mfdDate').value);
+    const be_expDate = new Date(expDate.setMonth(expDate.getMonth() + 7));
+    // console.log('expDate-->', be_expDate.setMonth(be_expDate.getMonth() + 7));
+    this.saveProductForm.get('expDate').setValue(be_expDate);
   }
 
 }
