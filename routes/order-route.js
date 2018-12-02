@@ -3,26 +3,50 @@ const async = require('async');
 const moment = require('moment');
 const app = express();
 
+
+app.get('/getReceiptNo',function(req,res,next) {
+    req.getConnection(function(err,conn){
+    
+        if(err){
+            next(err)
+        }
+        let sqlStr = 'SELECT receipt FROM `order` ORDER BY order_id  DESC LIMIT 1 '
+        conn.query(sqlStr,function(err,result){
+                    
+            if(err){
+                next(err)
+            }
+            var lastReceipt = result.length !== 0 ? result[0]['receipt'] : 'R000000000';
+
+            var receipt = 'R'+ (parseInt(lastReceipt.substring(1,10))+1).toString().padStart(9,'0');
+
+            res.send({receiptNo:receipt})
+
+        }) 
+    })
+});
 app.post('/searchCustomersByName',function(req,res,next){
         req.getConnection(function(err,conn){            
             if(!conn){
                 console.error('Cannot get database connection');
             }
             let keyword = req.body.keyword
-            let sqlStr =`select  * FROM (SELECT customer_id,customer_name,customer_phone,customer_address 
-                FROM customer 
-                where customer_name like '%${keyword}%'
-                UNION 
-                SELECT null AS customer_id, CONCAT(member_fname,' ',member_lname) AS customer_name, telephone AS customer_phone,address AS customer_aaddress 
-                FROM member
-                where CONCAT(member_fname,' ',member_lname) like '%${keyword}%') AS all_customer GROUP BY customer_name
-                         ORDER BY CASE
-                            when customer_name = '${keyword}' THEN 1
-                            WHEN customer_name LIKE '${keyword}%' THEN 2
-                            WHEN customer_name LIKE '%${keyword}%' THEN 3
-                        END` 
-
-                         conn.query(sqlStr, function(err, rows, fields) {
+            let sqlStr ="SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));"+
+            "SELECT  * FROM (SELECT customer_id,customer_name,customer_phone,customer_address "+
+                "FROM `customer` "+
+                "where customer_name like ?"+
+                "UNION "+
+                "SELECT null AS customer_id, CONCAT(member_fname,' ',member_lname) AS customer_name, telephone AS customer_phone,address AS customer_aaddress "+
+                "FROM `member` "+
+                "where CONCAT(member_fname,' ',member_lname) like ?) AS all_customer GROUP BY customer_name"+
+                "         ORDER BY CASE"+
+                "            when customer_name = ? THEN 1"+
+                "            WHEN customer_name LIKE ? THEN 2"+
+                "            WHEN customer_name LIKE ? THEN 3"+
+                "        END"
+                
+                         conn.query();
+                         conn.query(sqlStr,['%'+keyword+'%','%'+keyword+'%',keyword,'%'+keyword,'%'+keyword+'%'], function(err, rows, fields) {
                             //if(err) throw err
                             if (err) {
                               console.log(err);
@@ -30,7 +54,7 @@ app.post('/searchCustomersByName',function(req,res,next){
                               next(err);
                             } else {
                               //console.log(rows)
-                              res.end(JSON.stringify(rows));
+                              res.end(JSON.stringify(rows[1]));
                             }
                         });
             });
@@ -185,7 +209,7 @@ function saveOrderDetails(connection,req,res,maincallback){
                 order_id:id,
                 receipt:receipt,
                 issueDate:moment(req.body.date).format('YYYY-MM-DD HH:mm:ss'),
-                customer_id:'C000000001',
+                customer_id:req.body.customer.customer_id,
                 discount:req.body.discount,
                 member_seq:req.body.member_seq
             };

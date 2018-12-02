@@ -14,7 +14,7 @@ app.post('/order-receipt', function(req, res, next) {
   
   // let model = req.body['date']
   let model = req.body
-   model.totalPrice = totalPrice(model.itemList) - model.discount
+   model.totalPrice = totalPrice(model.itemList)
    model.date = moment(model.date).format('DD/MM/YYYY')
   res.render('receipt', model);
 });

@@ -34,10 +34,12 @@ export class CashierComponent implements OnInit {
 
     this.order = new Order();
     this.order.date = new Date();
-    this.order.receiptNo = '';
     this.order.discount = 0;
     this.order.customer = new Customer();
     this.order.itemList = [];
+    this.cashierService.getReceiptNo().subscribe(res => {
+      this.order.receiptNo = res.receiptNo;
+    });
     this.addNewRow();
 
 
@@ -89,6 +91,16 @@ export class CashierComponent implements OnInit {
         }
       });
       this.order.itemList = itemList;
+    }
+  }
+
+  validateQuantity(item:OrderItem,min:number,max:number){
+    if(item.quantity > max){
+       alert('จำนวนสิค้สมีไม่พอ จงเลือกสินค้าจากล็อตอื่นเพิ่ม')
+        item.quantity=max
+    }else if(item.quantity <min){
+        alert('จำนวนสินค้าต้องมากกว่าหรือเท่ากับ ' + min)
+        item.quantity =min
     }
   }
   validateOrder():string{

@@ -14,7 +14,7 @@
                             <input pInputText type="text" class="form-control" [(ngModel)]="order.customer.customer_name"
                                 [typeahead]="searchCustomer()"
                                 typeaheadOptionField="customer_name"
-                                typeaheadMinLength="3"
+                                typeaheadMinLength="2"
                                 typeaheadWaitMs="500"
                                 typeaheadLoading="searchCustomer($event)"
                                 (typeaheadOnSelect)="selectCustomer($event)"
@@ -49,8 +49,8 @@
                     </div>
                     <div class="col-sm-3 pull-right">
                         <div class="form-group  ui-fluid">
-                            <label *ngIf="isSave">เลขที่ใบเสร็จ</label>
-                            <span *ngIf="isSave">: {{order.receiptNo}}</span>
+                            <label >เลขที่ใบเสร็จ</label>
+                            <span >: {{order.receiptNo}}</span>
                         </div>
                     </div>
                 </div>
@@ -59,18 +59,17 @@
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
-                    <th class="text-center" style="width:15px" *ngIf="!isSave">ลบ</th>
                     <th class="text-center" style="width: 15px">ลำดับ</th>
                     <th class="text-center" >รายการ<span class="text-danger">*</span></th>
                     <th class="text-center" style="width: 15%">จำนวน<span class="text-danger">*</span></th>
                     <th class="text-center" style="width: 15%">ราคาต่อหน่วย</th>
                     <th class="text-center" style="width: 15%">จำนวนเงิน</th>
+                    <th class="text-center" style="width:15px" *ngIf="!isSave">ลบ</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let item of order.itemList; let i =index">
-                    <td *ngIf="!isSave"><a class="text-danger" (click)="removeItem(i)"><i class="glyphicon glyphicon-remove"></i></a></td>
-                    <td class="text-center">{{i + 1}}</td>
+                    <td class="text-right">{{i + 1}}</td>
                     <td class="ui-fluid">
                     <!--     <p-autoComplete [(ngModel)]="item.name" [suggestions]="productAutocomplete.results" field="product_name" dataKey="product_id" (completeMethod)="searchProduct($event)" (onSelect)="selectSearchProduct($event,item)"  emptyMessage="ไม่พบสินค้า" styleClass="wid100"></p-autoComplete> -->
                         <ng-template #productItemTemplate let-model="item" let-index="index">
@@ -83,42 +82,48 @@
                                 typeaheadLoading="searchProduct($event,item)"
                                 (typeaheadOnSelect)="selectSearchProduct($event,item)"
                                 [typeaheadItemTemplate]="productItemTemplate"
-                                typeaheadMinLength="3"
+                                typeaheadMinLength="2"
                                 class="form-control"
                                  *ngIf="!isSave">
                                  <span *ngIf="isSave">{{item.name}}</span>
                     </td>
                     <td>
-                        <input pInputText [(ngModel)]="item.quantity" type="number" min="0" max="{{item.max_quantity}}" class="form-control text-center"  style="width:100% " min="1" max="100" *ngIf="!isSave">
+                        <input pInputText [(ngModel)]="item.quantity" type="number" min="1" max="{{item.max_quantity}}" (change)="validateQuantity(item,1,item.max_quantity)" class="form-control text-center"  style="width:100% " min="1" max="100" *ngIf="!isSave">
                         <span *ngIf="isSave">{{item.quantity}}</span>
                     </td>
                     <td>
-                        <input pInputText [(ngModel)]="item.price" type="number" min="0"  class="form-control text-center" style="width:100%" min="1" max="100" *ngIf="!isSave">
+                        <input pInputText [(ngModel)]="item.price" type="number" min="1"  class="form-control text-center" style="width:100%" min="1" max="100" *ngIf="!isSave">
                         <span *ngIf="isSave">{{item.price}}</span>
                     </td>
                     <td class="text-center">{{item.price*item.quantity}}</td>
+                    <td *ngIf="!isSave"><a class="text-danger" (click)="removeItem(i)"><i class="glyphicon glyphicon-remove text-center"></i></a></td>
                 </tr> 
                 <tr>
-                    <td class="text-center" *ngIf="!isSave"></td>
                     <td class="text-center"></td>
                     <td class="ui-fluid" colspan="4"><p-button type label="เพิ่มรายการ" icon="pi pi-plus" (onClick)="addNewRow()" *ngIf="!isSave"></p-button></td>
-                    
+
+                    <td class="text-center" *ngIf="!isSave"></td>
                     
                 </tr> 
             </tbody>
             <tfoot>
                 <tr>
-                    <th class="text-right" colspan="5" *ngIf="!isSave">ส่วนลด</th>
-                    <th class="text-right" colspan="4" *ngIf="isSave">ส่วนลด</th>
+                    <th class="text-center" colspan="4">รวมสุทธิ</th>
+                    <th class="text-center">{{ 0 + order.totalPrice}}</th>
+                    <th class="text-center" *ngIf="!isSave"></th>
+                </tr>
+                <tr>
+                    <th class="text-center" colspan="4">ส่วนลด</th>
                     <th class="">
                         <input type="number" pInputText [(ngModel)]="order.discount" class="form-control text-center" *ngIf="!isSave">
                         <span *ngIf="isSave">{{order.discount}}</span>
                     </th>
+                    <th *ngIf="!isSave"></th>
                 </tr>
                 <tr>
-                    <th class="text-right" colspan="5" *ngIf="!isSave">รวม</th>
-                    <th class="text-center" colspan="4" *ngIf="isSave">รวม</th>
-                    <th class="text-center">{{ 0 + order.totalPrice }}</th>
+                    <th class="text-center" colspan="4">รวมสุทธิ</th>
+                    <th class="text-center">{{ 0 + order.totalPrice - order.discount }}</th>
+                    <th class="text-center" *ngIf="!isSave"></th>
                 </tr>
             </tfoot>
         </table>

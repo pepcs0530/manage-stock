@@ -58,14 +58,19 @@
                     <tfoot>
                         <tr>
                             <td colspan="3"></td>
+                            <th colspan="1">ยอดรวม </th>
+                            <td colspan="1" style="text-align: right"><%= totalPrice%></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
                             <th colspan="1">ส่วนลด  </th>
                             <td colspan="1" style="text-align: right"><%= discount%></td>
                         </tr>
                         <tr>
                             <th colspan="2">จำนวนรวมเงินทั้งสิ้น</th>
                             <th colspan="1"></th>
-                            <th colspan="1">ยอดรวม</th>
-                            <td colspan="1" style="text-align: right"> <%= totalPrice%></td>
+                            <th colspan="1">ยอดรวมสุทธิ</th>
+                            <td colspan="1" style="text-align: right"> <%= totalPrice - discount%></td>
                         </tr>
                     </tfoot>
                 </table>
