@@ -209,7 +209,7 @@ function saveOrderDetails(connection,req,res,maincallback){
                 order_id:id,
                 receipt:receipt,
                 issueDate:moment(req.body.date).format('YYYY-MM-DD HH:mm:ss'),
-                customer_id:'C000000001',
+                customer_id:req.body.customer.customer_id,
                 discount:req.body.discount,
                 member_seq:req.body.member_seq
             };

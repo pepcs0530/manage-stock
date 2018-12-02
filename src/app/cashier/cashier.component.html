@@ -96,7 +96,7 @@
                         <span *ngIf="isSave">{{item.price}}</span>
                     </td>
                     <td class="text-center">{{item.price*item.quantity}}</td>
-                    <td *ngIf="!isSave"><a class="text-danger" (click)="removeItem(i)"><i class="glyphicon glyphicon-remove"></i></a></td>
+                    <td *ngIf="!isSave"><a class="text-danger" (click)="removeItem(i)"><i class="glyphicon glyphicon-remove text-center"></i></a></td>
                 </tr> 
                 <tr>
                     <td class="text-center"></td>
@@ -115,7 +115,7 @@
                 <tr>
                     <th class="text-center" colspan="4">ส่วนลด</th>
                     <th class="">
-                        <input type="number" pInputText [(ngModel)]="order.discount" class="form-control text-right" *ngIf="!isSave">
+                        <input type="number" pInputText [(ngModel)]="order.discount" class="form-control text-center" *ngIf="!isSave">
                         <span *ngIf="isSave">{{order.discount}}</span>
                     </th>
                     <th *ngIf="!isSave"></th>
