@@ -119,6 +119,13 @@ export class ProductComponent implements OnInit {
     // this.saveProductForm.controls['mfd_date'].disable();
     this.disableMfdDate = this.saveProductForm.get('mfdDate').value !== null ? true : false;
     this.disableExpDate = this.saveProductForm.get('expDate').value !== null ? true : false;
+
+    if (this.saveProductForm.get('mfdDate').value === null) {
+      this.saveProductForm.get('mfdDate').setValue(new Date());
+      const expDate = new Date(this.saveProductForm.get('mfdDate').value);
+      const be_expDate = new Date(expDate.setMonth(expDate.getMonth() + 7));
+      this.saveProductForm.get('expDate').setValue(be_expDate);
+    }
   }
 
   getCustomerListByProductSeq(productSeq) {
@@ -208,8 +215,8 @@ export class ProductComponent implements OnInit {
           lotId: this.product['lot_id'],
           riceVarieties: this.product['rice_var_name'],
           productQuantity: this.product['product_quantity'],
-          mfdDate: this.product['mfd_date'] ? new Date(this.product['mfd_date']) : null,
-          expDate: this.product['exp_date'] ? new Date(this.product['exp_date']) : null,
+          mfdDate: this.product['mfd_date'] ? new Date(this.product['mfd_date']) : new Date(),
+          expDate: this.product['exp_date'] ? new Date(this.product['exp_date']) : this.addMonth(7),
           riceVarSeq: this.product['rice_var_seq'],
           memberSeq: this.product['member_seq'],
           member: this.product['member']
@@ -321,6 +328,14 @@ export class ProductComponent implements OnInit {
     const be_expDate = new Date(expDate.setMonth(expDate.getMonth() + 7));
     // console.log('expDate-->', be_expDate.setMonth(be_expDate.getMonth() + 7));
     this.saveProductForm.get('expDate').setValue(be_expDate);
+  }
+
+  addMonth(month) {
+    console.log('mfdDate-->', this.saveProductForm.get('mfdDate').value);
+    const expDate = new Date(this.saveProductForm.get('mfdDate').value ? this.saveProductForm.get('mfdDate').value : new Date());
+    const be_expDate = new Date(expDate.setMonth(expDate.getMonth() + month));
+    return be_expDate;
+    // this.saveProductForm.get('expDate').setValue(be_expDate);
   }
 
 }
