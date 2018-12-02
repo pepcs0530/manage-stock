@@ -20,6 +20,6 @@ export class Order{
     get  totalPrice():number{
         return this.pricelist.reduce(function (prev,curr){
             return prev + curr;
-        }) - this.discount;
+        }) 
     }
 }

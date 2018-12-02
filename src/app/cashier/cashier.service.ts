@@ -18,6 +18,20 @@ export class CashierService {
   constructor(private http: Http, private config: DatabaseConfig) {
     this._getURL = 'http://' + config.host + ':' + config.port + '/api/saveOrder';
   }
+  getReceiptNo () : Observable <Order>
+  {
+    const headers = new Headers({
+      'Content-Type': 'application/json; charset=utf-8',
+      'Access-Control-Allow-Origin': '*'
+    });
+    const options = new RequestOptions({ headers: headers });
+
+    return this.http.get('/api/order/getReceiptNo',options).pipe(
+      map(res => {
+        return <Order>res.json();
+      })
+    );
+  }
 
   searchCustomersByName (keyword:string) : Observable <Customer[]>
   {
@@ -72,10 +86,10 @@ export class CashierService {
 
     return this.http.post('/api/pdf/get-receipt-pdf', order,options).pipe(
       map(res =>{
-        let url = '/api/pdf/get-receipt-pdf'
-        var win = window.open(url, '_blank');
+        console.log('/api/pdf/get-receipt-pdf')
+        window.open('/api/pdf/get-receipt-pdf', '_blank');
         
-        return 
+         
       })
     )
   }
