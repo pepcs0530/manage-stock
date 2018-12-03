@@ -256,7 +256,7 @@ export class ProductComponent implements OnInit {
             this.displayDialog = false;
             console.log('response-->', data);
             this.search();
-            alert('แก้ไขข้อมูลเรียบร้อย');
+            alert('บันทึกข้อมูลเรียบร้อย');
           },
           error => {
             console.error('Error editing data!');

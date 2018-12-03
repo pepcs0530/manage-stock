@@ -1,137 +1,132 @@
 <app-navbar></app-navbar>
 <div class="container">
-    <p-panel>
-        <p-header>
-            <h2>ขายสินค้า</h2>
-        </p-header>
-        <div class="panel-header">
-            <div class="form ">
-                <div class="row">
-                    <div class="col-sm-3">
-                        <div class="form-group ui-fluid" >
-                            <label>ชื่อลูกค้า</label><span class="text-danger">*</span>
-                            <span *ngIf="isSave">: {{order.customer.customer_name}}</span>
-                            <input pInputText type="text" class="form-control" [(ngModel)]="order.customer.customer_name"
-                                [typeahead]="searchCustomer()"
-                                typeaheadOptionField="customer_name"
-                                typeaheadMinLength="2"
-                                typeaheadWaitMs="500"
-                                typeaheadLoading="searchCustomer($event)"
-                                (typeaheadOnSelect)="selectCustomer($event)"
-                                class="form-control"
-                                required *ngIf="!isSave">
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group ui-fluid">
-                            <label>โทรศัพท์</label><span class="text-danger">*</span>
-                            
-                            <span *ngIf="isSave">: {{order.customer.customer_phone}}</span>
-                            <input pInputText type="text" [(ngModel)]="order.customer.customer_phone" class="form-control" *ngIf="!isSave">
-                        </div>
-                    </div>
-                    <div class="col-sm-3 pull-right">
-                        <div class="form-group ui-fluid">
-                            <label>วันที่</label><span class="text-danger">*</span>
-                            <span *ngIf="isSave">: {{order.dateFormetted}}</span>
-                            <p-calendar [(ngModel)]="order.date"  [showIcon]="true" *ngIf="!isSave"></p-calendar>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    
-                    <div class="col-sm-6">
-                        <div class="form-group  ui-fluid">
-                            <label >ที่อยู่</label><span class="text-danger">*</span>
-                            <span *ngIf="isSave">: {{order.customer.customer_address}}</span>
-                            <textarea class="form-control" pInputTextarea [(ngModel)]="order.customer.customer_address" *ngIf="!isSave"></textarea>
-                        </div>
-                    </div>
-                    <div class="col-sm-3 pull-right">
-                        <div class="form-group  ui-fluid">
-                            <label >เลขที่ใบเสร็จ</label>
-                            <span >: {{order.receiptNo}}</span>
-                        </div>
-                    </div>
-                </div>
+  <p-panel>
+    <p-header>
+      <h2>ขายสินค้า</h2>
+    </p-header>
+    <div class="panel-header">
+      <div class="form ">
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="form-group ui-fluid">
+              <label>ชื่อลูกค้า</label><span class="text-danger">*</span>
+              <span *ngIf="isSave">: {{order.customer.customer_name}}</span>
+              <input pInputText type="text" class="form-control" [(ngModel)]="order.customer.customer_name" [typeahead]="searchCustomer()"
+                typeaheadOptionField="customer_name" typeaheadMinLength="2" typeaheadWaitMs="500" typeaheadLoading="searchCustomer($event)"
+                (typeaheadOnSelect)="selectCustomer($event)" class="form-control" required *ngIf="!isSave">
             </div>
-        </div>
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th class="text-center" style="width: 15px">ลำดับ</th>
-                    <th class="text-center" >รายการ<span class="text-danger">*</span></th>
-                    <th class="text-center" style="width: 15%">จำนวน<span class="text-danger">*</span></th>
-                    <th class="text-center" style="width: 15%">ราคาต่อหน่วย</th>
-                    <th class="text-center" style="width: 15%">จำนวนเงิน</th>
-                    <th class="text-center" style="width:15px" *ngIf="!isSave">ลบ</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let item of order.itemList; let i =index">
-                    <td class="text-right">{{i + 1}}</td>
-                    <td class="ui-fluid">
-                    <!--     <p-autoComplete [(ngModel)]="item.name" [suggestions]="productAutocomplete.results" field="product_name" dataKey="product_id" (completeMethod)="searchProduct($event)" (onSelect)="selectSearchProduct($event,item)"  emptyMessage="ไม่พบสินค้า" styleClass="wid100"></p-autoComplete> -->
-                        <ng-template #productItemTemplate let-model="item" let-index="index">
-                            <h3><strong>{{model.rice_var_name}}</strong></h3>
-                            ล็อต: {{model.lot_id}}  คงคลัง: {{model.product_quantity}}
-                        </ng-template>
-                        <input pInputText type="text" class="form-control" [(ngModel)]="item.name"
-                                [typeahead]="searchProduct(item)"
-                                typeaheadOptionField="product_name"
-                                typeaheadLoading="searchProduct($event,item)"
-                                (typeaheadOnSelect)="selectSearchProduct($event,item)"
-                                [typeaheadItemTemplate]="productItemTemplate"
-                                typeaheadMinLength="2"
-                                class="form-control"
-                                 *ngIf="!isSave">
-                                 <span *ngIf="isSave">{{item.name}}</span>
-                    </td>
-                    <td>
-                        <input pInputText [(ngModel)]="item.quantity" type="number" min="1" max="{{item.max_quantity}}" (change)="validateQuantity(item,1,item.max_quantity)" class="form-control text-center"  style="width:100% " min="1" max="100" *ngIf="!isSave">
-                        <span *ngIf="isSave">{{item.quantity}}</span>
-                    </td>
-                    <td>
-                        <input pInputText [(ngModel)]="item.price" type="number" min="1"  class="form-control text-center" style="width:100%" min="1" max="100" *ngIf="!isSave">
-                        <span *ngIf="isSave">{{item.price}}</span>
-                    </td>
-                    <td class="text-center">{{item.price*item.quantity}}</td>
-                    <td *ngIf="!isSave"><a class="text-danger" (click)="removeItem(i)"><i class="glyphicon glyphicon-remove text-center"></i></a></td>
-                </tr> 
-                <tr>
-                    <td class="text-center"></td>
-                    <td class="ui-fluid" colspan="4"><p-button type label="เพิ่มรายการ" icon="pi pi-plus" (onClick)="addNewRow()" *ngIf="!isSave"></p-button></td>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group ui-fluid">
+              <label>โทรศัพท์</label><span class="text-danger">*</span>
 
-                    <td class="text-center" *ngIf="!isSave"></td>
-                    
-                </tr> 
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th class="text-center" colspan="4">รวมสุทธิ</th>
-                    <th class="text-center">{{ 0 + order.totalPrice}}</th>
-                    <th class="text-center" *ngIf="!isSave"></th>
-                </tr>
-                <tr>
-                    <th class="text-center" colspan="4">ส่วนลด</th>
-                    <th class="">
-                        <input type="number" pInputText [(ngModel)]="order.discount" class="form-control text-center" *ngIf="!isSave">
-                        <span *ngIf="isSave">{{order.discount}}</span>
-                    </th>
-                    <th *ngIf="!isSave"></th>
-                </tr>
-                <tr>
-                    <th class="text-center" colspan="4">รวมสุทธิ</th>
-                    <th class="text-center">{{ 0 + order.totalPrice - order.discount }}</th>
-                    <th class="text-center" *ngIf="!isSave"></th>
-                </tr>
-            </tfoot>
-        </table>
-        <p-footer>
-            <button pButton type="button" (click)="ngOnInit()" icon="pi pi-times" label="ล้างข้อมูล" class="ui-button-danger" style="margin-right: .25em"></button>
-            <button pButton type="submit" (click)="paymentProcess()" *ngIf="!isSave" icon="pi pi-check" label="ดำเนินการ" class="ui-button-success pull-right"></button>
-            <button pButton type="button" (click)="exportReceipt()" *ngIf="isSave"  icon="pi pi-print" label="ออกใบเสร็จ" class="ui-button-primary pull-right"style="margin-right: .25em"></button>
-        </p-footer>
-    </p-panel>
-   
+              <span *ngIf="isSave">: {{order.customer.customer_phone}}</span>
+              <input pInputText type="text" [(ngModel)]="order.customer.customer_phone" class="form-control" *ngIf="!isSave">
+            </div>
+          </div>
+          <div class="col-sm-3 pull-right">
+            <div class="form-group ui-fluid">
+              <label>วันที่</label><span class="text-danger">*</span>
+              <span *ngIf="isSave">: {{order.dateFormetted}}</span>
+              <p-calendar [(ngModel)]="order.date" dateFormat="dd/mm/yy" [showIcon]="true" *ngIf="!isSave"></p-calendar>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+
+          <div class="col-sm-6">
+            <div class="form-group  ui-fluid">
+              <label>ที่อยู่</label><span class="text-danger">*</span>
+              <span *ngIf="isSave">: {{order.customer.customer_address}}</span>
+              <textarea class="form-control" pInputTextarea [(ngModel)]="order.customer.customer_address" *ngIf="!isSave"></textarea>
+            </div>
+          </div>
+          <div class="col-sm-3 pull-right">
+            <div class="form-group  ui-fluid">
+              <label>เลขที่ใบเสร็จ</label>
+              <span>: {{order.receiptNo}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th class="text-center" style="width: 15px">ลำดับ</th>
+          <th class="text-center">รายการ<span class="text-danger">*</span></th>
+          <th class="text-center" style="width: 15%">จำนวน<span class="text-danger">*</span></th>
+          <th class="text-center" style="width: 15%">ราคาต่อหน่วย</th>
+          <th class="text-center" style="width: 15%">จำนวนเงิน</th>
+          <th class="text-center" style="width:15px" *ngIf="!isSave">ลบ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of order.itemList; let i =index">
+          <td class="text-right">{{i + 1}}</td>
+          <td class="ui-fluid">
+            <!--     <p-autoComplete [(ngModel)]="item.name" [suggestions]="productAutocomplete.results" field="product_name" dataKey="product_id" (completeMethod)="searchProduct($event)" (onSelect)="selectSearchProduct($event,item)"  emptyMessage="ไม่พบสินค้า" styleClass="wid100"></p-autoComplete> -->
+            <ng-template #productItemTemplate let-model="item" let-index="index">
+              <h3><strong>{{model.rice_var_name}}</strong></h3>
+              ล็อต: {{model.lot_id}} คงคลัง: {{model.product_quantity}}
+            </ng-template>
+            <input pInputText type="text" class="form-control" [(ngModel)]="item.name" [typeahead]="searchProduct(item)"
+              typeaheadOptionField="product_name" typeaheadLoading="searchProduct($event,item)" (typeaheadOnSelect)="selectSearchProduct($event,item)"
+              [typeaheadItemTemplate]="productItemTemplate" typeaheadMinLength="2" class="form-control" *ngIf="!isSave">
+            <span *ngIf="isSave">{{item.name}}</span>
+          </td>
+          <td>
+            <input pInputText [(ngModel)]="item.quantity" type="number" min="1" max="{{item.max_quantity}}" (change)="validateQuantity(item,1,item.max_quantity)"
+              class="form-control text-center" style="width:100% " min="1" max="100" *ngIf="!isSave">
+            <span *ngIf="isSave">{{item.quantity}}</span>
+          </td>
+          <td>
+            <input pInputText [(ngModel)]="item.price" type="number" min="1" class="form-control text-center" style="width:100%"
+              min="1" max="100" *ngIf="!isSave">
+            <span *ngIf="isSave">{{item.price | thaiBathCurrencyPipe}}</span>
+          </td>
+          <td class="text-center">{{item.price*item.quantity | thaiBathCurrencyPipe}}</td>
+          <td *ngIf="!isSave"><a class="text-danger" (click)="removeItem(i)"><i class="glyphicon glyphicon-remove text-center"></i></a></td>
+        </tr>
+        <tr>
+          <td class="text-center"></td>
+          <td class="ui-fluid" colspan="4">
+            <p-button type label="เพิ่มรายการ" icon="pi pi-plus" (onClick)="addNewRow()" *ngIf="!isSave"></p-button>
+          </td>
+
+          <td class="text-center" *ngIf="!isSave"></td>
+
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th class="text-right" colspan="4">ยอดรวม</th>
+          <th class="text-right">{{ 0 + order.totalPrice | thaiBathCurrencyPipe }}</th>
+          <th class="text-center" *ngIf="!isSave"></th>
+        </tr>
+        <tr>
+          <th class="text-right" colspan="4">ส่วนลด</th>
+          <th class="">
+            <input type="number" pInputText [(ngModel)]="order.discount" class="form-control text-right" *ngIf="!isSave">
+            <span *ngIf="isSave">{{order.discount}}</span>
+          </th>
+          <th *ngIf="!isSave"></th>
+        </tr>
+        <tr>
+          <th class="text-right" colspan="4">ยอดรวมสุทธิ</th>
+          <th class="text-right">{{ 0 + order.totalPrice - order.discount | thaiBathCurrencyPipe }}</th>
+          <th class="text-center" *ngIf="!isSave"></th>
+        </tr>
+      </tfoot>
+    </table>
+    <p-footer>
+      <button pButton type="button" (click)="ngOnInit()" icon="pi pi-times" label="ล้างข้อมูล" class="ui-button-danger"
+        style="margin-right: .25em"></button>
+      <button pButton type="submit" (click)="paymentProcess()" *ngIf="!isSave" icon="pi pi-check" label="ดำเนินการ"
+        class="ui-button-success pull-right"></button>
+      <button pButton type="button" (click)="exportReceipt()" *ngIf="isSave" icon="pi pi-print" label="ออกใบเสร็จ"
+        class="ui-button-primary pull-right" style="margin-right: .25em"></button>
+    </p-footer>
+  </p-panel>
+
 </div>
