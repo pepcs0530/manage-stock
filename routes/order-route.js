@@ -164,7 +164,7 @@ function saveCustomer(connection, req, res, callback) {
           })
 
         } else {
-          console.log("saveCustomer id-->", id)
+          console.log("saveCustomer id-->", req.body.customer.customer_id)
           callback(null, req.body.customer.customer_id)
         }
       },
