@@ -57,6 +57,40 @@ app.get('/getMaxMemberId', function (req, res, next) {
   });
 });
 
+app.post('/getMemberForCheckDup', function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Content-Type', 'application/json');
+  req.getConnection(function (error, conn) {
+    console.log('---START getMemberForCheckDup---');
+    try {
+
+      var condition = req.body;
+      console.log('condition-->', condition);
+
+      var sql = ' SELECT * FROM member ';
+      sql += ' WHERE 1=1 ';
+      if (condition.memberFname) {
+        sql += " AND member_fname = '" + condition.memberFname + "' ";
+      }
+      if (condition.memberLname) {
+        sql += " AND member_lname = '" + condition.memberLname + "' ";
+      }
+      conn.query(sql, function (err, rows, fields) {
+        if (err) {
+          console.log(err);
+          next(err);
+        } else {
+          res.end(JSON.stringify(rows));
+        }
+      });
+    } catch (e) {
+      console.error('err thrown: ' + e.stack);
+      res.sendStatus(500);
+    }
+    console.log('---END getMemberForCheckDup---');
+  });
+});
+
 app.get('/getMemberById/(:id)', function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Content-Type', 'application/json');
