@@ -9,7 +9,7 @@ import { RiceVarieties } from '@shared/models/rice-varieties/rice-varieties';
   providedIn: 'root'
 })
 export class RiceVarietiesService {
-  constructor(private http: Http) {}
+  constructor(private http: Http) { }
 
   addRiceVarieties(payload) {
     console.log('payload-->', payload);
@@ -67,5 +67,19 @@ export class RiceVarietiesService {
           return <RiceVarieties[]>res.json();
         })
       );
+  }
+
+  getMaxRiceVarietiesId(): Observable<RiceVarieties[]> {
+    const headers = new Headers({
+      'Content-Type': 'application/json; charset=utf-8',
+      'Access-Control-Allow-Origin': '*'
+    });
+    const options = new RequestOptions({ headers: headers });
+
+    return this.http.get('/api/riceVarieties/getMaxRiceVarietiesId', options).pipe(
+      map(res => {
+        return <RiceVarieties[]>res.json();
+      })
+    );
   }
 }

@@ -30,7 +30,7 @@
         <ng-template pTemplate="caption">
           <div class="ui-g">
             <div class="ui-g-4" style="text-align: left">
-              <button pButton type="button" icon="fa fa-plus" (click)="showDialogToAdd()"></button>
+              <button pButton type="button" icon="fa fa-plus" (click)="showDialogToAdd()" label="เพิ่มสายพันธุ์ข้าว"></button>
             </div>
             <div class="ui-g-4" style="text-align: center">
               ตารางข้อมูลสายพันธุ์ข้าว
@@ -78,7 +78,8 @@
       <div class="ui-g">
         <div class="ui-g-12">
           <label for="float-input">รหัส<font style="color: red; font-weight: bold;">*</font></label> &nbsp;
-          <input id="float-input" type="text" formControlName="riceVarId" size="30" style="width: 150px" pInputText />
+          <input id="float-input" type="text" formControlName="riceVarId" size="30" style="width: 150px" pInputText
+            readonly="true" />
         </div>
         <div class="ui-g-8">
           <label for="float-input">ชื่อสายพันธุ์<font style="color: red; font-weight: bold;">*</font></label> &nbsp;

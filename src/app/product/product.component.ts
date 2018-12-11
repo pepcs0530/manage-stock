@@ -39,6 +39,7 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
+    this.search();
   }
 
   initForm() {

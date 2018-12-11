@@ -75,15 +75,15 @@
               [typeaheadItemTemplate]="productItemTemplate" typeaheadMinLength="2" class="form-control" *ngIf="!isSave">
             <span *ngIf="isSave">{{item.name}}</span>
           </td>
-          <td class="text-center" >
+          <td class="text-center">
             <input pInputText [(ngModel)]="item.quantity" type="number" min="1" max="{{item.max_quantity}}" (change)="validateQuantity(item,1,item.max_quantity)"
               class="form-control text-center" style="width:100% " min="1" max="100" *ngIf="!isSave">
-            <span*ngIf="isSave">{{item.quantity}}</span>
+            <span *ngIf="isSave">{{item.quantity}}</span>
           </td>
-          <td  class="text-center" >
+          <td class="text-center">
             <input pInputText [(ngModel)]="item.price" type="number" min="1" class="form-control text-center" style="width:100%"
               min="1" max="100" *ngIf="!isSave">
-            <span*ngIf="isSave">{{item.price | thaiBathCurrencyPipe}}</span>
+            <span *ngIf="isSave">{{item.price | thaiBathCurrencyPipe}}</span>
           </td>
           <td class="text-center">{{item.price*item.quantity | thaiBathCurrencyPipe}}</td>
           <td *ngIf="!isSave"><a class="text-danger" (click)="removeItem(i)"><i class="glyphicon glyphicon-remove text-center"></i></a></td>

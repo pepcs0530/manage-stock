@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-app.post('/create', function(req, res, next) {
+app.post('/create', function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Content-Type', 'application/json');
   console.log('---START CREATE POST ACTION---');
@@ -15,9 +15,9 @@ app.post('/create', function(req, res, next) {
   };
 
   console.log('payload-->', payload);
-  req.getConnection(function(error, conn) {
+  req.getConnection(function (error, conn) {
     try {
-      conn.query('INSERT INTO rice_varieties SET ?', payload, function(
+      conn.query('INSERT INTO rice_varieties SET ?', payload, function (
         err,
         result
       ) {
@@ -38,7 +38,7 @@ app.post('/create', function(req, res, next) {
   });
 });
 
-app.post('/add', function(req, res, next) {
+app.post('/add', function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Content-Type', 'application/json');
   console.log('---START add---');
@@ -52,9 +52,9 @@ app.post('/add', function(req, res, next) {
   };
 
   console.log('payload-->', payload);
-  req.getConnection(function(error, conn) {
+  req.getConnection(function (error, conn) {
     try {
-      conn.query('INSERT INTO rice_varieties SET ?', payload, function(
+      conn.query('INSERT INTO rice_varieties SET ?', payload, function (
         err,
         result
       ) {
@@ -75,7 +75,7 @@ app.post('/add', function(req, res, next) {
   });
 });
 
-app.put('/edit/(:id)', function(req, res, next) {
+app.put('/edit/(:id)', function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Content-Type', 'application/json');
   console.log('---START edit---');
@@ -90,12 +90,12 @@ app.put('/edit/(:id)', function(req, res, next) {
   };
 
   console.log('payload-->', payload);
-  req.getConnection(function(error, conn) {
+  req.getConnection(function (error, conn) {
     try {
       conn.query(
         'UPDATE rice_varieties SET ? WHERE rice_var_seq = ' + req.params.id,
         payload,
-        function(err, result) {
+        function (err, result) {
           //if(err) throw err
           if (err) {
             next(err);
@@ -114,7 +114,7 @@ app.put('/edit/(:id)', function(req, res, next) {
   });
 });
 
-app.post('/getRiceVarietiesByCondition', function(req, res, next) {
+app.post('/getRiceVarietiesByCondition', function (req, res, next) {
   /* console.log('req-->', req);
   console.log('body-->', req.body); */
   var condition = req.body;
@@ -122,7 +122,7 @@ app.post('/getRiceVarietiesByCondition', function(req, res, next) {
 
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Content-Type', 'application/json');
-  req.getConnection(function(error, conn) {
+  req.getConnection(function (error, conn) {
     console.log('---START getRiceVarietiesByCondition---');
     try {
       var sql = '';
@@ -141,7 +141,7 @@ app.post('/getRiceVarietiesByCondition', function(req, res, next) {
 
       sql += ' ORDER BY rice_var_seq DESC ';
       console.error('sql: ', sql);
-      conn.query(sql, function(err, rows, fields) {
+      conn.query(sql, function (err, rows, fields) {
         //if(err) throw err
         if (err) {
           console.log(err);
@@ -160,16 +160,16 @@ app.post('/getRiceVarietiesByCondition', function(req, res, next) {
   });
 });
 
-app.delete('/deleteById/(:id)', function(req, res, next) {
+app.delete('/deleteById/(:id)', function (req, res, next) {
   console.log('---START deleteById---');
 
   // var rfid = { rfid_gen: req.params.id }
 
-  req.getConnection(function(error, conn) {
+  req.getConnection(function (error, conn) {
     conn.query(
       'DELETE FROM rice_varieties WHERE rice_var_seq = ' + req.params.id,
       null,
-      function(err, result) {
+      function (err, result) {
         if (err) {
           console.log(err);
           next(err);
@@ -182,17 +182,17 @@ app.delete('/deleteById/(:id)', function(req, res, next) {
   });
 });
 
-app.get('/getRiceVarietieById/(:id)', function(req, res, next) {
+app.get('/getRiceVarietieById/(:id)', function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Content-Type', 'application/json');
-  req.getConnection(function(error, conn) {
+  req.getConnection(function (error, conn) {
     console.log('---START getRiceVarietieById---');
     try {
       conn.query(
         'SELECT * FROM rice_varieties WHERE rice_var_seq = ' +
-          req.params.id +
-          ' ORDER BY rice_var_seq ASC',
-        function(err, rows, fields) {
+        req.params.id +
+        ' ORDER BY rice_var_seq ASC',
+        function (err, rows, fields) {
           //if(err) throw err
           if (err) {
             console.log(err);
@@ -209,6 +209,31 @@ app.get('/getRiceVarietieById/(:id)', function(req, res, next) {
       res.sendStatus(500);
     }
     console.log('---END getRiceVarietieById---');
+  });
+});
+
+app.get('/getMaxRiceVarietiesId', function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Content-Type', 'application/json');
+  req.getConnection(function (error, conn) {
+    console.log('---START getMaxRiceVarietiesId---');
+    try {
+      conn.query(
+        ' SELECT LPAD(MAX(rice_var_id) + 1,5,"0") AS riceVarId FROM rice_varieties ',
+        function (err, rows, fields) {
+          if (err) {
+            console.log(err);
+            next(err);
+          } else {
+            res.end(JSON.stringify(rows));
+          }
+        }
+      );
+    } catch (e) {
+      console.error('err thrown: ' + e.stack);
+      res.sendStatus(500);
+    }
+    console.log('---END getMaxRiceVarietiesId---');
   });
 });
 

@@ -34,6 +34,7 @@ export class RiceVarietiesComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
+    this.search();
   }
 
   initForm() {
@@ -54,6 +55,7 @@ export class RiceVarietiesComponent implements OnInit {
     this.riceVarietie = {};
     this.saveRiceVarietieForm.reset();
     this.displayDialog = true;
+    this.getMaxRiceVarietiesId();
   }
 
   search() {
@@ -230,5 +232,17 @@ export class RiceVarietiesComponent implements OnInit {
     alert(this.message.join('\n')); */
 
     return valid;
+  }
+
+  getMaxRiceVarietiesId() {
+    this.riceVarietiesService.getMaxRiceVarietiesId().subscribe(
+      resultArray => {
+        console.log('Result-->', resultArray);
+        this.saveRiceVarietieForm.patchValue({
+          riceVarId: resultArray[0]['riceVarId']
+        });
+      },
+      error => console.log('Error :: ', error)
+    );
   }
 }

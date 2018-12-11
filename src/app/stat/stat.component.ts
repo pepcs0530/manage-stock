@@ -53,6 +53,7 @@ export class StatComponent implements OnInit {
             ]
         };
 
+        this.search(new Date());
         this.getStatRiceVarietiesBalance();
 
     }
