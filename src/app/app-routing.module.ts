@@ -15,6 +15,7 @@ import { AddProductComponent } from './add-product/add-product.component';
 import { RiceVarietiesComponent } from './rice-varieties/rice-varieties.component';
 import { ProductComponent } from './product/product.component';
 import { ProductTypeComponent } from './product-type/product-type.component';
+import { PermissionComponent } from './permission/permission.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'riceVarieties', component: RiceVarietiesComponent },
   { path: 'product', component: ProductComponent },
   { path: 'productType', component: ProductTypeComponent },
+  { path: 'permission', component: PermissionComponent },
   {
     // default path
     path: '**',

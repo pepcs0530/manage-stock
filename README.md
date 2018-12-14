@@ -68,4 +68,7 @@ ng g service ../app/stat/services/stat/stat <br/>
 <br/>
 ng generate component login <br/>
 ng g service ../app/login/services/login/login <br/>
+<br/>
+ng generate component permission <br/>
+ng g service ../app/permission/services/permission/permission <br/>
 `node api.js` for run api back-end <br/>

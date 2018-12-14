@@ -67,6 +67,7 @@ import { ProductTypeComponent } from './product-type/product-type.component';
 import { ProductTypeService } from './product-type/services/product-type/product-type.service';
 import { StatService } from './stat/services/stat/stat.service';
 import { CommaNoDecimalModule } from '@shared/pipes/comma-no-decimal/comma-no-decimal.module';
+import { PermissionComponent } from './permission/permission.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import { CommaNoDecimalModule } from '@shared/pipes/comma-no-decimal/comma-no-de
     AddProductComponent,
     RiceVarietiesComponent,
     ProductComponent,
-    ProductTypeComponent
+    ProductTypeComponent,
+    PermissionComponent
   ],
   imports: [
     BrowserModule,
