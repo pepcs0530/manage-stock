@@ -1,5 +1,5 @@
 declare function require(path: string);
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +10,10 @@ export class NavbarComponent implements OnInit {
   imgPath = require('src/assets/images/header.png');
   isCollapsed = true;
 
-  constructor() {}
+  @Input()
+  authenFlag: boolean;
 
-  ngOnInit() {}
+  constructor() { }
+
+  ngOnInit() { }
 }

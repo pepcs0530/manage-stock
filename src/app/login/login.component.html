@@ -2,6 +2,29 @@
   login works!
 </p> -->
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-<form (ngSubmit)="formSubmit()">
-  <app-login-form></app-login-form>
+<!-- <app-login-form></app-login-form> -->
+<app-navbar [authenFlag]="authenFlag"> </app-navbar>
+<form [formGroup]="loginForm">
+  <div class="ui-g ui-fluid">
+    <div class="ui-g-offset-4 ui-g-4 ui-md-4">
+      <div class="ui-inputgroup">
+        <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+        <input type="text" pInputText placeholder="ชื่อผู้ใช้" formControlName="username">
+      </div>
+      <div class="ui-inputgroup">
+        &nbsp;
+      </div>
+      <div class="ui-inputgroup">
+        <span class="ui-inputgroup-addon"><i class="fa fa-key"></i></span>
+        <input type="password" pInputText placeholder="รหัสผ่าน" formControlName="password">
+      </div>
+      <div class="ui-inputgroup">
+        &nbsp;
+      </div>
+      <div style="text-align: center;">
+        <button type="button" style="width: unset;" pButton icon="fa fa-check" (click)="checkLogin()" label="เข้าสู่ระบบ"></button>&nbsp;&nbsp;
+        <button type="button" style="width: unset;" pButton icon="fa fa-close" (click)="loginForm.reset()" label="ยกเลิก"></button>
+      </div>
+    </div>
+  </div>
 </form>

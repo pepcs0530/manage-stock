@@ -4,6 +4,8 @@ import { StatService } from './services/stat/stat.service';
 import { dateToStrYYYYMMDD } from '@shared/utils/date-to-str-yyyymmdd';
 import { formatNumber } from '../../../node_modules/@angular/common';
 import { removeComma } from '@shared/utils/remove-comma';
+import { Router } from '../../../node_modules/@angular/router';
+import { LoginService } from '../login/services/login/login.service';
 
 
 @Component({
@@ -23,9 +25,20 @@ export class StatComponent implements OnInit {
     data2: any;
     barOptions2: any;
 
+    authenFlag: boolean;
+
     constructor(
-        private statService: StatService
-    ) { }
+        private statService: StatService,
+        private router: Router,
+        private loginService: LoginService
+    ) {
+        if (this.loginService.isHaveSession()) {
+            this.authenFlag = true;
+        } else {
+            this.authenFlag = false;
+            this.router.navigate(['/']);
+        }
+    }
 
     ngOnInit() {
         this.display = true;

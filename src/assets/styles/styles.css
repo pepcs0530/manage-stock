@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 /* @import '~bootstrap/dist/css/bootstrap.min.css'; */
 
-*{
+* {
   font-family: 'th sarabunPSK';
   font-size: 20px;
 }
@@ -25,6 +25,12 @@
   text-align: center;
 }
 
+.ui-table .ui-table-tbody>tr>td {
+  background: inherit;
+  border: 1px solid #c8c8c8;
+  font-size: 24px;
+}
+
 .ui-autocomplete-input {
   width: 100%;
 }
@@ -40,4 +46,15 @@ legend {
 .ui-calendar {
   /* display: block;
   width: 90%; */
+}
+
+.page-caption {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.ui-table-caption {
+  font-weight: bold;
+  font-size: 24px;
+  padding: 0.25em 0.25em !important;
 }

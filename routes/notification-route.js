@@ -7,7 +7,7 @@ app.get('/', function (req, res, next) {
   req.getConnection(function (error, conn) {
     console.log('---START getNotification---');
     conn.query(
-      'SELECT * FROM product WHERE 1=1 AND DATEDIFF(exp_date, NOW()) < 90 ORDER BY exp_date, product_quantity ASC',
+      'SELECT * FROM product WHERE 1=1 AND product_quantity > 0 AND DATEDIFF(exp_date, NOW()) < 90 ORDER BY exp_date, product_quantity ASC',
       function (err, rows, fields) {
         //if(err) throw err
         if (err) {
@@ -38,6 +38,7 @@ app.post('/getNotificationByCondition', function (req, res, next) {
       sql += ' SELECT * ';
       sql += ' FROM product ';
       sql += ' WHERE 1=1 ';
+      sql += ' AND product_quantity > 0 ';
       sql += ' AND DATEDIFF(exp_date, NOW()) < 90 ';
 
       if (condition.keyword != undefined) {
