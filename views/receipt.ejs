@@ -43,7 +43,7 @@
                     </thead>
                     <tbody>
                         <% itemList.forEach(function(item,index) { %>
-                        <tr>
+                        <tr style="height:30px">
                             <td><%= index +1%></td>
                             <td><%= item.name %></td>
                             <td style="text-align:right"><%= item.quantity %></td>
@@ -52,7 +52,7 @@
                         </tr>
                         <% }); %>
                         <tr>
-                            <td colspan="5" style="height:100%;"></td>
+                            <td colspan="5" style="height:<%= 30*30 - itemList.length*30 %>px;"></td>
                         </tr>
                     </tbody>
                     <tfoot>
@@ -81,13 +81,13 @@
                 <table  style="width: 100%">
                     <tfoot>
                         <tr>
-                            <td style="width:50%">ผู้จ่ายเงิน</td>
-                            <td style="width:50%">ผู้รับเงิน</td>
+                            <td style="width:50%;padding-top:15px">ผู้จ่ายเงิน</td>
+                            <td style="width:50%;padding-top:15px">ผู้รับเงิน</td>
                         </tr>
                         
                         <tr>
-                            <td style="width:50%">วันที่จ่ายเงิน</td>
-                            <td style="width:50%">วันที่รับเงิน</td>
+                            <td style="width:50%;padding-top:15px">วันที่จ่ายเงิน</td>
+                            <td style="width:50%;padding-top:15px">วันที่รับเงิน</td>
                         </tr>
                     </tfoot>
                 </table>
