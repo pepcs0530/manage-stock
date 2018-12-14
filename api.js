@@ -1,6 +1,6 @@
 /* โหลด Express มาใช้งาน */
-var express =  require('express')
-var app =express();
+var express = require('express')
+var app = express();
 
 /* โหลด MySql มาใช้งาน */
 var mysql = require('mysql');
@@ -17,7 +17,7 @@ app.get('/index', function (req, res) {
 });
 /* Init static path */
 var path = require('path')
-app.use( express.static( path.join(__dirname,"public") ) );
+app.use(express.static(path.join(__dirname, "public")));
 /**
  * body-parser module is used to read HTTP POST data
  * it's an express middleware that reads form's input
@@ -91,6 +91,7 @@ const riceVarieties = require('./routes/rice-varieties-route');
 const orderRoute = require('./routes/order-route');
 const customerRoute = require('./routes/customer-route');
 const statRoute = require('./routes/stat-route');
+const loginRoute = require('./routes/login-route');
 app.set('view engine', 'ejs');
 app.use('/api', route);
 app.use('/api/member', memberRoute);
@@ -105,6 +106,7 @@ app.use('/api/riceVarieties', riceVarieties);
 app.use('/api/order', orderRoute);
 app.use('/api/customer', customerRoute);
 app.use('/api/stat', statRoute);
+app.use('/api/login', loginRoute);
 //Access-Control-Allow-Origin is a response header, not a request header you need to fix the permission in your backend. so you must create cors.js file that contains all necessary permissions.
 var cors2 = require('./cors');
 app.use(cors2.permission);

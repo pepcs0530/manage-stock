@@ -1,9 +1,40 @@
 import { Injectable } from '@angular/core';
+import { Router } from '../../../../../node_modules/@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  constructor() { }
+  ses_value: string;
+  ses_nameValue: string;
+
+  constructor(private router: Router) { }
+
+  isHaveSession(): Boolean {
+    const cookie = document.cookie.split(';');
+    let i = 0;
+    let cookieValue = null;
+    let cookieNameValue = null;
+    for (; i < cookie.length; i++) {
+      if (cookie[i].split('=')[0].trim() === 'sessionID') {
+        cookieValue = cookie[i].split('=')[1];
+        this.ses_value = cookieValue;
+        cookieNameValue = cookie[i].split('=')[2];
+        this.ses_nameValue = cookieNameValue;
+        break;
+      }
+    }
+    if (cookieValue === undefined || cookieValue === null) {
+      console.log('cookieValue-->', cookieValue);
+      // this.router.navigate(['/']);
+      return false;
+    } else {
+      console.log('cookieValue-->', cookieValue);
+      const myRes = atob(cookieValue).split('??');
+      console.log('myRes-->', myRes);
+      return true;
+      // this.router.navigate(['/members']);
+    }
+  }
 }

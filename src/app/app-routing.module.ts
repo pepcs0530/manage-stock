@@ -17,7 +17,7 @@ import { ProductComponent } from './product/product.component';
 import { ProductTypeComponent } from './product-type/product-type.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/stat', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'cashier', component: CashierComponent },
   { path: 'member', component: MemberComponent },

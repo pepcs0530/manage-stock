@@ -65,4 +65,7 @@ ng g service ../app/product-type/services/product-type/product-type <br/>
 <br/>
 ng generate component stat <br/>
 ng g service ../app/stat/services/stat/stat <br/>
+<br/>
+ng generate component login <br/>
+ng g service ../app/login/services/login/login <br/>
 `node api.js` for run api back-end <br/>
