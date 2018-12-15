@@ -14,7 +14,7 @@
     <div class="collapse navbar-collapse" *ngIf="authenFlag">
       <ul class="nav navbar-nav">
 
-        <li>
+        <li *ngIf="statMenuFlag === '1'">
           <a href="stat" style="font-size:22px;" data-disabled="true"><b><i class="fa fa-fw fa-signal"></i>สถิติการขายข้าว</b></a>
         </li>
 
@@ -32,33 +32,35 @@
           </ul>
         </li> -->
 
-        <li>
+        <li *ngIf="cashierMenuFlag === '1'">
           <a href="cashier" style="font-size:22px;"><b><i class="fa fa-fw fa-shopping-cart"></i>ขายสินค้า</b></a>
         </li>
 
-        <li>
+        <li *ngIf="addProductComingMenuFlag === '1'">
           <a href="addProductComing" style="font-size:22px;"><b><i class="fa fa-fw fa-truck"></i>เพิ่มข้อมูลในระบบ</b></a>
         </li>
 
-        <li>
+        <li *ngIf="productMenuFlag === '1'">
           <a href="product" style="font-size:22px;"><b><i class="fa fa-fw fa-database"></i>จัดการข้อมูลสินค้า</b></a>
         </li>
 
-        <li>
+        <li *ngIf="riceVarMenuFlag === '1'">
           <a href="riceVarieties" style="font-size:22px;"><b><i class="fa fa-fw fa-database"></i>จัดการข้อมูลสายพันธุ์ข้าว</b></a>
         </li>
 
-        <li>
+        <li *ngIf="memberMenuFlag === '1'">
           <a href="member" style="font-size:22px;"><b><i class="fa fa-fw fa-database"></i>จัดการข้อมูลสมาชิก</b></a>
         </li>
 
-        <li>
+        <li *ngIf="permissionMenuFlag === '1'">
+          <a href="permission" style="font-size:22px;"><b><i class="fa fa-fw fa-database"></i>จักการสิทธิ์การใช้งาน</b></a>
+        </li>
+
+        <li *ngIf="notiMenuFlag === '1'">
           <a href="notification" style="font-size:22px;"><b><i class="fa fa-fw fa-bullhorn"></i>แจ้งเตือน</b></a>
         </li>
 
-        <li>
-          <a href="permission" style="font-size:22px;"><b><i class="fa fa-fw fa-bullhorn"></i>จักการสิทธิ์การใช้งาน</b></a>
-        </li>
+
 
         <!-- <li class="dropdown" dropdown>
           <a href="#" dropdownToggle class="dropdown-toggle" style="font-size:32px;">สินค้า

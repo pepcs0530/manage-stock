@@ -152,8 +152,15 @@ export class LoginComponent implements OnInit {
           console.log('Result-->', resultArray);
           document.cookie = 'sessionID=' + key + ';';
           document.cookie += 'userName=' + resultArray[0].user_fname + ' ' + resultArray[0].user_lname + ';';
+          document.cookie += 'userSeq=' + resultArray[0].user_seq + ';';
           console.log('document.cookie-->', document.cookie);
-          this.router.navigate(['/stat']);
+
+          if (resultArray[0].user_role === '3') {
+            this.router.navigate(['/cashier']);
+          } else {
+            this.router.navigate(['/stat']);
+          }
+
         } else {
           alert('กรุณาตรวจสอบ username / password');
         }

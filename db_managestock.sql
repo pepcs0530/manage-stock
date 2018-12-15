@@ -407,21 +407,25 @@ CREATE TABLE `user` (
   `username` varchar(50) DEFAULT NULL COMMENT 'ชื่อผู้ใช้',
   `password` varchar(50) DEFAULT NULL COMMENT 'รหัสผ่าน',
   `user_role` varchar(1) DEFAULT NULL COMMENT 'สิทธิ์ผู้ใช้งาน 1=Admin 2=Superuser 3=user',
-  `stat_menu_flg` varchar(1) DEFAULT NULL COMMENT '1=เปิด 0=ปิด เมนูสถิติ',
+  `stat_menu_flag` varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '1=เปิด 0=ปิด เมนูสถิติ',
   `cashier_menu_flag` varchar(1) DEFAULT NULL COMMENT '1=เปิด 0=ปิด เมนูขายสินค้า',
+  `add_product_coming_menu_flag` varchar(1) DEFAULT NULL COMMENT '1=เปิด 0=ปิด เมนูเพิ่มข้อมูลในระบบ',
   `product_menu_flag` varchar(1) DEFAULT NULL COMMENT '1=เปิด 0=ปิด เมนูจัดการข้อมูลสินค้า',
   `rice_var_menu_flag` varchar(1) DEFAULT NULL COMMENT '1=เปิด 0=ปิด เมนูจัดการข้อมูลสายพันธุ์ข้าว',
   `member_menu_flag` varchar(1) DEFAULT NULL COMMENT '1=เปิด 0=ปิด เมนูจัดการข้อมูลสมาชิก',
   `noti_menu_flag` varchar(1) DEFAULT NULL COMMENT '1=เปิด 0=ปิด เมนูแจ้งเตือน',
+  `permission_menu_flag` varchar(1) DEFAULT NULL COMMENT '1=เปิด 0=ปิด เมนูจัดการสิทธิ์การใช้งาน',
   `user_fname` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'ชื่อ',
   `user_lname` varchar(50) DEFAULT NULL COMMENT 'นามสุกล',
   PRIMARY KEY (`user_seq`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*Data for the table `user` */
 
-insert  into `user`(`user_seq`,`username`,`password`,`user_role`,`stat_menu_flg`,`cashier_menu_flag`,`product_menu_flag`,`rice_var_menu_flag`,`member_menu_flag`,`noti_menu_flag`,`user_fname`,`user_lname`) values 
-(1,'admin','1234','1','1','1','1','1','1','1','Administrator','Managestock');
+insert  into `user`(`user_seq`,`username`,`password`,`user_role`,`stat_menu_flag`,`cashier_menu_flag`,`add_product_coming_menu_flag`,`product_menu_flag`,`rice_var_menu_flag`,`member_menu_flag`,`noti_menu_flag`,`permission_menu_flag`,`user_fname`,`user_lname`) values 
+(1,'admin','1234','1','1','1','1','1','1','1','1','1','Administrator','Managestock'),
+(2,'supervisor','1234','2','1','1','1','1','1','1','1','0','Supervisor','Managestock'),
+(3,'user','1234','3','0','1','1','1','0','0','1','0','User','Managestock');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

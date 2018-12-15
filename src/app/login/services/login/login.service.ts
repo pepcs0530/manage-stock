@@ -58,7 +58,37 @@ export class LoginService {
     );
   }
 
+  getUserProfileById(id: number): Observable<User[]> {
+    const headers = new Headers({
+      'Content-Type': 'application/json; charset=utf-8',
+      'Access-Control-Allow-Origin': '*'
+    });
+    const options = new RequestOptions({ headers: headers });
+
+    return this.http.get('/api/login/getUserProfileById/' + id, options).pipe(
+      map(res => {
+        return <User[]>res.json();
+      })
+    );
+  }
+
   getCurrentUser(): string {
-    return document.cookie.split('=')[2];
+    let currentUser;
+    if (document.cookie) {
+      currentUser = document.cookie.split('userName=')[1].split('userSeq=');
+      return currentUser[0];
+    } else {
+      return null;
+    }
+  }
+
+  getCurrentUserSeq(): number {
+    let currentUserSeq;
+    if (document.cookie) {
+      currentUserSeq = document.cookie.split('userName=')[1].split('userSeq=');
+      return +currentUserSeq[1];
+    } else {
+      return null;
+    }
   }
 }

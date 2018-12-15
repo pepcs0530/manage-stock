@@ -6,7 +6,7 @@ const padNumber = num => (num > 9 ? num : `0${num}`);
 })
 export class DisplayDateThaiFormatDDMMYYYYPipe implements PipeTransform {
   transform(value: string | number, args?: any) {
-    console.log('value-->', value);
+    // console.log('value-->', value);
 
     let date, month, beYear;
     if (!!value) {

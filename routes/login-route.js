@@ -34,4 +34,34 @@ app.post('/checkUserProfile', function (req, res, next) {
   });
 });
 
+app.get('/getUserProfileById/(:id)', function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Content-Type', 'application/json');
+  req.getConnection(function (error, conn) {
+    console.log('---START getUserProfileById---');
+    try {
+      conn.query(
+        'SELECT * FROM user WHERE user_seq = ' +
+        req.params.id +
+        ' ORDER BY user_seq ASC',
+        function (err, rows, fields) {
+          //if(err) throw err
+          if (err) {
+            console.log(err);
+            // req.flash('error', err);
+            next(err);
+          } else {
+            //console.log(rows)
+            res.end(JSON.stringify(rows));
+          }
+        }
+      );
+    } catch (e) {
+      console.error('err thrown: ' + e.stack);
+      res.sendStatus(500);
+    }
+    console.log('---END getUserProfileById---');
+  });
+});
+
 module.exports = app;
