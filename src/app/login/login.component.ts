@@ -25,6 +25,8 @@ export class LoginComponent implements OnInit {
   authenFlag: boolean;
   currentUser: string;
 
+  display: boolean;
+
   constructor(private router: Router, private loginService: LoginService, private formBuilder: FormBuilder) {
     if (this.loginService.isHaveSession()) {
       this.authenFlag = true;
@@ -148,6 +150,7 @@ export class LoginComponent implements OnInit {
 
 
     const payload = this.loginForm.value;
+    // this.display = true;
 
     this.loginService.checkUserProfile(payload).subscribe(
       resultArray => {

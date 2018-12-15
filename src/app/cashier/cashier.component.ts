@@ -31,6 +31,7 @@ export class CashierComponent implements OnInit {
 
   results: string[];
   authenFlag: boolean;
+  display: boolean;
   constructor(private cashierService: CashierService, private router: Router, private loginService: LoginService) {
     if (this.loginService.isHaveSession()) {
       this.authenFlag = true;
@@ -41,6 +42,7 @@ export class CashierComponent implements OnInit {
     }
   }
   ngOnInit() {
+    this.display = true;
     this.isSave = false;
 
     this.order = new Order();

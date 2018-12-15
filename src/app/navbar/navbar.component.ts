@@ -14,6 +14,8 @@ export class NavbarComponent implements OnInit {
   imgPath = require('src/assets/images/header.png');
   isCollapsed = true;
 
+  display: boolean;
+
   @Input()
   authenFlag: boolean;
 
@@ -35,7 +37,11 @@ export class NavbarComponent implements OnInit {
     private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+
     console.log('currentUser-->', this.loginService.getCurrentUser());
+    /* if (this.loginService.getCurrentUser()) {
+      this.display = true;
+    } */
     this.currentUser = this.loginService.getCurrentUser();
     console.log('currentUserSeq-->', this.loginService.getCurrentUserSeq());
     this.getCurrentUserProfile();
