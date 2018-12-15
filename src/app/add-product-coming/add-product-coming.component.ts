@@ -17,6 +17,8 @@ import { AddProductComingService } from './services/add-product-coming/add-produ
 import { Observable } from '../../../node_modules/rxjs';
 import { RiceService } from '../rice/services/rice/rice.service';
 import { RiceVarieties } from '@shared/models/rice-varieties/rice-varieties';
+import { Router } from '../../../node_modules/@angular/router';
+import { LoginService } from '../login/services/login/login.service';
 
 @Component({
   selector: 'app-add-product-coming',
@@ -24,11 +26,24 @@ import { RiceVarieties } from '@shared/models/rice-varieties/rice-varieties';
   styleUrls: ['./add-product-coming.component.css']
 })
 export class AddProductComingComponent implements OnInit {
+
+  authenFlag: boolean;
+
   constructor(
     private memberService: MemberService,
     private riceService: RiceService,
-    private addProductComingService: AddProductComingService
-  ) { }
+    private addProductComingService: AddProductComingService,
+    private router: Router,
+    private loginService: LoginService
+  ) {
+    if (this.loginService.isHaveSession()) {
+      this.authenFlag = true;
+      this.router.navigate(['/addProductComing']);
+    } else {
+      this.authenFlag = false;
+      this.router.navigate(['/']);
+    }
+  }
 
   addForm: FormGroup;
   lotIdGen: number;

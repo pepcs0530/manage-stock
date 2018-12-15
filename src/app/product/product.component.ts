@@ -7,6 +7,8 @@ import { AddProductService } from '../add-product/services/add-product/add-produ
 import { Observable } from '../../../node_modules/rxjs';
 import { tap, finalize } from '../../../node_modules/rxjs/operators';
 import { Customer } from '@shared/models/customer/customer';
+import { Router } from '../../../node_modules/@angular/router';
+import { LoginService } from '../login/services/login/login.service';
 
 @Component({
   selector: 'app-product',
@@ -31,11 +33,23 @@ export class ProductComponent implements OnInit {
   disableMfdDate: boolean;
   disableExpDate: boolean;
 
+  authenFlag: boolean;
+
   constructor(
     private formBuilder: FormBuilder,
     private productService: ProductService,
-    private addProductService: AddProductService
-  ) { }
+    private addProductService: AddProductService,
+    private router: Router,
+    private loginService: LoginService
+  ) {
+    if (this.loginService.isHaveSession()) {
+      this.authenFlag = true;
+      this.router.navigate(['/product']);
+    } else {
+      this.authenFlag = false;
+      this.router.navigate(['/']);
+    }
+  }
 
   ngOnInit() {
     this.initForm();

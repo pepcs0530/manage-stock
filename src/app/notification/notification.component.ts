@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '../../../node_modules/@angular/forms';
 import { NotificationService } from './services/notification/notification.service';
 import { Product } from '@shared/models/product/product';
+import { Router } from '../../../node_modules/@angular/router';
+import { LoginService } from '../login/services/login/login.service';
 
 @Component({
   selector: 'app-notification',
@@ -12,11 +14,21 @@ import { Product } from '@shared/models/product/product';
 export class NotificationComponent implements OnInit {
   notificationForm: FormGroup;
   notifications: Product[];
+  authenFlag: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
-    private notificationService: NotificationService
-  ) {}
+    private notificationService: NotificationService,
+    private router: Router, private loginService: LoginService
+  ) {
+    if (this.loginService.isHaveSession()) {
+      this.authenFlag = true;
+      this.router.navigate(['/notification']);
+    } else {
+      this.authenFlag = false;
+      this.router.navigate(['/']);
+    }
+  }
 
   ngOnInit() {
     this.initForm();

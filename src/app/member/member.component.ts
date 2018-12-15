@@ -7,6 +7,8 @@ import { DatabaseConfig } from '@config/database/database.config';
 import { FormBuilder, FormGroup } from '../../../node_modules/@angular/forms';
 import { Observable } from '../../../node_modules/rxjs';
 import { tap, finalize } from '../../../node_modules/rxjs/operators';
+import { Router } from '../../../node_modules/@angular/router';
+import { LoginService } from '../login/services/login/login.service';
 
 @Component({
   selector: 'app-member',
@@ -17,11 +19,22 @@ import { tap, finalize } from '../../../node_modules/rxjs/operators';
 export class MemberComponent implements OnInit {
   imgPath = require('src/assets/images/banner.jpg');
 
+  authenFlag: boolean;
+
   constructor(
     private formBuilder: FormBuilder,
     // @Inject(forwardRef(() => MemberService)) memberService
-    private memberService: MemberService // @Inject(MemberService) public memberService: MemberService
-  ) { }
+    private memberService: MemberService, // @Inject(MemberService) public memberService: MemberService
+    private router: Router, private loginService: LoginService
+  ) {
+    if (this.loginService.isHaveSession()) {
+      this.authenFlag = true;
+      this.router.navigate(['/member']);
+    } else {
+      this.authenFlag = false;
+      this.router.navigate(['/']);
+    }
+  }
 
   memberForm: FormGroup;
   saveMemberForm: FormGroup;

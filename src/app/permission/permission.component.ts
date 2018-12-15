@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from '../login/services/login/login.service';
+import { Router } from '../../../node_modules/@angular/router';
 
 @Component({
   selector: 'app-permission',
@@ -7,7 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PermissionComponent implements OnInit {
 
-  constructor() { }
+  authenFlag: boolean;
+
+  constructor(private router: Router, private loginService: LoginService) {
+    if (this.loginService.isHaveSession()) {
+      this.authenFlag = true;
+      this.router.navigate(['/permission']);
+    } else {
+      this.authenFlag = false;
+      this.router.navigate(['/']);
+    }
+  }
 
   ngOnInit() {
   }

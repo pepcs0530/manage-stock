@@ -5,6 +5,8 @@ import { RiceService } from '../rice/services/rice/rice.service';
 import { RiceVarietiesService } from './services/rice-varieties/rice-varieties.service';
 import { Observable } from '../../../node_modules/rxjs';
 import { tap, finalize } from '../../../node_modules/rxjs/operators';
+import { Router } from '../../../node_modules/@angular/router';
+import { LoginService } from '../login/services/login/login.service';
 
 @Component({
   selector: 'app-rice-varieties',
@@ -12,11 +14,23 @@ import { tap, finalize } from '../../../node_modules/rxjs/operators';
   styleUrls: ['./rice-varieties.component.css']
 })
 export class RiceVarietiesComponent implements OnInit {
+
+  authenFlag: boolean;
+
   constructor(
     private formBuilder: FormBuilder,
     private riceService: RiceService,
-    private riceVarietiesService: RiceVarietiesService
-  ) { }
+    private riceVarietiesService: RiceVarietiesService,
+    private router: Router, private loginService: LoginService
+  ) {
+    if (this.loginService.isHaveSession()) {
+      this.authenFlag = true;
+      this.router.navigate(['/riceVarieties']);
+    } else {
+      this.authenFlag = false;
+      this.router.navigate(['/']);
+    }
+  }
 
   decimalWithDigits: RegExp = /^[0-9\.]+$/;
 

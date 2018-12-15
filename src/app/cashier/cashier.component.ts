@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
-import { Moment } from 'moment'
+import { Moment } from 'moment';
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
 import { OrderItem } from '@shared/models/cashier/order-item';
 import { Order } from '@shared/models/cashier/order';
 import { Customer } from '@shared/models/cashier/customer';
 import { CashierService } from './cashier.service';
 import { Member } from '@shared/models/member/member';
+import { Router } from '../../../node_modules/@angular/router';
+import { LoginService } from '../login/services/login/login.service';
 // import { saveAs as importedSaveAs } from 'file-saver';
 @Component({
   selector: 'app-cashier',
@@ -17,7 +19,7 @@ import { Member } from '@shared/models/member/member';
 export class CashierComponent implements OnInit {
 
   order: Order;
-  isSave:boolean;
+  isSave: boolean;
   customerAutomcomplete = {
     keyword: '',
     results: []
@@ -28,7 +30,16 @@ export class CashierComponent implements OnInit {
   };
 
   results: string[];
-  constructor(private cashierService: CashierService) { }
+  authenFlag: boolean;
+  constructor(private cashierService: CashierService, private router: Router, private loginService: LoginService) {
+    if (this.loginService.isHaveSession()) {
+      this.authenFlag = true;
+      this.router.navigate(['/cashier']);
+    } else {
+      this.authenFlag = false;
+      this.router.navigate(['/']);
+    }
+  }
   ngOnInit() {
     this.isSave = false;
 
@@ -94,49 +105,49 @@ export class CashierComponent implements OnInit {
     }
   }
 
-  validateQuantity(item:OrderItem,min:number,max:number){
-    if(item.quantity > max){
-       alert('จำนวนสิค้สมีไม่พอ จงเลือกสินค้าจากล็อตอื่นเพิ่ม')
-        item.quantity=max
-    }else if(item.quantity <min){
-        alert('จำนวนสินค้าต้องมากกว่าหรือเท่ากับ ' + min)
-        item.quantity =min
+  validateQuantity(item: OrderItem, min: number, max: number) {
+    if (item.quantity > max) {
+      alert('จำนวนสิค้สมีไม่พอ จงเลือกสินค้าจากล็อตอื่นเพิ่ม');
+      item.quantity = max;
+    } else if (item.quantity < min) {
+      alert('จำนวนสินค้าต้องมากกว่าหรือเท่ากับ ' + min);
+      item.quantity = min;
     }
   }
-  validateOrder():string{
-    if(!this.order.customer.customer_name)return 'โปรดระบุชื่อลูกค้า'
-    if(!this.order.customer.customer_phone)return 'โปรดระบุเบอร์โทรศัพท์ลูกค้า'
-    if(!this.order.customer.customer_address)return 'โปรดระบุที่อยู่ลูกค้า'
-    if(!this.order.date)return 'โปรดระบุวันที่ขายสินค้า'
+  validateOrder(): string {
+    if (!this.order.customer.customer_name) return 'โปรดระบุชื่อลูกค้า'
+    if (!this.order.customer.customer_phone) return 'โปรดระบุเบอร์โทรศัพท์ลูกค้า'
+    if (!this.order.customer.customer_address) return 'โปรดระบุที่อยู่ลูกค้า'
+    if (!this.order.date) return 'โปรดระบุวันที่ขายสินค้า'
 
-    let errMsg = null
+    let errMsg = null;
     this.order.itemList.forEach(element => {
-      if(!element.product_seq){ errMsg = 'โปรดเลือกสินค้า';return false;}
-      
-      if(!element.quantity){ errMsg = 'โปรดระบุจำนวนสินค้า';return false;}
-      if(element.quantity > element.max_quantity){errMsg = 'สินค้าไม่พอแก้ไขจำนวน หรือเปลี่ยนล็อตสินค้า' }
-      if(!element.price){ errMsg = 'โปรดระบุราคาสินค้า';return false;}
+      if (!element.product_seq) { errMsg = 'โปรดเลือกสินค้า'; return false; }
+
+      if (!element.quantity) { errMsg = 'โปรดระบุจำนวนสินค้า'; return false; }
+      if (element.quantity > element.max_quantity) { errMsg = 'สินค้าไม่พอแก้ไขจำนวน หรือเปลี่ยนล็อตสินค้า'; }
+      if (!element.price) { errMsg = 'โปรดระบุราคาสินค้า'; return false; }
     });
 
     return errMsg;
   }
   paymentProcess() {
-    let errMsg = this.validateOrder()
-    if(errMsg == null){
+    const errMsg = this.validateOrder();
+    if (errMsg == null) {
       console.log(this.order.customer);
       this.cashierService.saveOrder(this.order)
-      .subscribe(res => {
-        this.order.receiptNo = res.receiptNo;
-        this.isSave = true;
-        alert('บันทึกการขายเรียบร้อย')
-      });
-    }else{
+        .subscribe(res => {
+          this.order.receiptNo = res.receiptNo;
+          this.isSave = true;
+          alert('บันทึกการขายเรียบร้อย');
+        });
+    } else {
       alert(errMsg);
     }
   }
   exportReceipt() {
     this.cashierService.exportReceipt(this.order).subscribe(blob => {
-      
+
     });
   }
 

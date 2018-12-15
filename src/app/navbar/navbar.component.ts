@@ -16,6 +16,9 @@ export class NavbarComponent implements OnInit {
   @Input()
   authenFlag: boolean;
 
+  @Input()
+  currentUser: string;
+
   constructor(
     private router: Router,
     private loginService: LoginService,
@@ -23,6 +26,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     console.log('currentUser-->', this.loginService.getCurrentUser());
+    this.currentUser = this.loginService.getCurrentUser();
   }
 
   logout() {
