@@ -3,6 +3,7 @@ import { Router } from '../../../node_modules/@angular/router';
 import { Member } from 'shared/models/member/member';
 import { LoginService } from './services/login/login.service';
 import { FormBuilder, FormGroup } from '../../../node_modules/@angular/forms';
+import { User } from '@shared/models/user/user';
 
 @Component({
   selector: 'app-login',
@@ -18,24 +19,27 @@ export class LoginComponent implements OnInit {
   };
 
   member: Member[];
-
+  users: User[];
   ses_value: string;
   ses_nameValue: string;
   authenFlag: boolean;
+  currentUser: string;
 
   constructor(private router: Router, private loginService: LoginService, private formBuilder: FormBuilder) {
     if (this.loginService.isHaveSession()) {
       this.authenFlag = true;
+      this.router.navigate(['/stat']);
     } else {
       this.authenFlag = false;
       this.router.navigate(['/']);
     }
-    console.log('constructor-->', this.authenFlag);
+    // console.log('constructor-->', this.authenFlag);
   }
 
   ngOnInit() {
-    console.log('ngOnInit-->', this.authenFlag);
+    // console.log('ngOnInit-->', this.authenFlag);
     this.initForm();
+    console.log('document.cookie-->', document.cookie);
   }
 
   initForm() {
@@ -45,7 +49,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  checkAuthen() {
+  /* checkAuthen() {
     const x = document.cookie.split(';');
     let i = 0;
     let cookieValue = null;
@@ -67,7 +71,7 @@ export class LoginComponent implements OnInit {
       const myRes = atob(cookieValue).split('??');
       console.log('myRes-->', myRes);
     }
-  }
+  } */
 
   formSubmit() {
     console.log(this.data);
@@ -126,4 +130,39 @@ export class LoginComponent implements OnInit {
       error => console.log('Error :: ' + error)
     );
   } */
+
+  checkLogin() {
+    console.log('loginForm-->', this.loginForm.value);
+
+    if (!this.loginForm.get('username').value || !this.loginForm.get('password').value) {
+      alert('กรุณากรอก username / password ให้ถูกต้อง');
+      return false;
+    }
+
+    const key = btoa(btoa(this.loginForm.get('username').value) + '??' + btoa(this.loginForm.get('password').value));
+    console.log('key-->', key);
+
+
+    const payload = this.loginForm.value;
+
+    this.loginService.checkUserProfile(payload).subscribe(
+      resultArray => {
+        this.users = resultArray;
+        if (resultArray.length > 0) {
+          console.log('Result-->', resultArray);
+          document.cookie = 'sessionID=' + key + ';';
+          document.cookie += 'userName=' + resultArray[0].user_fname + ' ' + resultArray[0].user_lname + ';';
+          console.log('document.cookie-->', document.cookie);
+          this.router.navigate(['/stat']);
+        } else {
+          alert('กรุณาตรวจสอบ username / password');
+        }
+      },
+      error => console.log('Error :: ', error)
+    );
+  }
+
+  getCurrentUser(): string {
+    return document.cookie.split('=')[2];
+  }
 }

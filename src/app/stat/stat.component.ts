@@ -1,11 +1,12 @@
 declare function require(path: string);
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { StatService } from './services/stat/stat.service';
 import { dateToStrYYYYMMDD } from '@shared/utils/date-to-str-yyyymmdd';
 import { formatNumber } from '../../../node_modules/@angular/common';
 import { removeComma } from '@shared/utils/remove-comma';
 import { Router } from '../../../node_modules/@angular/router';
 import { LoginService } from '../login/services/login/login.service';
+import { LoginComponent } from '../login/login.component';
 
 
 @Component({
@@ -68,7 +69,9 @@ export class StatComponent implements OnInit {
 
         this.search(new Date());
         this.getStatRiceVarietiesBalance();
-
+        /* console.log('document.cookie-->', document.cookie);
+        console.log('login by-->', document.cookie.split('=')[2]); */
+        // console.log('loginComponent-->', this.loginService.getCurrentUser());
     }
 
     search(key) {
