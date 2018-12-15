@@ -139,7 +139,11 @@ export class LoginComponent implements OnInit {
       return false;
     }
 
-    const key = btoa(btoa(this.loginForm.get('username').value) + '??' + btoa(this.loginForm.get('password').value));
+    /* const key = btoa(btoa(this.loginForm.get('username').value) + '??' + btoa(this.loginForm.get('password').value));
+    console.log('key-->', key); */
+
+    const key = btoa(btoa(unescape(encodeURIComponent(this.loginForm.get('username').value)))
+      + '??' + btoa(unescape(encodeURIComponent(this.loginForm.get('password').value))));
     console.log('key-->', key);
 
 
