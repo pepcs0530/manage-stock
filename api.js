@@ -61,14 +61,27 @@ var myConnection = require('express-myconnection');
   port: config.database.port,
   database: config.database.databasename
 }; */
+
+// localhost
 var dbOptions = {
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  port: 3306,
+  database: 'db_managestock',
+  multipleStatements: true
+};
+
+// db4free.net
+/* var dbOptions = {
   host: 'db4free.net',
   user: 'managestock',
   password: 'P@ssw0rd2018',
   port: 3306,
   database: 'db_managestock',
   multipleStatements: true
-};
+}; */
+
 /**
  * 3 strategies can be used
  * single: Creates single database connection which is never closed.
