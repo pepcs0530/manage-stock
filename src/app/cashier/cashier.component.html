@@ -123,10 +123,10 @@
       </tfoot>
     </table>
     <p-footer>
-      <button pButton type="button" (click)="ngOnInit()" icon="pi pi-times" label="ล้างข้อมูล" class="ui-button-danger"
+      <button pButton type="button" (click)="ngOnInit()" icon="pi pi-times" label="ล้างข้อมูล" class="ui-button-primary"
         style="margin-right: .25em"></button>
       <button pButton type="submit" (click)="paymentProcess()" *ngIf="!isSave" icon="pi pi-check" label="ดำเนินการ"
-        class="ui-button-success pull-right"></button>
+        class="ui-button-primary pull-right"></button>
       <button pButton type="button" (click)="exportReceipt()" *ngIf="isSave" icon="pi pi-print" label="ออกใบเสร็จ"
         class="ui-button-primary pull-right" style="margin-right: .25em"></button>
     </p-footer>
